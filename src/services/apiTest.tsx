@@ -1,9 +1,8 @@
 import axios from 'axios';
+import URL from '../constants/constants';
 
 // API GET test
-const URL = "http://43.201.46.230:8080/api/v1/cors";
-
-const getTest = async () => {
+const apiTest = async () => {
       try {
          const response = await axios.get(URL);
          console.log(response);
@@ -12,5 +11,7 @@ const getTest = async () => {
          console.error(error);
       }
 };
+
+
    
-export default getTest;
+export default apiTest;
