@@ -1,19 +1,25 @@
 import React from 'react'
 import styled from 'styled-components';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const HomePage = () => {
 
 
   return (
-    <Background>
+    <Dom>
       <Header/>
-    </Background>
+      <Footer/>
+    </Dom>
   )
 }
 
 export default HomePage
 
-const Background = styled.div`
- background-color : gray;
+const Dom = styled.div`
+  height : 100%;
+  display : flex;
+  flex-direction: column;
+  justify-content : space-between;
+  background-color : #6FABEB;
 `
