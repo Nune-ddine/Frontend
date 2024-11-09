@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { Component } from 'react';
+import './App.css';
+import HomePage from './pages/HomePage';
 
-function App() {
-  const [count, setCount] = useState(0)
+class App extends Component {
+  
+  componentDidMount() { 
+    this.setScreenSize();
+    this.fixRatio();
+    window.addEventListener('resize', this.fixRatio);
+  }
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.fixRatio);
+  }
+
+  fixRatio = () => {
+    const root = document.querySelector("#root");
+    const app = document.querySelector("#App") as HTMLElement;;
+
+    if (root && app) {
+      let width = root.clientWidth;
+      let height = width * 1.7777; // 9:16
+
+      if (height > root.clientHeight) { 
+        height = root.clientHeight;
+        width = height * 0.5625; // 16:9
+      }
+
+      app.style.width = `${width}px`;
+      app.style.height = `${height}px`;
+    }
+  }
+
+  setScreenSize = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+
+  render() {
+    return (
+      <div id="App">
+        <HomePage />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
 }
 
-export default App
+export default App;
