@@ -1,7 +1,7 @@
 import './App.css'
 import { useEffect } from 'react'
 import KakaoLoginBtn from './services/KakaoLoginBtn'
-import { sendKakaoCode } from './services/login'
+import {  login } from './services/login'
 import apiTest from './services/apiTest';
 
 function App() {
@@ -12,8 +12,7 @@ function App() {
     console.log(code);
     //인가코드가 있으면 백엔드에 보내기
     if (code) {
-        sendKakaoCode(code);
-
+        login(code);
     }
     else{
         console.log("인가코드 없음");
