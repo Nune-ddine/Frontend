@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import MyPage from './pages/MyPage';
+import GotchaPage from './pages/GotchaPage';
+import LoginTestPage from './pages/LoginTestPage';
 
 class App extends Component {
   
@@ -40,7 +44,13 @@ class App extends Component {
   render() {
     return (
       <div id="App">
-        <HomePage />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/gotchaPage" element={<GotchaPage />} />
+
+          <Route path='/loginTestPage' element={<LoginTestPage />} />
+        </Routes>
       </div>
     );
   }
