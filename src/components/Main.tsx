@@ -17,7 +17,7 @@ export default Main
 
 const Wrapper = styled.div`
    width: 100%;
-   height: 90%;
+   height: 93%;
    display: flex;
    flex-direction: column;
 
