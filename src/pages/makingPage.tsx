@@ -1,8 +1,13 @@
 import React from 'react'
+import Header from '../components/Header'
+import MakeImage from '../components/makeImage'
 
 const makingPage = () => {
   return (
-    <div>makingPage</div>
+    <div>
+      <Header/>
+      <MakeImage/>
+    </div>
   )
 }
 
