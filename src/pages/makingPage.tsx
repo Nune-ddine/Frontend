@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import MakeImage from '../components/makeImage'
+import MakeImage from '../components/MakeImage'
 import styled from 'styled-components'
 import Main from '../components/Main'
 

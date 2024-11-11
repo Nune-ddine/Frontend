@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
 import GotchaPage from './pages/GotchaPage';
 import LoginTestPage from './pages/LoginTestPage';
-import MakingPage from './pages/makingPage';
+import MakingPage from './pages/MakingPage';
 
 class App extends Component {
   
