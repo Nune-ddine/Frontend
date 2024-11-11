@@ -1,21 +1,29 @@
 // src/components/SnowmanPart.tsx
 import React from 'react';
 import styled from 'styled-components';
+import Snowman from './snowmanComponent/Snowman';
 
 interface SnowmanPartProps {
   color: string;
-  size: number;
 }
 
-const SnowmanPart: React.FC<SnowmanPartProps> = ({ color, size }) => {
-  return <Part color={color} size={size} />;
+const SnowmanPart: React.FC<SnowmanPartProps> = ({ color }) => {
+  return (
+    <SnowmanWrapper>
+      <Snowman color={color} size={70} /> {/* 머리 */}
+      <Snowman color={color} size={90} /> {/* 몸통, 겹치게 조정 */}
+    </SnowmanWrapper>
+  );
 };
 
 export default SnowmanPart;
 
-const Part = styled.div<{ color: string; size: number }>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  background-color: ${(props) => props.color};
-  border-radius: 50%;
+const SnowmanWrapper = styled.div`
+   width: 100%;
+   height: 45%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   border: 2px solid black;
 `;

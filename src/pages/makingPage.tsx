@@ -1,9 +1,8 @@
 // src/pages/MakingPage.tsx
 import React, { useState } from 'react';
-
 import styled from 'styled-components';
 import OptionPart from '../components/makingPage/OptionPart';
-import Snowman from '../components/makingPage/snowmanComponent/Snowman';
+import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
 
 const MakingPage: React.FC = () => {
@@ -12,8 +11,8 @@ const MakingPage: React.FC = () => {
   return (
     <PageWrapper>
       <Header/>
+      <SnowmanPart color={shapeColor} />
       <OptionPart onColorChange={(color) => setShapeColor(color)} />
-      <Snowman color={shapeColor} />
     </PageWrapper>
   );
 };
@@ -24,8 +23,7 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #f0f0f0;
 `;

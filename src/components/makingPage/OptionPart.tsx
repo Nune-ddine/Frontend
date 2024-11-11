@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import WheelPickerTest from './optionComponents/WheelPickerTest';
 
-
 interface OptionPartProps {
   onColorChange: (color: string) => void;
 }
@@ -11,7 +10,6 @@ interface OptionPartProps {
 const OptionPart: React.FC<OptionPartProps> = ({ onColorChange }) => {
   return (
     <Wrapper>
-      <h3>색상 선택</h3>
       <WheelPickerTest onColorChange={onColorChange} />
     </Wrapper>
   );
@@ -23,5 +21,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+
+   width: 100%;
+   height: 55%;
+   border: 2px solid black;
 `;
