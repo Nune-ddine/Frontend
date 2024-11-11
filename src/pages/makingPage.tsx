@@ -1,14 +1,17 @@
 import Header from '../components/Header'
-import MakeImage from '../components/MakeImage'
+// import MakeImage from '../components/MakeImage'
 import styled from 'styled-components'
 import Main from '../components/Main'
+import SnowmanPart from '../components/makingPage/SnowmanPart'
+import OptionPart from '../components/makingPage/OptionPart'
 
 const makingPage = () => {
   return (
     <Wrapper>
       <Header/>
       <Main>
-         <MakeImage/>
+        <SnowmanPart/>
+        <OptionPart/>
       </Main>
     </Wrapper>
   )
