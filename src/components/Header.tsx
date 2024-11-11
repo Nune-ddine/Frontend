@@ -13,7 +13,11 @@ const Header = () => {
 export default Header
 
 const Headers = styled.div`
-width : 100%;
- display: flex;
- flex-direction: row;
+  width : 100%;
+  height: 10%;
+
+  border: 2px solid red;
+
+  display: flex;
+  flex-direction: row;
 `
