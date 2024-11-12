@@ -5,10 +5,11 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -25,6 +26,7 @@ const HomePage = () => {
     <Wrapper>
       <Header/>
       <Main/>
+      <button onClick={() => navigate('/makingPage')}>Making Page</button>
     </Wrapper>
   )
 }

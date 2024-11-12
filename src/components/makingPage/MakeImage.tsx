@@ -15,11 +15,11 @@ const MakeImage = () => {
     const x = event.clientX - containerRect.left;
     const y = event.clientY - containerRect.top;
 
-    const imgWidth = 100;
-    const imgHeight = 100;
+    const imgWidth = 300;
+    const imgHeight = 300;
 
     const img = document.createElement('img');
-    img.src = '/public/images/snowmanParts/shape/shape_puang.png';
+    img.src = '/public/images/items/shape/shape_puang.png';
     img.className = 'click-image';
     img.style.position = 'absolute';
 
@@ -46,7 +46,7 @@ const MakeImage = () => {
     });
 
     const link = document.createElement('a');
-    link.download = 'captured-image.png';
+    link.download = 'snowman-image.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   };

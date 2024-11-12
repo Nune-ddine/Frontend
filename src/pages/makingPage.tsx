@@ -1,12 +1,20 @@
 // src/pages/MakingPage.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import OptionPart from '../components/makingPage/OptionPart';
 import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
+import { getItems } from '../services/itemAPI';
 
 const MakingPage: React.FC = () => {
   // const [shapeColor, setShapeColor] = useState('#d3c0a6'); // 초기 도형 색상 @@컬러휠 하면 쓸 거@@
+
+  useEffect(() => {
+    // getItems().then((data) => {
+
+    // });
+    getItems();
+  });
 
   return (
     <PageWrapper>
