@@ -8,6 +8,8 @@ interface SecFeatBoxProps {
 }
 
 const SecFeatBox: React.FC<SecFeatBoxProps> = ({ feat }) => {
+   // feat 받아서 API???에 넣고 그거에 해당하는 Parts 받아오기
+
   return (
     <Wrapper>
       <SecFeatRow />

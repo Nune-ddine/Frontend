@@ -1,22 +1,33 @@
 // src/components/OptionPart.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import WheelPickerTest from './optionComponents/WheelPickerTest';
+// import WheelPickerTest from './optionComponents/WheelPickerTest';
 import FeatureBar from './optionComponents/FeatureBar';
 import SecFeatBox from './optionComponents/SecFeatBox';
 
-interface OptionPartProps {
-  onColorChange: (color: string) => void;
-}
+// @@컬러휠하면 쓸 거@@
+// interface OptionPartProps { 
+//   onColorChange: (color: string) => void;
+// }
 
-const OptionPart: React.FC<OptionPartProps> = ({ onColorChange }) => {
+// const OptionPart: React.FC<OptionPartProps> = ({ onColorChange }) => {
+//    const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
+
+//    const renderFeatureContent = () => {
+//       if (selectedFeature === "색") { //@@이거 사실 없애도 됨@@
+//       return <WheelPickerTest onColorChange={onColorChange} />;
+//       } else if (selectedFeature) {
+//       return <SecFeatBox feat={selectedFeature} />;
+//       }
+//       return null;
+//    };
+
+const OptionPart: React.FC = () => {
    const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
 
    const renderFeatureContent = () => {
-      if (selectedFeature === "색") { //@@이거 사실 없애도 됨@@
-      return <WheelPickerTest onColorChange={onColorChange} />;
-      } else if (selectedFeature) {
-      return <SecFeatBox feat={selectedFeature} />;
+      if (selectedFeature) {
+         return <SecFeatBox feat={selectedFeature} />;
       }
       return null;
    };
