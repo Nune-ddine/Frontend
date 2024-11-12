@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // import WheelPickerTest from './optionComponents/WheelPickerTest';
 import FeatureBar from './optionComponents/FeatureBar';
 import SecFeatBox from './optionComponents/SecFeatBox';
+import { SNOWMAN_ITEMS } from '../../constants/item_names';
 
 // @@컬러휠하면 쓸 거@@
 // interface OptionPartProps { 
@@ -22,24 +23,25 @@ import SecFeatBox from './optionComponents/SecFeatBox';
 //       return null;
 //    };
 
+type FeatureType = keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes'
+
 const OptionPart: React.FC = () => {
-   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
-
+   const [selectedFeature, setSelectedFeature] = useState<FeatureType | null>(null);
+ 
    const renderFeatureContent = () => {
-      if (selectedFeature) {
-         return <SecFeatBox feat={selectedFeature} />;
-      }
-      return null;
+     if (selectedFeature) {
+       return <SecFeatBox feat={selectedFeature} />;
+     }
+     return null;
    };
-   
-
+ 
    return (
-      <Wrapper>
-         <FeatureBar onFeatureClick={(feature) => setSelectedFeature(feature)} />
-         <SecondFeature>{renderFeatureContent()}</SecondFeature>
-      </Wrapper>
+     <Wrapper>
+       <FeatureBar onFeatureClick={(feature: FeatureType) => setSelectedFeature(feature)} />
+       <SecondFeature>{renderFeatureContent()}</SecondFeature>
+     </Wrapper>
    );
-};
+ };
 
 export default OptionPart;
 

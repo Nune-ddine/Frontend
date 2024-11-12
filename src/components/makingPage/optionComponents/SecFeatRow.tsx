@@ -1,16 +1,21 @@
 // src/components/SecFeatRow.tsx
+import React from 'react';
 import styled from 'styled-components';
 import SecFeatCard from './SecFeatCard';
 
-const SecFeatRow = () => {
+interface SecFeatRowProps {
+  partKey: string;        // 소분류 이름
+  items: readonly string[]; // 소분류 내 아이템 목록
+}
+
+const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
   return (
     <Wrapper>
-      <Title>제목</Title>
+      <Title>{partKey}</Title> {/* 소분류 이름 */}
       <Content>
-        <SecFeatCard />
-        <SecFeatCard />
-        <SecFeatCard />
-        <SecFeatCard />
+        {items.map((item) => (
+          <SecFeatCard key={item} name={item} />
+        ))}
       </Content>
     </Wrapper>
   );
@@ -23,14 +28,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 25%; /* 부모의 25% 높이 */
+  height: 33%;
   box-sizing: border-box;
   border: 1px solid black;
 `;
 
 const Title = styled.div`
   width: 100%;
-  height: 20%; /* 부모의 20% 높이 */
+  height: 20%;
   box-sizing: border-box;
   border: 1px solid black;
 `;
@@ -40,7 +45,7 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 80%; /* 남은 80% 높이 */
+  height: 80%;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid black;

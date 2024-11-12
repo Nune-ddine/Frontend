@@ -1,21 +1,25 @@
 // src/components/SecFeatBox.tsx
 import React from 'react';
-import SecFeatRow from './SecFeatRow';
 import styled from 'styled-components';
+import SecFeatRow from './SecFeatRow';
+import { SNOWMAN_ITEMS } from '../../../constants/item_names';
 
 interface SecFeatBoxProps {
-  feat: string;
+  feat: keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes' 중 하나
 }
 
 const SecFeatBox: React.FC<SecFeatBoxProps> = ({ feat }) => {
-   // feat 받아서 API???에 넣고 그거에 해당하는 Parts 받아오기
+  const parts = SNOWMAN_ITEMS[feat]; // 대분류에 맞는 소분류 데이터를 가져옴
 
   return (
     <Wrapper>
-      <SecFeatRow />
-      <SecFeatRow />
-      <SecFeatRow />
-      <SecFeatRow />
+      {Object.keys(parts).map((partKey) => (
+        <SecFeatRow 
+          key={partKey} 
+          partKey={partKey as keyof typeof parts} 
+          items={parts[partKey as keyof typeof parts]} 
+        />
+      ))}
     </Wrapper>
   );
 };
@@ -27,9 +31,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%; /* 부모의 높이에 맞춰 고정 */
-  max-height: 400px; /* 필요 시 고정된 최대 높이 설정 */
+  height: 100%;
+  max-height: 400px;
   padding: 10px;
   box-sizing: border-box;
-  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+  overflow-y: auto;
 `;

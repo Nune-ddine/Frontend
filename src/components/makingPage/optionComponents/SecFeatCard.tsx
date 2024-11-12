@@ -1,11 +1,16 @@
 // src/components/SecFeatCard.tsx
+import React from 'react';
 import styled from 'styled-components';
 
-const SecFeatCard = () => {
+interface SecFeatCardProps {
+  name: string;
+}
+
+const SecFeatCard: React.FC<SecFeatCardProps> = ({ name }) => {
   return (
     <Wrapper>
-      <div>Card</div>
-    </Wrapper>  
+      <div>{name}</div>
+    </Wrapper>
   );
 };
 
@@ -15,9 +20,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20%; /* 부모의 20% 너비 */
-  height: 80%; /* 부모의 80% 높이 */
+  width: 20%;
+  height: 100%;
   box-sizing: border-box;
   background-color: grey;
   border: 1px solid black;
+  border-radius: 8px;
 `;
