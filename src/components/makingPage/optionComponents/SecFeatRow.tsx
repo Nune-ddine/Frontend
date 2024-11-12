@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import SecFeatCard from './SecFeatCard';
 
 interface SecFeatRowProps {
-  partKey: string;        // 소분류 이름
-  items: readonly string[]; // 소분류 내 아이템 목록
+  partKey: string;                     // 소분류 이름
+  items: readonly { name: string; img: string }[]; // 소분류 내 아이템 목록
 }
 
 const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
@@ -14,7 +14,7 @@ const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
       <Title>{partKey}</Title> {/* 소분류 이름 */}
       <Content>
         {items.map((item) => (
-          <SecFeatCard key={item} name={item} />
+          <SecFeatCard key={item.name} name={item.name} img={item.img} />
         ))}
       </Content>
     </Wrapper>

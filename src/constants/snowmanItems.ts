@@ -26,7 +26,7 @@ face: {
       { name: "carrot", img: "/public/images/items/face/nose/nose_carrot.png" },
       { name: "puang", img: "/public/images/items/face/nose/nose_puang.png" },
       { name: "rudolph", img: "/public/images/items/face/nose/nose_rudolph.png" },
-      { name: "shining", img: "/public/images/items/face/nose/nose_shining.png" },
+      { name: "sniffing", img: "/public/images/items/face/nose/nose_sniffing.png" },
    ],
 },
 clothes: {
