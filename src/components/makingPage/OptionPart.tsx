@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // import WheelPickerTest from './optionComponents/WheelPickerTest';
 import FeatureBar from './optionComponents/FeatureBar';
 import SecFeatBox from './optionComponents/SecFeatBox';
-import { SNOWMAN_ITEMS } from '../../constants/item_names';
+import { SNOWMAN_ITEMS } from '../../constants/snowmanItems';
 
 // @@컬러휠하면 쓸 거@@
 // interface OptionPartProps { 

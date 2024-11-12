@@ -1,6 +1,6 @@
 // src/components/optionComponents/FeatureBar.tsx
 import styled from 'styled-components';
-import { SNOWMAN_ITEMS } from '../../../constants/item_names';
+import { SNOWMAN_ITEMS } from '../../../constants/snowmanItems';
 
 type FeatureType = keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes'
 

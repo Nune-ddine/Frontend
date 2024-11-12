@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SecFeatRow from './SecFeatRow';
-import { SNOWMAN_ITEMS } from '../../../constants/item_names';
+import { SNOWMAN_ITEMS } from '../../../constants/snowmanItems';
 
 interface SecFeatBoxProps {
   feat: keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes' 중 하나
