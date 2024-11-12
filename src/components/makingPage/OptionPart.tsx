@@ -13,7 +13,7 @@ const OptionPart: React.FC<OptionPartProps> = ({ onColorChange }) => {
    const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
 
    const renderFeatureContent = () => {
-      if (selectedFeature === "색") {
+      if (selectedFeature === "색") { //@@이거 사실 없애도 됨@@
       return <WheelPickerTest onColorChange={onColorChange} />;
       } else if (selectedFeature) {
       return <SecFeatBox feat={selectedFeature} />;

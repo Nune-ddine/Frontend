@@ -9,7 +9,7 @@ const FeatureBar: React.FC<FeatureBarProps> = ({ onFeatureClick }) => {
   return (
     <Wrapper>
       <Feature onClick={() => onFeatureClick("형태")}>형태</Feature>
-      <Feature onClick={() => onFeatureClick("색")}>색</Feature>
+      {/* <Feature onClick={() => onFeatureClick("색")}>색</Feature> */}
       <Feature onClick={() => onFeatureClick("얼굴")}>얼굴</Feature>
       <Feature onClick={() => onFeatureClick("옷")}>옷</Feature>
       <Feature onClick={() => onFeatureClick("DIY")}>DIY</Feature>
