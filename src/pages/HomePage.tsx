@@ -3,9 +3,23 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 // import Footer from '../components/Footer';
 import Main from '../components/Main';
+import { useEffect } from 'react';
+import { login } from '../services/login';
+import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
+  const location = useLocation();
 
+  useEffect(() => {
+    // URL에서 쿼리 파라미터로 전달된 code 추출
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("code");
+
+    // code가 있고, localStorage에 token이 없을 때만 로그인 함수 호출
+    if (code && !localStorage.getItem("token")) {
+      login(code); // 실제 로그인 함수 호출
+    }
+  }, [location]);
 
   return (
     <Wrapper>
