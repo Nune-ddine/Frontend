@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import FeatureBar from './optionComponents/FeatureBar';
 import SecFeatBox from './optionComponents/SecFeatBox';
 import { SNOWMAN_ITEMS } from '../../constants/snowmanItems';
+import QuizMaker from './optionComponents/QuizMaker';
 
-type FeatureType = keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes'
+type FeatureType = keyof typeof SNOWMAN_ITEMS;
 
 interface OptionPartProps {
   onSelectImage: (img: string, feature: FeatureType) => void;
+  isQuizMode: boolean; // Quiz 모드 상태를 받아서 표시 여부 결정
 }
 
-const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage }) => {
+const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage, isQuizMode }) => {
   const [selectedFeature, setSelectedFeature] = useState<FeatureType | null>(null);
 
   const renderFeatureContent = () => {
@@ -24,8 +26,14 @@ const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage }) => {
 
   return (
     <Wrapper>
-      <FeatureBar onFeatureClick={(feature: FeatureType) => setSelectedFeature(feature)} />
-      <SecondFeature>{renderFeatureContent()}</SecondFeature>
+      {isQuizMode ? (
+        <QuizMaker /> // QuizMaker 표시
+      ) : (
+        <>
+          <FeatureBar onFeatureClick={(feature: FeatureType) => setSelectedFeature(feature)} />
+          <SecondFeature>{renderFeatureContent()}</SecondFeature>
+        </>
+      )}
     </Wrapper>
   );
 };

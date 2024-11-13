@@ -25,7 +25,9 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Header/>
-      <Main/>
+      <Main>
+        <></>
+      </Main>
       <button onClick={() => navigate('/makingPage')}>Making Page</button>
     </Wrapper>
   )

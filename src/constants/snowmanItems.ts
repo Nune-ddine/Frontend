@@ -43,4 +43,4 @@ clothes: {
       { name: "yellow", img: "/public/images/items/clothes/muffler/muffler_yellow.png" },
    ],
 },
-} as const;
+};

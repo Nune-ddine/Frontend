@@ -6,19 +6,26 @@ import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
 
 const MakingPage: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<string>(''); // 선택된 이미지 상태
-  const [selectedFeature, setSelectedFeature] = useState<string>(''); // 선택된 소분류 상태
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedFeature, setSelectedFeature] = useState<string>('');
+  const [isQuizMode, setIsQuizMode] = useState(false); // Quiz 모드 상태
 
   return (
     <PageWrapper>
       <Header />
-      <SnowmanPart selectedImage={selectedImage} selectedFeature={selectedFeature} /> {/* 선택된 이미지와 소분류 전달 */}
-      <OptionPart 
+      <SnowmanPart
+        selectedImage={selectedImage}
+        selectedFeature={selectedFeature}
+        isQuizMode={isQuizMode} // isQuizMode 상태 전달
+        setIsQuizMode={setIsQuizMode} // setIsQuizMode 함수 전달
+      />
+      <OptionPart
         onSelectImage={(img, feature) => {
           setSelectedImage(img);
           setSelectedFeature(feature);
-        }} 
-      /> {/* OptionPart에서 이미지와 소분류를 함께 선택 */}
+        }}
+        isQuizMode={isQuizMode} // isQuizMode 상태 전달
+      />
     </PageWrapper>
   );
 };

@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
-      <Point>Point</Point>
+      <PointBtn>Point</PointBtn>
       <SnowmanCount>SnowmanCount</SnowmanCount>
-      <MyPage>MyPage</MyPage>
+      <MyPageBtn onClick={() => navigate('/myPage')}>MyPage</MyPageBtn>
     </Wrapper>
   )
 }
@@ -24,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
-const Point = styled.div`
+const PointBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,7 +45,7 @@ const SnowmanCount = styled.div`
   border: 2px solid green;
   border-radius: 100px;
 `
-const MyPage = styled.div`
+const MyPageBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
