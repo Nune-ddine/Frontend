@@ -1,25 +1,20 @@
 // src/components/MakePNG.tsx
-import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
   selectedFeature: string;
-  selectedImage: string;
+  isQuizMode: boolean; // 퀴즈 모드 여부 추가
 }
 
 export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQuizMode }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [_images, setImages] = useState<HTMLImageElement[]>([]);
-  const [currentFeature, setCurrentFeature] = useState(selectedFeature);
-
-  useEffect(() => {
-    setCurrentFeature(selectedFeature);
-  }, [selectedFeature]);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -35,34 +30,37 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
-      // currentFeature에 따라 이미지 크기 조정
       let imgWidth: number;
       let imgHeight: number;
 
-      switch (currentFeature) {
-        case 'shape':
-          imgWidth = 400;
-          imgHeight = 400;
-          break;
-        case 'face':
-          imgWidth = 50;
-          imgHeight = 50;
-          break;
-        case 'clothes':
-          imgWidth = 100;
-          imgHeight = 100;
-          break;
-        default:
-          imgWidth = 100;
-          imgHeight = 100;
+      if (imgSrc.includes('shape')) {
+        imgWidth = 400;
+        imgHeight = 400;
+      } else if (imgSrc.includes('eye') || imgSrc.includes('mouth')) {
+        imgWidth = 50;
+        imgHeight = 50;
+      } else if (imgSrc.includes('clothes')) {
+        imgWidth = 100;
+        imgHeight = 100;
+      } else {
+        imgWidth = 100;
+        imgHeight = 100;
       }
 
       const img = document.createElement('img');
       img.src = imgSrc;
       img.alt = name;
       img.style.position = 'absolute';
-      img.style.left = `${x - imgWidth / 2}px`;
-      img.style.top = `${y - imgHeight / 2}px`;
+
+      if (imgSrc.includes('shape')) {
+        const offsetY = 70;
+        img.style.left = `${containerRect.width / 2 - imgWidth / 2}px`;
+        img.style.top = `${containerRect.height / 2 - imgHeight / 2 + offsetY}px`;
+      } else {
+        img.style.left = `${x - imgWidth / 2}px`;
+        img.style.top = `${y - imgHeight / 2}px`;
+      }
+
       img.style.width = `${imgWidth}px`;
       img.style.height = 'auto';
       img.style.objectFit = 'contain';
@@ -73,7 +71,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault(); // 드롭 허용을 위해 기본 동작을 막음
+    event.preventDefault();
   };
 
   const captureImage = async (): Promise<string | null> => {
@@ -88,6 +86,21 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref
     captureImage,
   }));
 
+  const handleUndo = () => {
+    const lastImage = images.pop();
+    if (lastImage && containerRef.current) {
+      containerRef.current.removeChild(lastImage);
+      setImages([...images]);
+    }
+  };
+
+  const handleClearAll = () => {
+    if (containerRef.current) {
+      images.forEach((img) => containerRef.current?.removeChild(img));
+      setImages([]);
+    }
+  };
+
   return (
     <Wrapper>
       <div
@@ -101,6 +114,16 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref
           overflow: 'hidden',
         }}
       />
+      {!isQuizMode && ( // 퀴즈 모드가 아닐 때만 버튼 표시
+        <ButtonContainer>
+          <button onClick={handleUndo} disabled={images.length === 0}>
+            Undo
+          </button>
+          <button onClick={handleClearAll} disabled={images.length === 0}>
+            Clear All
+          </button>
+        </ButtonContainer>
+      )}
     </Wrapper>
   );
 });
@@ -114,4 +137,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 `;

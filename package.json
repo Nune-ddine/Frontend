@@ -15,8 +15,10 @@
     "@uiw/react-color": "^2.3.2",
     "@yaireo/color-picker": "^0.13.1",
     "axios": "^1.7.7",
+    "cropperjs": "^1.6.2",
     "html2canvas": "^1.4.1",
     "react": "^18.3.1",
+    "react-cropper": "^2.3.3",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
     "styled-components": "^6.1.13"
