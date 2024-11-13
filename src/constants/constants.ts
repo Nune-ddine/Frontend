@@ -1,2 +1,2 @@
-const URL: string = "http://43.201.46.230:8080/api/v1/cors";
+const URL: string = "https://nuneddine.p-e.kr/api/v1";
 export default URL;
