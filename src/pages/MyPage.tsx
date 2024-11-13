@@ -2,53 +2,76 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import shape_triple from '../../public/images/items/shape/shape_triple.png'
-import { getMember } from '../services/memberAPI';
+import { getMember, getMySnowman } from '../services/memberAPI';
 
-const MyPage = () => {
+interface MemberResponse {
+  image: string;
+  name: string;
+}
+
+interface Snowman {
+  id: number;
+  name: string | null;
+  image: string;
+  correctCount: number;
+  incorrectCount: number;
+}
+
+const MyPage: React.FC = () => {
   const navigate = useNavigate();
-  const [profileimage, setProfileimage] = useState([]);
-  
+  const [image, setImage] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [snowmans, setSnowmans] = useState<Snowman[]>([]);
+
   const goHome = () => {
     navigate("/");
   };
-  
-  const getProfile = async() => {
+
+  const getProfile = async () => {
     try {
-      const response = await getMember();
-      const profileimage = response.image;
-      setProfileimage(profileimage);
-    }catch (error) {
-      console.error();
+      const response: MemberResponse = await getMember();
+      setImage(response.image);
+      setName(response.name);
+    } catch (error) {
+      console.error("Failed to fetch member profile:", error);
     }
-  }
+  };
+
+  const getSnowman = async () => {
+    try {
+      const response: Snowman[] = await getMySnowman();
+      setSnowmans(response);
+    } catch (error) {
+      console.error("Failed to fetch snowman data:", error);
+    }
+  };
 
   useEffect(() => {
     getProfile();
-  },[])
+    getSnowman();
+  }, []);
 
   return (
     <Container>
       <Header />
       <BackButton onClick={goHome}>◀</BackButton>
       <ProfileSection>
-        <ProfilePicture src={shape_triple} alt="Profile" />
-        <ProfileName>오유진</ProfileName>
+        <ProfilePicture src={image} alt="Profile" />
+        <ProfileName>{name}</ProfileName>
       </ProfileSection>
       <MainContent>
         <SnowmanContainer>
-          <Snowman>
-            <SnowmanText>오유진 눈사람</SnowmanText>
-            <SnowmanCount>12/30명</SnowmanCount>
-          </Snowman>
-          <Snowman>
-            <SnowmanText>오유진 눈사람</SnowmanText>
-            <SnowmanCount>12/30명</SnowmanCount>
-          </Snowman>
-          <Snowman>
-            <SnowmanText>오유진 눈사람</SnowmanText>
-            <SnowmanCount>12/30명</SnowmanCount>
-          </Snowman>
+          {snowmans.map((snowman) => {
+            const totalCount = snowman.correctCount + snowman.incorrectCount;
+            return (
+              <Snowman key={snowman.id}>
+                <SnowmanText>{snowman.name || "Unknown Snowman"}</SnowmanText>
+                <SnowmanCount>
+                  {snowman.correctCount}/{totalCount}명
+                </SnowmanCount>
+              </Snowman>
+            );
+          })}
         </SnowmanContainer>
       </MainContent>
     </Container>
@@ -64,14 +87,6 @@ const Container = styled.div`
   flex-direction: column;
   background-color: #f0f0f0;
 `;
-
-// const Header = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 1rem;
-//   background-color: #ffffff;
-// `;
 
 const BackButton = styled.button`
   background: none;
@@ -132,4 +147,3 @@ const SnowmanCount = styled.div`
   font-size: 0.8rem;
   color: #666;
 `;
-

@@ -8,6 +8,7 @@ import LoginTestPage from './pages/LoginTestPage';
 import SnowmanResultPage from './pages/SnowmanResultPage';
 import LocatingPage from './pages/LocatingPage';
 import MakingPage from './pages/makingPage';
+import SelectingMapPage from './pages/SelectingMapPage';
 
 class App extends Component {
   
@@ -55,6 +56,7 @@ class App extends Component {
           <Route path='/making' element={<MakingPage />} />
           <Route path='/snowmanResult' element={<SnowmanResultPage />} />
           <Route path='/locating' element={<LocatingPage />}/>
+          <Route path='/elevator' element={<SelectingMapPage/>}/>
         </Routes>
       </div>
     );
