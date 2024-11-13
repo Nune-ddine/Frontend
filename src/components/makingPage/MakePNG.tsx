@@ -1,66 +1,79 @@
 // src/components/MakePNG.tsx
-import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
-  selectedImage: string;
   selectedFeature: string;
+  selectedImage: string;
 }
 
 export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage, selectedFeature }, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, selectedImage }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [currentFeature, setCurrentFeature] = useState(selectedFeature);
 
-  const handleContainerClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!selectedImage) return;
+  useEffect(() => {
+    setCurrentFeature(selectedFeature);
+  }, [selectedFeature]);
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
 
     const container = containerRef.current;
     if (!container) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const x = event.clientX - containerRect.left;
-    const y = event.clientY - containerRect.top;
+    const imgSrc = event.dataTransfer.getData('imgSrc');
+    const name = event.dataTransfer.getData('name');
 
-    // 대분류에 따라 이미지 크기 설정
-    let imgWidth: number;
-    let imgHeight: number;
+    if (imgSrc) {
+      const containerRect = container.getBoundingClientRect();
+      const x = event.clientX - containerRect.left;
+      const y = event.clientY - containerRect.top;
 
-    switch (selectedFeature) {
-      case 'shape':
-        imgWidth = 300;
-        imgHeight = 300;
-        break;
-      case 'face':
-        imgWidth = 50;
-        imgHeight = 50;
-        break;
-      case 'clothes':
-        imgWidth = 100;
-        imgHeight = 100;
-        break;
-      default:
-        imgWidth = 100;
-        imgHeight = 100;
+      // currentFeature에 따라 이미지 크기 조정
+      let imgWidth: number;
+      let imgHeight: number;
+
+      switch (currentFeature) {
+        case 'shape':
+          imgWidth = 400;
+          imgHeight = 400;
+          break;
+        case 'face':
+          imgWidth = 50;
+          imgHeight = 50;
+          break;
+        case 'clothes':
+          imgWidth = 100;
+          imgHeight = 100;
+          break;
+        default:
+          imgWidth = 100;
+          imgHeight = 100;
+      }
+
+      const img = document.createElement('img');
+      img.src = imgSrc;
+      img.alt = name;
+      img.style.position = 'absolute';
+      img.style.left = `${x - imgWidth / 2}px`;
+      img.style.top = `${y - imgHeight / 2}px`;
+      img.style.width = `${imgWidth}px`;
+      img.style.height = 'auto';
+      img.style.objectFit = 'contain';
+
+      container.appendChild(img);
+      setImages((prevImages) => [...prevImages, img]);
     }
+  };
 
-    const img = document.createElement('img');
-    img.src = selectedImage;
-    img.style.position = 'absolute';
-
-    // 클릭 위치를 기준으로 이미지 중앙에 배치
-    img.style.left = `${x - imgWidth / 2}px`;
-    img.style.top = `${y - imgHeight / 2}px`;
-    img.style.width = `${imgWidth}px`;
-    img.style.height = 'auto'; // 비율 유지
-    img.style.objectFit = 'contain';
-
-    container.appendChild(img);
-    setImages((prevImages) => [...prevImages, img]);
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault(); // 드롭 허용을 위해 기본 동작을 막음
   };
 
   const captureImage = async (): Promise<string | null> => {
@@ -75,26 +88,12 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage, select
     captureImage,
   }));
 
-  const handleUndo = () => {
-    const lastImage = images.pop();
-    if (lastImage && containerRef.current) {
-      containerRef.current.removeChild(lastImage);
-      setImages([...images]);
-    }
-  };
-
-  const handleClearAll = () => {
-    if (containerRef.current) {
-      images.forEach((img) => containerRef.current?.removeChild(img));
-      setImages([]);
-    }
-  };
-
   return (
     <Wrapper>
       <div
         ref={containerRef}
-        onClick={handleContainerClick}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
         style={{
           width: '100%',
           height: '500px',
@@ -102,14 +101,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage, select
           overflow: 'hidden',
         }}
       />
-      <ButtonContainer>
-        <button onClick={handleUndo} disabled={images.length === 0}>
-          Undo Last
-        </button>
-        <button onClick={handleClearAll} disabled={images.length === 0}>
-          Clear All
-        </button>
-      </ButtonContainer>
     </Wrapper>
   );
 });
@@ -123,10 +114,4 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
 `;
