@@ -1,30 +1,39 @@
 // src/components/SnowmanPart.tsx
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import MakePNG from './MakePNG';
-import { useNavigate } from 'react-router-dom';
+import MakePNG, { MakePNGHandle } from './MakePNG';
 
 interface SnowmanPartProps {
   selectedImage: string;
   selectedFeature: string;
   isQuizMode: boolean;
   setIsQuizMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setFinalImage: (img: string) => void;
 }
 
-const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeature, isQuizMode, setIsQuizMode }) => {
-  const navigate = useNavigate();
+const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeature, isQuizMode, setIsQuizMode, setFinalImage }) => {
+  const makePNGRef = useRef<MakePNGHandle>(null);
+
+  const saveFinalImage = async () => {
+    if (makePNGRef.current) {
+      const image = await makePNGRef.current.captureImage();
+      if (image) {
+        setFinalImage(image); // 이미지 상태를 업데이트해 useEffect가 실행되도록 함
+      }
+    }
+  };
 
   return (
     <Wrapper>
       <GotoMapBtn>MAP</GotoMapBtn>
       <SnowmanContainer>
-        <MakePNG selectedImage={selectedImage} selectedFeature={selectedFeature} />
+        <MakePNG ref={makePNGRef} selectedImage={selectedImage} selectedFeature={selectedFeature} />
       </SnowmanContainer>
       <ButtonContainer>
         {isQuizMode ? (
           <>
             <BackButton onClick={() => setIsQuizMode(false)}>{'<-'}</BackButton>
-            <NextButton onClick={() => navigate("/snowmanResult")}>완성</NextButton>
+            <NextButton onClick={saveFinalImage}>완성</NextButton>
           </>
         ) : (
           <NextButton onClick={() => setIsQuizMode(true)}>{'->'}</NextButton>
@@ -35,6 +44,8 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
 };
 
 export default SnowmanPart;
+
+// 스타일 정의는 동일하게 유지됩니다.
 
 const Wrapper = styled.div`
    width: 100%;
@@ -53,6 +64,7 @@ const SnowmanContainer = styled.div`
    flex-direction: column;
    align-items: center;
    border: 2px solid black;
+   position: relative;
 `;
 
 const ButtonContainer = styled.div`

@@ -1,43 +1,25 @@
-import styled from "styled-components"
+// src/components/snowmanResultPage/SnowmanResult.tsx
+import React from 'react';
+import styled from 'styled-components';
 
-const SnowmanResult = () => {
-return (
-   <Wrapper>
-      <Title>눈사람이 완성되었어요!</Title>
-      <Snowman />
-      <NameInput placeholder="눈사람에게 이름을 지어주세요" />
-   </Wrapper>
-)
+interface SnowmanResultProps {
+  image: string | null; // 최종 PNG 이미지 경로
 }
 
-export default SnowmanResult
+const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
+  return (
+    <Wrapper>
+      {image ? <img src={image} alt="Final Snowman" /> : <p>No image available</p>}
+    </Wrapper>
+  );
+};
+
+export default SnowmanResult;
 
 const Wrapper = styled.div`
-   width : 100%;
-   height: 70%;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-
-   border: 2px solid grey;
-`
-
-const Title = styled.div`
-   font-size: 24px;
-   font-weight: bold;
-   margin-bottom: 20px;
-`
-
-const Snowman  = styled.div`
-   width: 100px;
-   height: 100px;
-   background-color: #fff;
-   border-radius: 50%;
-`
-
-const NameInput = styled.input`
-   width: 200px;
-   height: 30px;
-   margin-top: 20px;
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;

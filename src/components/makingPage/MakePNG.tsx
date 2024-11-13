@@ -1,14 +1,18 @@
 // src/components/MakePNG.tsx
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
   selectedImage: string;
-  selectedFeature: string; // 소분류 키 추가
+  selectedFeature: string;
 }
 
-const MakePNG: React.FC<MakePNGProps> = ({ selectedImage, selectedFeature }) => {
+export interface MakePNGHandle {
+  captureImage: () => Promise<string | null>;
+}
+
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
 
@@ -22,50 +26,33 @@ const MakePNG: React.FC<MakePNGProps> = ({ selectedImage, selectedFeature }) => 
     const x = event.clientX - containerRect.left;
     const y = event.clientY - containerRect.top;
 
-    // 소분류에 따라 이미지 크기를 설정
-    let imgWidth = 200;
-    let imgHeight = 200;
-
-    if (selectedFeature === 'shape') {
-      imgWidth = 400;
-      imgHeight = 400;
-    } else if (selectedFeature === 'face') {
-      imgWidth = 50;
-      imgHeight = 50;
-    } else if (selectedFeature === 'clothes') {
-      imgWidth = 100;
-      imgHeight = 100;
-    }
+    const imgWidth = 100;
+    const imgHeight = 100;
 
     const img = document.createElement('img');
     img.src = selectedImage;
-    img.className = 'click-image';
     img.style.position = 'absolute';
 
     img.style.left = `${x - imgWidth / 2}px`;
     img.style.top = `${y - imgHeight / 2}px`;
     img.style.width = `${imgWidth}px`;
-    img.style.height = 'auto';
-    img.style.objectFit = 'contain';
+    img.style.height = `${imgHeight}px`;
 
     container.appendChild(img);
     setImages((prevImages) => [...prevImages, img]);
   };
 
-  const handleSaveImage = async () => {
+  const captureImage = async (): Promise<string | null> => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) return null;
 
-    const canvas = await html2canvas(container, {
-      backgroundColor: null,
-      scale: 2,
-    });
-
-    const link = document.createElement('a');
-    link.download = 'snowman-image.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    const canvas = await html2canvas(container, { backgroundColor: null });
+    return canvas.toDataURL('image/png');
   };
+
+  useImperativeHandle(ref, () => ({
+    captureImage,
+  }));
 
   const handleUndo = () => {
     const lastImage = images.pop();
@@ -95,7 +82,6 @@ const MakePNG: React.FC<MakePNGProps> = ({ selectedImage, selectedFeature }) => 
         }}
       />
       <ButtonContainer>
-        <button onClick={handleSaveImage}>Save Image</button>
         <button onClick={handleUndo} disabled={images.length === 0}>
           Undo Last
         </button>
@@ -105,7 +91,7 @@ const MakePNG: React.FC<MakePNGProps> = ({ selectedImage, selectedFeature }) => 
       </ButtonContainer>
     </Wrapper>
   );
-};
+});
 
 export default MakePNG;
 

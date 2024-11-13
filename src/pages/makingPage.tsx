@@ -1,14 +1,25 @@
 // src/pages/MakingPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import OptionPart from '../components/makingPage/OptionPart';
 import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const MakingPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [selectedFeature, setSelectedFeature] = useState<string>('');
-  const [isQuizMode, setIsQuizMode] = useState(false); // Quiz 모드 상태
+  const [isQuizMode, setIsQuizMode] = useState(false);
+  const [finalImage, setFinalImage] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
+  // finalImage가 업데이트되면 결과 페이지로 이동
+  useEffect(() => {
+    if (finalImage) {
+      navigate('/snowmanResult', { state: { finalImage } });
+    }
+  }, [finalImage, navigate]);
 
   return (
     <PageWrapper>
@@ -16,15 +27,16 @@ const MakingPage: React.FC = () => {
       <SnowmanPart
         selectedImage={selectedImage}
         selectedFeature={selectedFeature}
-        isQuizMode={isQuizMode} // isQuizMode 상태 전달
-        setIsQuizMode={setIsQuizMode} // setIsQuizMode 함수 전달
+        isQuizMode={isQuizMode}
+        setIsQuizMode={setIsQuizMode}
+        setFinalImage={setFinalImage}
       />
       <OptionPart
         onSelectImage={(img, feature) => {
           setSelectedImage(img);
           setSelectedFeature(feature);
         }}
-        isQuizMode={isQuizMode} // isQuizMode 상태 전달
+        isQuizMode={isQuizMode}
       />
     </PageWrapper>
   );
