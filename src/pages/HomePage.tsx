@@ -5,7 +5,6 @@ import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Gotcha from '../components/Gotcha';
 
 const HomePage = () => {
   const location = useLocation();
@@ -29,7 +28,7 @@ const HomePage = () => {
       <Main>
         {token ? (
           <MainLayout>
-            <Gotcha/>
+            <button onClick={()=> navigate('/gotcha')}>가챠</button>
             <button onClick={()=> navigate('/locating')}>눈사람 굴리기</button>
           </MainLayout>
         ) : (

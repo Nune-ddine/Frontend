@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const Gotcha = () => {
+const Quiz = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -22,7 +22,7 @@ const Gotcha = () => {
   );
 };
 
-export default Gotcha;
+export default Quiz;
 
 const ModalOverlay = styled.div`
   position: fixed;
