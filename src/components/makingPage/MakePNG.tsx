@@ -12,7 +12,7 @@ export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage, selectedFeature }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
 
@@ -26,17 +26,38 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
     const x = event.clientX - containerRect.left;
     const y = event.clientY - containerRect.top;
 
-    const imgWidth = 100;
-    const imgHeight = 100;
+    // 대분류에 따라 이미지 크기 설정
+    let imgWidth: number;
+    let imgHeight: number;
+
+    switch (selectedFeature) {
+      case 'shape':
+        imgWidth = 300;
+        imgHeight = 300;
+        break;
+      case 'face':
+        imgWidth = 50;
+        imgHeight = 50;
+        break;
+      case 'clothes':
+        imgWidth = 100;
+        imgHeight = 100;
+        break;
+      default:
+        imgWidth = 100;
+        imgHeight = 100;
+    }
 
     const img = document.createElement('img');
     img.src = selectedImage;
     img.style.position = 'absolute';
 
+    // 클릭 위치를 기준으로 이미지 중앙에 배치
     img.style.left = `${x - imgWidth / 2}px`;
     img.style.top = `${y - imgHeight / 2}px`;
     img.style.width = `${imgWidth}px`;
-    img.style.height = `${imgHeight}px`;
+    img.style.height = 'auto'; // 비율 유지
+    img.style.objectFit = 'contain';
 
     container.appendChild(img);
     setImages((prevImages) => [...prevImages, img]);
