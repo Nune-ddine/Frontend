@@ -26,7 +26,7 @@ const MyPage = () => {
   useEffect(() => {
     getProfile();
   },[])
-  
+
   return (
     <Container>
       <Header />
@@ -36,8 +36,6 @@ const MyPage = () => {
         <ProfileName>오유진</ProfileName>
       </ProfileSection>
       <MainContent>
-        <Drawing>❄️</Drawing>
-        <Drawing>🎄</Drawing>
         <SnowmanContainer>
           <Snowman>
             <SnowmanText>오유진 눈사람</SnowmanText>
@@ -105,11 +103,6 @@ const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-`;
-
-const Drawing = styled.div`
-  font-size: 3rem;
-  margin: 1rem 0;
 `;
 
 const SnowmanContainer = styled.div`

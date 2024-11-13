@@ -34,9 +34,10 @@ const Button = styled.div`
   background-color: white;
   padding: 3%;
   gap : 10px;
-    font-family: 'MaplestoryOTFBold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'MaplestoryOTFBold';
+  // font-family: 'MaplestoryOTFBold';
+  // src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+  // font-weight: normal;
+  // font-style: normal;
 `;
 

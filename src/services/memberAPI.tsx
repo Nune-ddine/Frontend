@@ -1,7 +1,8 @@
+import axios from 'axios';
 import URL from '../constants/constants';
 
 export const getMember = async () => {
-  const response = await fetch(`${URL}/member`, {
+  const response = await axios.get(`${URL}/member`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,5 +17,4 @@ export const getMember = async () => {
   }
 
   console.log(response);
-   return response.json();
 }

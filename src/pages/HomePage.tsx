@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 import Header from '../components/Header';
 // import Footer from '../components/Footer';
@@ -10,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -17,25 +17,63 @@ const HomePage = () => {
     const code = searchParams.get("code");
 
     // code가 있고, localStorage에 token이 없을 때만 로그인 함수 호출
-    if (code && !localStorage.getItem("token")) {
+    if (code && !token) {
       login(code); // 실제 로그인 함수 호출
     }
-  }, [location]);
+  }, [location, token]);
 
   return (
     <Wrapper>
       <Header/>
-      <Main/>
+      <Main>
+        {token ? (
+          <MainLayout>
+            <button>가챠</button>
+            <button>눈사람 클릭</button>
+          </MainLayout>
+        ) : (
+          <LoginLayout>
+            <button onClick={() => navigate('/login')}>카카오 로그인하기</button>
+          </LoginLayout>
+        )}
+      </Main>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
 
 export const Wrapper = styled.div`
-  height : 100%;
-  display : flex;
+  height: 100%;
+  display: flex;
   flex-direction: column;
-  justify-content : space-between;
-  background-color : #6FABEB;
-`
+  justify-content: space-between;
+  background-color: #6FABEB;
+`;
+
+const MainLayout = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+`;
+
+const LoginLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FFDD00;
+    border: none;
+    border-radius: 5px;
+  }
+`;
