@@ -10,7 +10,9 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Header/>
-      <Main/>
+      <Main>
+        <></>
+      </Main>
     </Wrapper>
   )
 }

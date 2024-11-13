@@ -49,11 +49,10 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/myPage" element={<MyPage />} />
-          <Route path="/gotchaPage" element={<GotchaPage />} />
-
-          <Route path='/loginTestPage' element={<LoginTestPage />} />
-          <Route path='/makingPage' element={<MakingPage />} />
-          <Route path='/locatingPage' element={<LocatingPage />}/>
+          <Route path="/gotcha" element={<GotchaPage />} />
+          <Route path='/loginTest' element={<LoginTestPage />} />
+          <Route path='/making' element={<MakingPage />} />
+          <Route path='/locating' element={<LocatingPage />}/>
         </Routes>
       </div>
     );
