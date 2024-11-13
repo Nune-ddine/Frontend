@@ -80,7 +80,11 @@ const ChoiceButton = styled.button`
   }
 `;
 
-const ResultMessage = styled.div`
+interface ResultMessageProps {
+  correct: boolean;
+}
+
+const ResultMessage = styled.div<ResultMessageProps>`
   margin-top: 20px;
   font-size: 1rem;
   color: ${props => (props.correct ? 'green' : 'red')};
@@ -88,7 +92,7 @@ const ResultMessage = styled.div`
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
   const [quizData, setQuizData] = useState<QuizData | null>(null);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [_selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [showResult, setShowResult] = useState<boolean>(false);
 
@@ -128,17 +132,17 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
           <ChoiceButton onClick={() => handleAnswerSelection(3)}>{quizData.choice3 || "Option 3"}</ChoiceButton>
         </ChoicesContainer>
         {showResult && (
-          <ResultMessage correct={isCorrect}>
-            {isCorrect ? (
-              <div>
-                <p>정답을 맞췄어요!</p>
-                <p>+ 50 Point</p>
-              </div>
-            ) : (
-              <p>틀렸어요! 다시 시도해보세요.</p>
-            )}
-          </ResultMessage>
-        )}
+  <ResultMessage correct={isCorrect}>
+    {isCorrect ? (
+      <div>
+        <p>정답을 맞췄어요!</p>
+        <p>+ 50 Point</p>
+      </div>
+    ) : (
+      <p>틀렸어요! 다시 시도해보세요.</p>
+    )}
+  </ResultMessage>
+)}
       </ModalContent>
     </ModalOverlay>
   );

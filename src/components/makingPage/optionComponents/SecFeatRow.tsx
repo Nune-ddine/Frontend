@@ -9,13 +9,13 @@ interface SecFeatRowProps {
   onSelectImage: (img: string) => void;
 }
 
-const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items, onSelectImage }) => {
+const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items}) => {
   return (
     <Wrapper>
       <Title>{partKey}</Title>
       <Content>
         {items.map((item) => (
-          <SecFeatCard key={item.name} name={item.name} img={item.img} onSelectImage={onSelectImage} />
+          <SecFeatCard key={item.name} name={item.name} img={item.img} />
         ))}
       </Content>
     </Wrapper>
