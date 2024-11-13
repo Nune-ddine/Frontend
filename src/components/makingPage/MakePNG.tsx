@@ -1,10 +1,9 @@
 // src/components/MakePNG.tsx
-import React, { useRef, useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
-  selectedFeature: string;
   selectedImage: string;
 }
 
@@ -12,14 +11,9 @@ export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, selectedImage }, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [currentFeature, setCurrentFeature] = useState(selectedFeature);
-
-  useEffect(() => {
-    setCurrentFeature(selectedFeature);
-  }, [selectedFeature]);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -31,30 +25,28 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, sele
     const name = event.dataTransfer.getData('name');
 
     if (imgSrc) {
+      console.log('Dropped Item Name:', name); // 드롭된 아이템 이름 출력
+
       const containerRect = container.getBoundingClientRect();
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
-      // currentFeature에 따라 이미지 크기 조정
+      // imgSrc에 따라 이미지 크기 설정
       let imgWidth: number;
       let imgHeight: number;
 
-      switch (currentFeature) {
-        case 'shape':
-          imgWidth = 400;
-          imgHeight = 400;
-          break;
-        case 'face':
-          imgWidth = 50;
-          imgHeight = 50;
-          break;
-        case 'clothes':
-          imgWidth = 100;
-          imgHeight = 100;
-          break;
-        default:
-          imgWidth = 100;
-          imgHeight = 100;
+      if (imgSrc.includes('shape')) {
+        imgWidth = 400;
+        imgHeight = 400;
+      } else if (imgSrc.includes('eye') || imgSrc.includes('mouth')) {
+        imgWidth = 50;
+        imgHeight = 50;
+      } else if (imgSrc.includes('clothes')) {
+        imgWidth = 100;
+        imgHeight = 100;
+      } else {
+        imgWidth = 100;
+        imgHeight = 100;
       }
 
       const img = document.createElement('img');
@@ -88,6 +80,23 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, sele
     captureImage,
   }));
 
+  // 마지막 이미지를 제거하는 함수
+  const handleUndo = () => {
+    const lastImage = images.pop();
+    if (lastImage && containerRef.current) {
+      containerRef.current.removeChild(lastImage);
+      setImages([...images]);
+    }
+  };
+
+  // 모든 이미지를 제거하는 함수
+  const handleClearAll = () => {
+    if (containerRef.current) {
+      images.forEach((img) => containerRef.current?.removeChild(img));
+      setImages([]);
+    }
+  };
+
   return (
     <Wrapper>
       <div
@@ -101,6 +110,14 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, sele
           overflow: 'hidden',
         }}
       />
+      <ButtonContainer>
+        <button onClick={handleUndo} disabled={images.length === 0}>
+          Undo
+        </button>
+        <button onClick={handleClearAll} disabled={images.length === 0}>
+          Clear All
+        </button>
+      </ButtonContainer>
     </Wrapper>
   );
 });
@@ -114,4 +131,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 `;
