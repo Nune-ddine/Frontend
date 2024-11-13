@@ -6,10 +6,126 @@ import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // getMemberTest
+  // header에 토큰을 담아서 보내기
+  const getMember = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/member", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get member test", error);
+    }
+  };
+
+  const getGotcha = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gacha", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get gotcha test", error);
+    }
+  }
+
+  // patchMemberTest
+  // header에 토큰을 담아서 보내기
+  const patchMember = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
+        username: "테스트 닉네임",
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to patch member test", error);
+    }
+  };
+
+  const getInventory = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/inventory", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get inventory test", error);
+    }
+  };
+
+  const getAllSnowman = async () => {
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/map/1");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to fetch all snowman data", error);
+    }
+  };
+
+  const getSnowmanQuiz = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/1", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get snowman quiz test", error);
+    }
+  };
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -29,6 +145,13 @@ const HomePage = () => {
         <></>
       </Main>
       <button onClick={() => navigate('/makingPage')}>Making Page</button>
+      <button onClick={getMember}>Get Member Test</button>
+      <button onClick={getGotcha}>Get Gotcha Test</button>
+      <button onClick={patchMember}>Patch Member Test</button>
+      <button onClick={getInventory}>Get Inventory Test</button>
+      <button onClick={getAllSnowman}>Get All Snowman Test</button>
+      <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
+      
     </Wrapper>
   )
 }

@@ -8,6 +8,7 @@ import LoginTestPage from './pages/LoginTestPage';
 import MakingPage from './pages/MakingPage';
 import SnowmanResultPage from './pages/SnowmanResultPage';
 import LocatingPage from './pages/LocatingPage';
+import TestPage from './pages/TestPage';
 
 class App extends Component {
   
@@ -56,6 +57,8 @@ class App extends Component {
           <Route path='/making' element={<MakingPage />} />
           <Route path='/snowmanResult' element={<SnowmanResultPage />} />
           <Route path='/locating' element={<LocatingPage />}/>
+          
+          <Route path="/test" element={<TestPage />} />
         </Routes>
       </div>
     );
