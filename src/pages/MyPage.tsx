@@ -88,7 +88,7 @@ const Container = styled.div`
   background-color: #f0f0f0;
 `;
 
-const BackButton = styled.button`
+export const BackButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;

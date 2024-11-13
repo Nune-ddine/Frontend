@@ -3,12 +3,12 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
-import GotchaPage from './pages/GotchaPage';
 import LoginTestPage from './pages/LoginTestPage';
 import SnowmanResultPage from './pages/SnowmanResultPage';
 import LocatingPage from './pages/LocatingPage';
 import MakingPage from './pages/makingPage';
 import SelectingMapPage from './pages/SelectingMapPage';
+import GotchaPage from './pages/GotchaPage';
 
 class App extends Component {
   
