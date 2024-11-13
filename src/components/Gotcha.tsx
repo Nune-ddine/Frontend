@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const Gotcha = ({ content }) => {
+const Gotcha = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -12,8 +12,9 @@ const Gotcha = ({ content }) => {
       {isModalOpen && (
         <ModalOverlay onClick={closeModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <p>{content}</p>
-            <button onClick={closeModal}>닫기</button>
+            <button onClick={closeModal}>x</button>
+            <image>눈사람 이미지</image>
+            <div>문제</div>
           </ModalContent>
         </ModalOverlay>
       )}
@@ -23,7 +24,6 @@ const Gotcha = ({ content }) => {
 
 export default Gotcha;
 
-// Styled components for the modal
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -36,16 +36,15 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction : column;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-
-  p {
-    margin-bottom: 20px;
-  }
-
   button {
     padding: 10px 20px;
     font-size: 16px;
