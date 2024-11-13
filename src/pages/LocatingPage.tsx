@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Wrapper } from "./HomePage";
 import Locator from "../services/Locator";
+import Header from "../components/Header";
 
 
 
@@ -15,6 +16,7 @@ const LocatingPage = () => {
   
   return (
     <Wrapper>
+      <Header/>
       <Locator/>
       <Button>
         눈사람 만들 곳을 클릭해주세요!

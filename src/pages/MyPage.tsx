@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import { getMember, getMySnowman } from '../services/memberAPI';
+import { getMember, getMySnowman, patchUsername } from '../services/memberAPI';
 
 interface MemberResponse {
   image: string;
@@ -29,9 +29,10 @@ const MyPage: React.FC = () => {
 
   const getProfile = async () => {
     try {
-      const response: MemberResponse = await getMember();
-      setImage(response.image);
-      setName(response.name);
+      const response = await getMember();
+      // const image = response.data.image;
+      // setImage(image);
+      // setName(response.name);
     } catch (error) {
       console.error("Failed to fetch member profile:", error);
     }
@@ -46,9 +47,22 @@ const MyPage: React.FC = () => {
     }
   };
 
+  const editUsername = async () => {
+    try {
+      const body = {
+        "username": "누네띠네"
+      };
+      const response = await patchUsername();
+      console.log(response);
+    } catch (error) {
+      console.error("Error updating username:", error);
+    }
+  };
+  
+
   useEffect(() => {
     getProfile();
-    getSnowman();
+    // getSnowman();
   }, []);
 
   return (
@@ -58,6 +72,7 @@ const MyPage: React.FC = () => {
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>{name}</ProfileName>
+        <div onClick={editUsername}>✏️</div>
       </ProfileSection>
       <MainContent>
         <SnowmanContainer>
