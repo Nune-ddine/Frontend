@@ -15,7 +15,7 @@ const LocatingPage = () => {
   
   return (
     <Wrapper>
-      <Locator/>
+      <Locator></Locator>
       <Button>
         눈사람 만들 곳을 클릭해주세요!
         <div onClick={goHome}>x</div>

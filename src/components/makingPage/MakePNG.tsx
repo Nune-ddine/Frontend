@@ -12,9 +12,9 @@ export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, selectedImage }, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature}, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [_images, setImages] = useState<HTMLImageElement[]>([]);
   const [currentFeature, setCurrentFeature] = useState(selectedFeature);
 
   useEffect(() => {
