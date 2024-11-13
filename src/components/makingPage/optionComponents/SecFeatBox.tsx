@@ -1,24 +1,18 @@
-// src/components/SecFeatBox.tsx
+// src/components/optionComponents/SecFeatBox.tsx
 import React from 'react';
 import styled from 'styled-components';
 import SecFeatRow from './SecFeatRow';
-import { SNOWMAN_ITEMS } from '../../../constants/snowmanItems';
 
 interface SecFeatBoxProps {
-  feat: keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes' 중 하나
+  items: { [key: string]: { name: string; img: string }[] }; // 카테고리에 맞는 아이템 목록
+  onSelectImage: (img: string) => void;
 }
 
-const SecFeatBox: React.FC<SecFeatBoxProps> = ({ feat }) => {
-  const parts = SNOWMAN_ITEMS[feat]; // 대분류에 맞는 소분류 데이터를 가져옴
-
+const SecFeatBox: React.FC<SecFeatBoxProps> = ({ items, onSelectImage }) => {
   return (
     <Wrapper>
-      {Object.keys(parts).map((partKey) => (
-        <SecFeatRow 
-          key={partKey} 
-          partKey={partKey as keyof typeof parts} 
-          items={parts[partKey as keyof typeof parts]} 
-        />
+      {Object.keys(items).map((partKey) => (
+        <SecFeatRow key={partKey} partKey={partKey} items={items[partKey]} onSelectImage={onSelectImage} />
       ))}
     </Wrapper>
   );

@@ -1,13 +1,20 @@
+// src/components/MakePNG.tsx
 import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
-const MakeImage = () => {
+interface MakePNGProps {
+  selectedImage: string;
+  selectedFeature: string; // 소분류 키 추가
+}
+
+const MakePNG: React.FC<MakePNGProps> = ({ selectedImage, selectedFeature }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
 
-  // 클릭 위치에 이미지 추가
   const handleContainerClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!selectedImage) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -15,27 +22,36 @@ const MakeImage = () => {
     const x = event.clientX - containerRect.left;
     const y = event.clientY - containerRect.top;
 
-    const imgWidth = 300;
-    const imgHeight = 300;
+    // 소분류에 따라 이미지 크기를 설정
+    let imgWidth = 200;
+    let imgHeight = 200;
+
+    if (selectedFeature === 'shape') {
+      imgWidth = 400;
+      imgHeight = 400;
+    } else if (selectedFeature === 'face') {
+      imgWidth = 50;
+      imgHeight = 50;
+    } else if (selectedFeature === 'clothes') {
+      imgWidth = 100;
+      imgHeight = 100;
+    }
 
     const img = document.createElement('img');
-    img.src = '/public/images/items/shape/shape_puang.png';
+    img.src = selectedImage;
     img.className = 'click-image';
     img.style.position = 'absolute';
 
-    // 클릭한 위치가 이미지의 중앙이 되도록 좌표 조정
     img.style.left = `${x - imgWidth / 2}px`;
     img.style.top = `${y - imgHeight / 2}px`;
     img.style.width = `${imgWidth}px`;
-    img.style.height = 'auto'; // 비율 유지
+    img.style.height = 'auto';
     img.style.objectFit = 'contain';
 
-    // 컨테이너에 이미지 추가 및 상태 업데이트
     container.appendChild(img);
     setImages((prevImages) => [...prevImages, img]);
   };
 
-  // 캡처하여 저장
   const handleSaveImage = async () => {
     const container = containerRef.current;
     if (!container) return;
@@ -51,20 +67,18 @@ const MakeImage = () => {
     link.click();
   };
 
-  // 마지막 이미지 되돌리기
   const handleUndo = () => {
     const lastImage = images.pop();
     if (lastImage && containerRef.current) {
       containerRef.current.removeChild(lastImage);
-      setImages([...images]); // 상태 업데이트
+      setImages([...images]);
     }
   };
 
-  // 모든 이미지 삭제
   const handleClearAll = () => {
     if (containerRef.current) {
       images.forEach((img) => containerRef.current?.removeChild(img));
-      setImages([]); // 상태 초기화
+      setImages([]);
     }
   };
 
@@ -93,7 +107,7 @@ const MakeImage = () => {
   );
 };
 
-export default MakeImage;
+export default MakePNG;
 
 const Wrapper = styled.div`
   width: 100%;

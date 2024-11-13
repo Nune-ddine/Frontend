@@ -1,22 +1,24 @@
 // src/pages/MakingPage.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import OptionPart from '../components/makingPage/OptionPart';
 import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
 
 const MakingPage: React.FC = () => {
-  // const [shapeColor, setShapeColor] = useState('#d3c0a6'); // 초기 도형 색상 @@컬러휠 하면 쓸 거@@
-
-
+  const [selectedImage, setSelectedImage] = useState<string>(''); // 선택된 이미지 상태
+  const [selectedFeature, setSelectedFeature] = useState<string>(''); // 선택된 소분류 상태
 
   return (
     <PageWrapper>
-      <Header/>
-      {/* <SnowmanPart color={shapeColor} /> */}
-      <SnowmanPart />
-      {/* <OptionPart onColorChange={(color) => setShapeColor(color)} /> @@컬러휠 하면 쓸 거@@*/} 
-      <OptionPart />
+      <Header />
+      <SnowmanPart selectedImage={selectedImage} selectedFeature={selectedFeature} /> {/* 선택된 이미지와 소분류 전달 */}
+      <OptionPart 
+        onSelectImage={(img, feature) => {
+          setSelectedImage(img);
+          setSelectedFeature(feature);
+        }} 
+      /> {/* OptionPart에서 이미지와 소분류를 함께 선택 */}
     </PageWrapper>
   );
 };

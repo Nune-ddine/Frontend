@@ -1,26 +1,18 @@
-// src/components/SecFeatCard.tsx
-import React, { useState } from 'react';
+// src/components/optionComponents/SecFeatCard.tsx
+import React from 'react';
 import styled from 'styled-components';
 
 interface SecFeatCardProps {
   name: string;
   img: string;
+  onSelectImage: (img: string) => void;
 }
 
-const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
-  const [imageError, setImageError] = useState(false); // 이미지 로드 오류 상태
-
+const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img, onSelectImage }) => {
   return (
-    <Wrapper>
-      {imageError ? (
-        <Text>{name}</Text> // 이미지가 없을 때 이름을 표시
-      ) : (
-        <Image 
-          src={img} 
-          alt={name} 
-          onError={() => setImageError(true)} // 오류 발생 시 대체 텍스트로 전환
-        />
-      )}
+    <Wrapper onClick={() => onSelectImage(img)}>
+      <Image src={img} alt={name} onError={(e) => (e.currentTarget.style.display = 'none')} />
+      <Name>{name}</Name>
     </Wrapper>
   );
 };
@@ -29,10 +21,12 @@ export default SecFeatCard;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  width: 20%;
-  height: 100%;
+  justify-content: center;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
   box-sizing: border-box;
   background-color: grey;
   border: 1px solid black;
@@ -40,12 +34,12 @@ const Wrapper = styled.div`
 `;
 
 const Image = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  max-width: 80%;
+  max-height: 80%;
 `;
-const Text = styled.div`
-  font-size: 1rem;
+
+const Name = styled.div`
+  font-size: 0.8rem;
   color: white;
-  text-align: center;
+  margin-top: 5px;
 `;

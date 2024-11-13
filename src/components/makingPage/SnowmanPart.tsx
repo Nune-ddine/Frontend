@@ -1,38 +1,24 @@
 // src/components/SnowmanPart.tsx
 import React from 'react';
 import styled from 'styled-components';
-// import Snowman from './snowmanComponent/Snowman';
-import MakeImage from './MakeImage';
+import MakePNG from './MakePNG';
 
-// 색 변경할 때 다시 사용
-// interface SnowmanPartProps {
-//   color: string;
-// }
+interface SnowmanPartProps {
+  selectedImage: string;
+  selectedFeature: string;
+}
 
-// const SnowmanPart: React.FC<SnowmanPartProps> = ({ color }) => {
-//   return (
-//     <Wrapper>
-//       <GotoMapBtn>MAP</GotoMapBtn>
-//       <SnowmanContainer>
-//         <Snowman color={color} size={70} /> 
-//         <Snowman color={color} size={90} /> 
-//       </SnowmanContainer>
-//       <NextPage> {'>'} </NextPage>
-//     </Wrapper>
-//   );
-// };
-
-const SnowmanPart: React.FC = () => {
+const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeature }) => {
   return (
     <Wrapper>
       <GotoMapBtn>MAP</GotoMapBtn>
       <SnowmanContainer>
-        <MakeImage />
+        <MakePNG selectedImage={selectedImage} selectedFeature={selectedFeature} />
       </SnowmanContainer>
-      <NextPage> {'>'} </NextPage>
+      <NextPage>{'>'}</NextPage>
     </Wrapper>
   );
-}
+};
 
 export default SnowmanPart;
 
@@ -43,7 +29,6 @@ const Wrapper = styled.div`
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
-
    border: 2px solid black;
 `;
 

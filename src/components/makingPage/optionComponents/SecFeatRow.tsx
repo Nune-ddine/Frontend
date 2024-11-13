@@ -1,20 +1,21 @@
-// src/components/SecFeatRow.tsx
+// src/components/optionComponents/SecFeatRow.tsx
 import React from 'react';
 import styled from 'styled-components';
 import SecFeatCard from './SecFeatCard';
 
 interface SecFeatRowProps {
-  partKey: string;                     // 소분류 이름
-  items: readonly { name: string; img: string }[]; // 소분류 내 아이템 목록
+  partKey: string;
+  items: { name: string; img: string }[];
+  onSelectImage: (img: string) => void;
 }
 
-const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
+const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items, onSelectImage }) => {
   return (
     <Wrapper>
-      <Title>{partKey}</Title> {/* 소분류 이름 */}
+      <Title>{partKey}</Title>
       <Content>
         {items.map((item) => (
-          <SecFeatCard key={item.name} name={item.name} img={item.img} />
+          <SecFeatCard key={item.name} name={item.name} img={item.img} onSelectImage={onSelectImage} />
         ))}
       </Content>
     </Wrapper>

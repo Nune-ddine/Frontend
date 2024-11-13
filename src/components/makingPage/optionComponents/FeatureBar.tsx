@@ -1,21 +1,18 @@
 // src/components/optionComponents/FeatureBar.tsx
 import styled from 'styled-components';
-import { SNOWMAN_ITEMS } from '../../../constants/snowmanItems';
 
-type FeatureType = keyof typeof SNOWMAN_ITEMS; // 'shape' | 'face' | 'clothes'
+type FeatureType = 'shape' | 'face' | 'clothes';
 
 interface FeatureBarProps {
   onFeatureClick: (feature: FeatureType) => void;
 }
 
 const FeatureBar: React.FC<FeatureBarProps> = ({ onFeatureClick }) => {
-  // 각 항목을 클릭 시, 대응되는 SNOWMAN_ITEMS의 키 값 전달
   return (
     <Wrapper>
       <Feature onClick={() => onFeatureClick("shape")}>형태</Feature>
       <Feature onClick={() => onFeatureClick("face")}>얼굴</Feature>
       <Feature onClick={() => onFeatureClick("clothes")}>옷</Feature>
-      {/* DIY는 예시상 SNOWMAN_ITEMS에 없으므로 별도 추가 */}
     </Wrapper>
   );
 };
