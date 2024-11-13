@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import UserImage from './UserImage.jpg'; // Replace with the actual path to the image
+import Header from '../components/Header';
+import shape_triple from '../../public/images/items/shape/shape_triple.png'
+import { getMember } from '../services/memberAPI';
 
 const MyPage = () => {
+  const navigate = useNavigate();
+  const [profileimage, setProfileimage] = useState([]);
+  
+  const goHome = () => {
+    navigate("/");
+  };
+  
+  const getProfile = async() => {
+    try {
+      const response = await getMember();
+      const profileimage = response.image;
+      setProfileimage(profileimage);
+    }catch (error) {
+      console.error();
+    }
+  }
+
+  useEffect(() => {
+    getProfile();
+  },[])
+  
   return (
     <Container>
-      <Header>
-        <BackButton>◀</BackButton>
-        <TitleSection>
-          <ToggleButton>1224p</ToggleButton>
-          <Counter>1/3</Counter>
-        </TitleSection>
-        <PageLink>마이페이지</PageLink>
-      </Header>
+      <Header />
+      <BackButton onClick={goHome}>◀</BackButton>
       <ProfileSection>
-        <ProfilePicture src={UserImage} alt="Profile" />
+        <ProfilePicture src={shape_triple} alt="Profile" />
         <ProfileName>오유진</ProfileName>
       </ProfileSection>
       <MainContent>
@@ -41,7 +59,6 @@ const MyPage = () => {
 
 export default MyPage;
 
-// Styled Components
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -50,41 +67,18 @@ const Container = styled.div`
   background-color: #f0f0f0;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #ffffff;
-`;
+// const Header = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 1rem;
+//   background-color: #ffffff;
+// `;
 
 const BackButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
-`;
-
-const TitleSection = styled.div`
-  display: flex;
-  gap: 0.5rem;
-`;
-
-const ToggleButton = styled.button`
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-`;
-
-const Counter = styled.div`
-  background-color: #f5f5f5;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-`;
-
-const PageLink = styled.div`
-  font-size: 0.9rem;
-  color: #888;
 `;
 
 const ProfileSection = styled.div`
@@ -98,6 +92,7 @@ const ProfilePicture = styled.img`
   height: 50px;
   border-radius: 50%;
   margin-right: 0.5rem;
+  background-size: auto;
 `;
 
 const ProfileName = styled.div`
