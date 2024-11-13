@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Wrapper } from "./HomePage";
-import Locator from "../services/locator";
+import Locator from "../services/Locator";
 
 
 
@@ -11,7 +11,6 @@ const LocatingPage = () => {
   const goHome = () => {
     navigate("/");
   };
-
   
   
   return (
@@ -21,7 +20,6 @@ const LocatingPage = () => {
         눈사람 만들 곳을 클릭해주세요!
         <div onClick={goHome}>x</div>
       </Button>
-      
     </Wrapper>
   );
 };
