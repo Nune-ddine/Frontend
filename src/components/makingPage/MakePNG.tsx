@@ -4,14 +4,15 @@ import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
-  selectedImage: string;
+  selectedFeature: string;
+  isQuizMode: boolean; // 퀴즈 모드 여부 추가
 }
 
 export interface MakePNGHandle {
   captureImage: () => Promise<string | null>;
 }
 
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref) => {
+const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQuizMode }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
 
@@ -25,8 +26,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
     const name = event.dataTransfer.getData('name');
 
     if (imgSrc) {
-      console.log('Dropped Item Name:', name); // 드롭된 아이템 이름 출력
-
       const containerRect = container.getBoundingClientRect();
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
@@ -54,8 +53,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
       img.style.position = 'absolute';
 
       if (imgSrc.includes('shape')) {
-        // 'shape'일 경우 이미지가 중앙에서 약간 아래로 배치되도록 설정
-        const offsetY = 60; // 중앙에서 아래로 내릴 정도를 조정
+        const offsetY = 70;
         img.style.left = `${containerRect.width / 2 - imgWidth / 2}px`;
         img.style.top = `${containerRect.height / 2 - imgHeight / 2 + offsetY}px`;
       } else {
@@ -73,7 +71,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault(); // 드롭 허용을 위해 기본 동작을 막음
+    event.preventDefault();
   };
 
   const captureImage = async (): Promise<string | null> => {
@@ -116,14 +114,16 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
           overflow: 'hidden',
         }}
       />
-      <ButtonContainer>
-        <button onClick={handleUndo} disabled={images.length === 0}>
-          Undo
-        </button>
-        <button onClick={handleClearAll} disabled={images.length === 0}>
-          Clear All
-        </button>
-      </ButtonContainer>
+      {!isQuizMode && ( // 퀴즈 모드가 아닐 때만 버튼 표시
+        <ButtonContainer>
+          <button onClick={handleUndo} disabled={images.length === 0}>
+            Undo
+          </button>
+          <button onClick={handleClearAll} disabled={images.length === 0}>
+            Clear All
+          </button>
+        </ButtonContainer>
+      )}
     </Wrapper>
   );
 });

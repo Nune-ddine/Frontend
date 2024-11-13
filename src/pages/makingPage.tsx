@@ -14,7 +14,6 @@ const MakingPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // finalImage가 업데이트되면 결과 페이지로 이동
   useEffect(() => {
     if (finalImage) {
       navigate('/snowmanResult', { state: { finalImage } });
@@ -36,7 +35,7 @@ const MakingPage: React.FC = () => {
           setSelectedImage(img);
           setSelectedFeature(feature);
         }}
-        isQuizMode={isQuizMode}
+        isQuizMode={isQuizMode} // isQuizMode를 OptionPart에 전달
       />
     </PageWrapper>
   );
