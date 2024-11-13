@@ -31,7 +31,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
-      // imgSrc에 따라 이미지 크기 설정
       let imgWidth: number;
       let imgHeight: number;
 
@@ -53,8 +52,17 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
       img.src = imgSrc;
       img.alt = name;
       img.style.position = 'absolute';
-      img.style.left = `${x - imgWidth / 2}px`;
-      img.style.top = `${y - imgHeight / 2}px`;
+
+      if (imgSrc.includes('shape')) {
+        // 'shape'일 경우 이미지가 중앙에서 약간 아래로 배치되도록 설정
+        const offsetY = 60; // 중앙에서 아래로 내릴 정도를 조정
+        img.style.left = `${containerRect.width / 2 - imgWidth / 2}px`;
+        img.style.top = `${containerRect.height / 2 - imgHeight / 2 + offsetY}px`;
+      } else {
+        img.style.left = `${x - imgWidth / 2}px`;
+        img.style.top = `${y - imgHeight / 2}px`;
+      }
+
       img.style.width = `${imgWidth}px`;
       img.style.height = 'auto';
       img.style.objectFit = 'contain';
@@ -80,7 +88,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
     captureImage,
   }));
 
-  // 마지막 이미지를 제거하는 함수
   const handleUndo = () => {
     const lastImage = images.pop();
     if (lastImage && containerRef.current) {
@@ -89,7 +96,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedImage }, ref)
     }
   };
 
-  // 모든 이미지를 제거하는 함수
   const handleClearAll = () => {
     if (containerRef.current) {
       images.forEach((img) => containerRef.current?.removeChild(img));
