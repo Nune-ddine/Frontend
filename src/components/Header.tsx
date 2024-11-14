@@ -6,8 +6,8 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <PointBtn>Point</PointBtn>
-      <SnowmanCount>SnowmanCount</SnowmanCount>
+      <PointBtn>1224 p</PointBtn>
+      <QuizChance>1 / 3</QuizChance>
       <MyPageBtn onClick={() => navigate('/myPage')}>MyPage</MyPageBtn>
     </Wrapper>
   )
@@ -26,31 +26,32 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: row;
+  font-family: 'Maplestory-Bold', sans-serif;
 `
-const PointBtn = styled.button`
+const PointBtn = styled.div`
+  background-color: #C2E1FF;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 33.33%;
   height: 100%;
-  border: 2px solid blue;
   border-radius: 100px;
 `
-const SnowmanCount = styled.div`
+const QuizChance = styled.div`
+  background-color: #C2E1FF;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 33.33%;
   height: 100%;
-  border: 2px solid green;
   border-radius: 100px;
 `
 const MyPageBtn = styled.button`
+  background-image: url('/images/etc/');
   display: flex;
   justify-content: center;
   align-items: center;
   width: 33.33%;
   height: 100%;
-  border: 2px solid yellow;
   border-radius: 100px;
 `
