@@ -29,6 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 80px;
   cursor: grab;
+  font-family: sans-serif;
 `;
 
 const Image = styled.img`

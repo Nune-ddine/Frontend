@@ -1,7 +1,7 @@
 // src/components/optionComponents/FeatureBar.tsx
 import styled from 'styled-components';
 
-type FeatureType = 'shape' | 'face' | 'clothes';
+type FeatureType = '형태' | '얼굴' | '옷';
 
 interface FeatureBarProps {
   onFeatureClick: (feature: FeatureType) => void;
@@ -10,10 +10,10 @@ interface FeatureBarProps {
 const FeatureBar: React.FC<FeatureBarProps> = ({ onFeatureClick }) => {
   return (
     <Wrapper>
-      <Feature onClick={() => onFeatureClick("shape")}>형태</Feature>
-      <Feature onClick={() => onFeatureClick("face")}>얼굴</Feature>
-      <Feature onClick={() => onFeatureClick("clothes")}>옷</Feature>
-      <Feature onClick={() => onFeatureClick("clothes")}>티셔츠</Feature>
+      <Feature onClick={() => onFeatureClick("형태")}>형태</Feature>
+      <Feature onClick={() => onFeatureClick("얼굴")}>얼굴</Feature>
+      <Feature onClick={() => onFeatureClick("옷")}>옷</Feature>
+      <Feature onClick={() => onFeatureClick("옷")}>티셔츠</Feature>
     </Wrapper>
   );
 };
@@ -44,7 +44,7 @@ const Feature = styled.button`
   border-radius: 5px;
   background-color: #E4F1FF;
   border: 1px solid #3D9BF2;
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
   color: #3D9BF2;
