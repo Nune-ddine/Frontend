@@ -127,6 +127,39 @@ const HomePage = () => {
     }
   };
 
+  const createSnowman = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("https://nuneddine.p-e.kr/api/map/1/snowman", {
+        name: "내눈사람3",
+        color: "white",
+        snowmanShape: "BASIC",
+        image: "",
+        snowmanItemRequests: [
+            1, 2
+        ],
+        quiz: "맞춰보세요3",
+        answerId: 1,
+        content1: "선택지1",
+        content2: "선택지2",
+        content3: "선택지3",
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data); 
+    } catch (error) {
+      console.error("Failed to create snowman", error);
+    }
+  };
+
+
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
     const searchParams = new URLSearchParams(location.search);
@@ -151,7 +184,7 @@ const HomePage = () => {
       <button onClick={getInventory}>Get Inventory Test</button>
       <button onClick={getAllSnowman}>Get All Snowman Test</button>
       <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
-      
+      <button onClick={createSnowman}>Create Snowman Test</button>
     </Wrapper>
   )
 }
