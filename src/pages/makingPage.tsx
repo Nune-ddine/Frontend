@@ -49,5 +49,7 @@ const PageWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #f0f0f0;
-`;
+  background-color: #F3F9FF;
+
+  font-family: 'Maplestory-Bold', sans-serif;
+`

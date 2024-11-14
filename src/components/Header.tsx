@@ -26,11 +26,11 @@ export default Header
 
 const Wrapper = styled.div`
   width : 100%;
-  height: 7%;
+  height: 6.5%;
 
-  border: 2px solid red;
   box-sizing: border-box;
   padding: 10px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -25,20 +25,25 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
 
   return (
     <Wrapper>
-      <GotoMapBtn>MAP</GotoMapBtn>
+      <LeftBtnContainer>
+        <GotoMapBtn>{'<'} 맵으로 돌아가기</GotoMapBtn>
+        {isQuizMode ? (
+            <BackButton onClick={() => setIsQuizMode(false)}>{'<'}</BackButton>
+        ) : ( <></>
+        )}
+      </LeftBtnContainer>
       <SnowmanContainer>
         <MakePNG ref={makePNGRef} selectedFeature={selectedFeature} isQuizMode={isQuizMode} /> {/* isQuizMode를 MakePNG에 전달 */}
       </SnowmanContainer>
-      <ButtonContainer>
+      <RightBtnContainer>
         {isQuizMode ? (
           <>
-            <BackButton onClick={() => setIsQuizMode(false)}>{'<-'}</BackButton>
-            <NextButton onClick={saveFinalImage}>완성</NextButton>
+            <NextButton onClick={saveFinalImage}>{'>'}</NextButton>
           </>
         ) : (
-          <NextButton onClick={() => setIsQuizMode(true)}>{'->'}</NextButton>
+          <NextButton onClick={() => setIsQuizMode(true)}>{'>'}</NextButton>
         )}
-      </ButtonContainer>
+      </RightBtnContainer>
     </Wrapper>
   );
 };
@@ -52,48 +57,72 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+`;
+
+const LeftBtnContainer = styled.div`
+  display: flex;
+  flex-direction: column; 
+  width: 20%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const SnowmanContainer = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   position: relative;
 `;
 
-const ButtonContainer = styled.div`
+const RightBtnContainer = styled.div`
   display: flex;
+  width: 20%;
+  height: 100%;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
 `;
 
 const GotoMapBtn = styled.button`
-  width: 10%;
-  height: 7%;
-  background-color: grey;
+  background-color: #E4F1FF;
+  padding: 10px 1px;
+  width: 100%;
+  border-radius: 100px;
   border: none;
   cursor: pointer;
+  margin-left: 15px;
+  margin-top: 15px;
+  color: #3D9BF2;
+  font-family: "Maplestory-Bold", sans-serif;
+  font-size: 10px;
 `;
 
 const NextButton = styled.button`
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: white;
+  padding: 9px;
+  background-color: #FFF1D2;
+  color: #513421;
   border: none;
-  border-radius: 4px;
+  border-radius: 100%;
+  aspect-ratio: 1;
   cursor: pointer;
+  border: 1px solid #513421;
+  margin-bottom: 15px;
 `;
 
 const BackButton = styled.button`
-  padding: 8px 16px;
-  background-color: #f44336;
-  color: white;
+  padding: 9px;
+  background-color: #FFF1D2;
+  color: #513421;
   border: none;
-  border-radius: 4px;
+  border-radius: 100%;
+  aspect-ratio: 1;
   cursor: pointer;
+  border: 1px solid #513421;
+  margin-bottom: 15px;
 `;
