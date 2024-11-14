@@ -48,6 +48,7 @@ const Button = styled.div`
 
   img {
     height:70%;
+    
   }
 `
 const MyPageBtn = styled.button`
@@ -68,6 +69,7 @@ const Left = styled.div`
   gap: 10px;
   width: 80%;
   height: 100%;
+
 `
 
 const Text = styled.div`
@@ -82,4 +84,6 @@ const Text = styled.div`
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
+  box-shadow: 1px 2px 2px rgba(0, 60, 116, 0.25);
+
 `

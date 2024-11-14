@@ -1,6 +1,5 @@
-// src/components/SecFeatCard.tsx
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface SecFeatCardProps {
   name: string;
@@ -14,7 +13,7 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
   };
 
   return (
-    <Wrapper draggable onDragStart={handleDragStart}>
+    <Wrapper imgSrc={img} draggable onDragStart={handleDragStart}>
       <Image src={img} alt={name} />
       <div>{name}</div>
     </Wrapper>
@@ -23,7 +22,11 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
 
 export default SecFeatCard;
 
-const Wrapper = styled.div`
+interface WrapperProps {
+  imgSrc: string;
+}
+
+const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,6 +35,13 @@ const Wrapper = styled.div`
   font-family: sans-serif;
   padding-left: 20px;
   padding-right: 20px;
+
+  ${({ imgSrc }) =>
+    imgSrc.includes('shape') &&
+    css`
+      width: 50%;
+
+    `}
 `;
 
 const Image = styled.img`

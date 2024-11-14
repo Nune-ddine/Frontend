@@ -50,6 +50,8 @@ const Wrapper = styled.div`
   height: 55%;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+  //위로 그림자
+  box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.519);
 `;
 
 const SecondFeature = styled.div`
