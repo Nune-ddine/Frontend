@@ -1,11 +1,10 @@
-// src/components/MakePNG.tsx
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
 
 interface MakePNGProps {
   selectedFeature: string;
-  isQuizMode: boolean; // 퀴즈 모드 여부 추가
+  isQuizMode: boolean; 
 }
 
 export interface MakePNGHandle {
@@ -15,10 +14,10 @@ export interface MakePNGHandle {
 const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQuizMode }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-
     const container = containerRef.current;
     if (!container) return;
 
@@ -30,9 +29,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
-      let imgWidth: number;
-      let imgHeight: number;
-
+      let imgWidth = 100, imgHeight = 100;
       if (imgSrc.includes('shape')) {
         imgWidth = 400;
         imgHeight = 400;
@@ -40,9 +37,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         imgWidth = 50;
         imgHeight = 50;
       } else if (imgSrc.includes('clothes')) {
-        imgWidth = 100;
-        imgHeight = 100;
-      } else {
         imgWidth = 100;
         imgHeight = 100;
       }
@@ -67,6 +61,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
 
       container.appendChild(img);
       setImages((prevImages) => [...prevImages, img]);
+      setRedoImages([]); // 새로 이미지 추가 시 redoImages 초기화
     }
   };
 
@@ -91,6 +86,16 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
     if (lastImage && containerRef.current) {
       containerRef.current.removeChild(lastImage);
       setImages([...images]);
+      setRedoImages((prevRedoImages) => [lastImage, ...prevRedoImages]); // undo 시 redoImages에 추가
+    }
+  };
+
+  const handleRedo = () => {
+    const lastRedoImage = redoImages.shift();
+    if (lastRedoImage && containerRef.current) {
+      containerRef.current.appendChild(lastRedoImage);
+      setImages((prevImages) => [...prevImages, lastRedoImage]);
+      setRedoImages([...redoImages]);
     }
   };
 
@@ -98,6 +103,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
     if (containerRef.current) {
       images.forEach((img) => containerRef.current?.removeChild(img));
       setImages([]);
+      setRedoImages([]); // Clear all 시 redoImages 초기화
     }
   };
 
@@ -114,14 +120,23 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
           overflow: 'hidden',
         }}
       />
-      {!isQuizMode && ( // 퀴즈 모드가 아닐 때만 버튼 표시
+      {!isQuizMode && (
         <ButtonContainer>
-          <button onClick={handleUndo} disabled={images.length === 0}>
-            Undo
-          </button>
-          <button onClick={handleClearAll} disabled={images.length === 0}>
-            Clear All
-          </button>
+          <Button onClick={handleUndo} disabled={images.length === 0}>
+            <div>
+              {'<-'}
+            </div>
+          </Button>
+          <Button onClick={handleRedo} disabled={redoImages.length === 0}>
+            <div>
+              {'->'}
+            </div>
+          </Button>
+          <Button onClick={handleClearAll} disabled={images.length === 0}>
+            <div>
+              Clear All
+            </div>
+          </Button>
         </ButtonContainer>
       )}
     </Wrapper>
@@ -143,4 +158,24 @@ const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 10px;
-`;
+  margin-bottom: 15px;
+`
+
+const Button = styled.button`
+  background-color: #FFE2A4;
+  border-radius: 100px;
+  width: auto; 
+  padding: 4px;
+  border: 1px solid #513421;
+
+  div {
+    font-size: 12px;
+    background-color: #FFF1D2;
+    color: #513421;
+    border-radius: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+`

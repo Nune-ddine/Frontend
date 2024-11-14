@@ -39,12 +39,12 @@ const Feature = styled.button`
   align-items: center;
   padding-top: 15px;
   padding-bottom: 15px;
-  width: 17%;
+  width: 23%;
   height: 100%;
   border-radius: 5px;
   background-color: #E4F1FF;
   border: 1px solid #3D9BF2;
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
   cursor: pointer;
   color: #3D9BF2;
