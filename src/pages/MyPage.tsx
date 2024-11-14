@@ -29,10 +29,9 @@ const MyPage: React.FC = () => {
 
   const getProfile = async () => {
     try {
-      const response = await getMember();
-      // const image = response.data.image;
-      // setImage(image);
-      // setName(response.name);
+      const response: MemberResponse = await getMember(); // response 타입 명시
+      setImage(response.image);
+      setName(response.name);
     } catch (error) {
       console.error("Failed to fetch member profile:", error);
     }
@@ -40,7 +39,7 @@ const MyPage: React.FC = () => {
 
   const getSnowman = async () => {
     try {
-      const response: Snowman[] = await getMySnowman();
+      const response: Snowman[] = await getMySnowman(); // response 타입 명시
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to fetch snowman data:", error);
@@ -49,20 +48,16 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
-      const body = {
-        "username": "누네띠네"
-      };
-      const response = await patchUsername();
+      const response = await patchUsername("누네띠네"); // username 인자를 추가
       console.log(response);
     } catch (error) {
       console.error("Error updating username:", error);
     }
   };
-  
 
   useEffect(() => {
     getProfile();
-    // getSnowman();
+    getSnowman();
   }, []);
 
   return (
