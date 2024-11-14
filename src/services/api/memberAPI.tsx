@@ -1,5 +1,5 @@
 import axios from 'axios';
-import URL from '../constants/constants';
+import URL from '../../constants/constants';
 
 export const getMember = async () => {
   const token = localStorage.getItem("token");

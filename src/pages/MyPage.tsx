@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import { getMember, getMySnowman, patchUsername } from '../services/memberAPI';
+import { getMember, getMySnowman, patchUsername } from '../services/api/memberAPI';
 
 interface MemberResponse {
   image: string;
