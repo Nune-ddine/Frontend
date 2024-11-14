@@ -177,7 +177,7 @@ const HomePage = () => {
       <Main>
         <></>
       </Main>
-      <button onClick={() => navigate('/makingPage')}>Making Page</button>
+      <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
