@@ -66,7 +66,8 @@ const MyPage: React.FC = () => {
       <BackButton onClick={goHome}>◀</BackButton>
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
-        <ProfileName>{name || "오유진"}
+        <ProfileName>
+          {name || "오유진"}
           <img src="/images/etc/edit.png" style={{width:"10px"}} onClick={editUsername}></img>
         </ProfileName>
       </ProfileSection>
@@ -144,7 +145,6 @@ const ProfileName = styled.div`
   border: 1px solid #513421;
   font-size: 11px;
   color: #513421;
-
   div {
     background-color: #FFF1D2;
     border-radius: 100px;

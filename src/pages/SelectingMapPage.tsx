@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
-import { Wrapper } from "./HomePage"
-import { BackButton } from "./MyPage"
+
+import { BackButton, Wrapper } from "./MyPage"
 
 const SelectingMapPage = () => {
     const navigate = useNavigate();
