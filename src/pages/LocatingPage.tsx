@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Wrapper } from "./HomePage";
-import Locator from "../services/Locator";
 import Header from "../components/Header";
+import Locator from "../services/locator";
 
 
 

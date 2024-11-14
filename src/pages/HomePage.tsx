@@ -5,6 +5,7 @@ import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const HomePage = () => {
   const location = useLocation();
@@ -37,6 +38,16 @@ const HomePage = () => {
           </LoginLayout>
         )}
       </Main>
+
+
+      <button onClick={() => navigate('/makingPage')}>Making Page</button>
+      <button onClick={getMember}>Get Member Test</button>
+      <button onClick={getGotcha}>Get Gotcha Test</button>
+      <button onClick={patchMember}>Patch Member Test</button>
+      <button onClick={getInventory}>Get Inventory Test</button>
+      <button onClick={getAllSnowman}>Get All Snowman Test</button>
+      <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
+  
     </Wrapper>
   );
 };
@@ -51,7 +62,6 @@ export const Wrapper = styled.div`
   // align-items: center;
   background-color: #6FABEB;
 `;
-
 const MainLayout = styled.div`
   display: flex;
   justify-content: space-around;
