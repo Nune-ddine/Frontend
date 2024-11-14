@@ -14,7 +14,7 @@ import MakingPage from './pages/makingPage';
 class App extends Component {
   
   componentDidMount() { 
-    this.setScreenSize();
+    // this.setScreenSize();
     this.fixRatio();
     window.addEventListener('resize', this.fixRatio);
   }
