@@ -3,12 +3,13 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
-import GotchaPage from './pages/GotchaPage';
 import LoginTestPage from './pages/LoginTestPage';
 import SnowmanResultPage from './pages/SnowmanResultPage';
 import LocatingPage from './pages/LocatingPage';
+import SelectingMapPage from './pages/SelectingMapPage';
+import GotchaPage from './pages/GotchaPage';
 import TestPage from './pages/TestPage';
-import MakingPage from './pages/MakingPage';
+import MakingPage from './pages/makingPage';
 
 class App extends Component {
   
@@ -52,12 +53,11 @@ class App extends Component {
           <Route path="/" element={<HomePage />} />
           <Route path="/myPage" element={<MyPage />} />
           <Route path="/gotcha" element={<GotchaPage />} />
-
-          <Route path='/loginTest' element={<LoginTestPage />} />
+          <Route path='/login' element={<LoginTestPage />} />
           <Route path='/making' element={<MakingPage />} />
           <Route path='/snowmanResult' element={<SnowmanResultPage />} />
           <Route path='/locating' element={<LocatingPage />}/>
-          
+          <Route path='/elevator' element={<SelectingMapPage/>}/>
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </div>
