@@ -6,9 +6,18 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <PointBtn>1224 p</PointBtn>
-      <QuizChance>1 / 3</QuizChance>
-      <MyPageBtn onClick={() => navigate('/myPage')}>MyPage</MyPageBtn>
+      <Left>
+        <Button>
+          <img src="/images/etc/pointBtn.png" alt="point" />
+          <Text>1224p</Text>
+        </Button>
+        <Button>
+          <img src="/images/etc/questionmarkBtn.png" alt="quizChance" />
+          <Text>1 / 3</Text>
+        </Button>
+      </Left>
+      <MyPageBtn onClick={() => navigate('/myPage')}>
+      </MyPageBtn>
     </Wrapper>
   )
 }
@@ -22,36 +31,55 @@ const Wrapper = styled.div`
   border: 2px solid red;
   box-sizing: border-box;
   padding: 10px;
-  gap: 10px;
-
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   font-family: 'Maplestory-Bold', sans-serif;
 `
-const PointBtn = styled.div`
+const Button = styled.div`
   background-color: #C2E1FF;
+  border: 1px solid #513421;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 33.33%;
   height: 100%;
   border-radius: 100px;
-`
-const QuizChance = styled.div`
-  background-color: #C2E1FF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 33.33%;
-  height: 100%;
-  border-radius: 100px;
+
+  img {
+    height:70%;
+  }
 `
 const MyPageBtn = styled.button`
-  background-image: url('/images/etc/');
+  background-image: url('/images/etc/mypageBtn.png');
+  background-size: cover;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33.33%;
-  height: 100%;
   border-radius: 100px;
+  height: 100%;
+  aspect-ratio: 1/1;
+`;
+
+const Left = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 80%;
+  height: 100%;
+`
+
+const Text = styled.div`
+  width: 60%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF1D2;
+  border: 1px solid #513421;
+  border-radius: 100px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
 `
