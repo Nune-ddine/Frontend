@@ -30,4 +30,5 @@ const Wrapper = styled.div`
   padding: 10px;
   box-sizing: border-box;
   overflow-y: auto;
+  padding-left: 20px;
 `;

@@ -27,12 +27,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80px;
+  width: 25%;
   cursor: grab;
   font-family: sans-serif;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 const Image = styled.img`
-  width: 100%;
+  width: 70%;
   height: auto;
+  margin-bottom: 10px;
 `;
