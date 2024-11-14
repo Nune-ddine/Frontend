@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Locator from "../services/locator";
-import { Wrapper } from "./HomePage";
 import closeBtn from "../../public/buttons/closeBtn.png"
+import { Wrapper } from "./MyPage";
 const LocatingPage = () => {
   const navigate = useNavigate();
   

@@ -61,13 +61,14 @@ const MyPage: React.FC = () => {
   }, []);
 
   return (
-    <Container>
+    <Wrapper style={{backgroundColor:"#f0f0f0"}}>
       <Header />
       <BackButton onClick={goHome}>◀</BackButton>
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
-        <ProfileName>{name}</ProfileName>
-        <div onClick={editUsername}>✏️</div>
+        <ProfileName>{name || "오유진"}
+          <img src="/images/etc/edit.png" style={{width:"10px"}} onClick={editUsername}></img>
+        </ProfileName>
       </ProfileSection>
       <MainContent>
         <SnowmanContainer>
@@ -84,24 +85,41 @@ const MyPage: React.FC = () => {
           })}
         </SnowmanContainer>
       </MainContent>
-    </Container>
+    </Wrapper>
   );
 };
 
 export default MyPage;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
+export const Wrapper = styled.div`
+  height : 100%;
+  display : flex;
   flex-direction: column;
-  background-color: #f0f0f0;
-`;
+  justify-content : space-between;
+  background-color : #F3F9FF;
+  font-family: 'MaplestoryOTFBold';
+`
 
 export const BackButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
+  background-color: #FFE2A4;
+  border-radius: 100px;
+  margin-left: 2%;
+  width: 9%;
+  height: 5%;
+  padding: 10px;
+  border: 1px solid #513421;
+  font-size: 11px;
+  color: #513421;
+  div {
+    background-color: #FFF1D2;
+    border-radius: 100px;
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 `;
 
 const ProfileSection = styled.div`
@@ -119,8 +137,21 @@ const ProfilePicture = styled.img`
 `;
 
 const ProfileName = styled.div`
-  font-size: 1.2rem;
-  font-weight: bold;
+  background-color: #FFE2A4;
+  border-radius: 100px;
+  width: auto; 
+  padding: 10px;
+  border: 1px solid #513421;
+  font-size: 11px;
+  color: #513421;
+
+  div {
+    background-color: #FFF1D2;
+    border-radius: 100px;
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 `;
 
 const MainContent = styled.div`

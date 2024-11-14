@@ -175,7 +175,7 @@ const HomePage = () => {
     <Wrapper>
       <Header/>
       <Main>
-        <></>
+        <img src='images/etc/map.png' style={{width:"24%"}}></img>
       </Main>
       <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
@@ -191,10 +191,11 @@ const HomePage = () => {
 
 export default HomePage
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   height : 100%;
   display : flex;
   flex-direction: column;
   justify-content : space-between;
   background-color : #6FABEB;
+  font-family: 'MaplestoryOTFBold';
 `
