@@ -203,7 +203,7 @@ const HomePage = () => {
     }
   
     try {
-      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/snowman/1", {
+      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/snowman/2", {
         number: 1
       }, {
         headers: {
@@ -216,34 +216,6 @@ const HomePage = () => {
     }
   }
 
-  const editSnowman = async () => { 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
-  
-    try {
-      const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/snowman/detail/1", {
-        name: "string",
-        color: "string",
-        snowmanShape: "BASIC",
-        image: "string",
-        snowmanItemRequests: [
-        {
-          id: 1
-        }
-      ]
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data); 
-    } catch (error) {
-      console.error("Failed to edit snowman", error);
-    }
-  }
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -272,7 +244,7 @@ const HomePage = () => {
             <img src='images/homes/kakaoLogin.png' onClick={() => navigate('/login')}>카카오 로그인하기</img>
           </LoginLayout>
         )}
-      {/* <button onClick={() => navigate('/making')}>Making Page</button>
+      <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
@@ -283,7 +255,6 @@ const HomePage = () => {
       <button onClick={getMySnowmans}>Get My Snowmans Test</button>
       <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
       <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button>
-      <button onClick={editSnowman}>Edit Snowman Test</button>
     </Wrapper>
   )
 }
