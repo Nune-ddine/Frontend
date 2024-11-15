@@ -74,19 +74,19 @@ const MyPage: React.FC = () => {
                 type="text"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
-                placeholder="새로운 이름 입력"
                 style={{
                   border: "1px solid #513421",
                   borderRadius: "8px",
-                  padding: "5px",
+                  width:"80px",
+                  height:"24px"
                 }}
               />
-              <button onClick={editUsername} style={{ marginLeft: "10px" }}>
+              <Button onClick={editUsername} style={{ marginLeft: "1rem" }}>
                 저장
-              </button>
-              <button onClick={() => setIsEditing(false)} style={{ marginLeft: "5px" }}>
+              </Button>
+              <Button onClick={() => setIsEditing(false)} style={{ marginLeft: "1rem" }}>
                 취소
-              </button>
+              </Button>
             </div>
           ) : (
             <>
@@ -183,7 +183,9 @@ const ProfileName = styled.div`
     padding-right: 8px;
   }
 `;
-
+const Button = styled.button`
+  width : 56px;
+`
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
