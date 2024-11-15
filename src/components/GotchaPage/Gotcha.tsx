@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CloseButton } from "../Quiz";
 
 const Gotcha = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -89,13 +90,4 @@ const ModalContent = styled.div`
   width: 80%;
   max-width: 400px;
   font-size : 1.4rem;
-`;
-
-const CloseButton = styled.img`  
-position: relative;
-  top: -12px;
-  left: 190px;
-  width: 3rem;
-  cursor: pointer;
-  z-index:10;
 `;
