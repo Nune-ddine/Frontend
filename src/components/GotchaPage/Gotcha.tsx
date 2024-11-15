@@ -86,7 +86,7 @@ const Button = styled.button`
   font-size: 1.6rem;
   border-radius: 100px;
   border: 3px solid #0084ff;
-  margin-top: 3rem;
+  margin-top: 1rem;
 `;
 
 const Modal = styled.div`
