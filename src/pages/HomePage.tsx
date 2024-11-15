@@ -241,8 +241,8 @@ const HomePage = () => {
           </MainLayout>
         ) : (
         <LoginLayout>
-          <div onClick={() => navigate('/login')} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , height :"24px"}} />
+          <div onClick={() => navigate('/login')}>
+            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
           </div>
         </LoginLayout>
         
@@ -282,12 +282,23 @@ const LoginLayout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+  }
+
   button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #FFDD00;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
 `;
