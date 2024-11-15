@@ -32,7 +32,7 @@ export const patchUsername = async () => {
 
   try {
     const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
-      username: "테스트 닉네임",
+      username: "선빈이",
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
