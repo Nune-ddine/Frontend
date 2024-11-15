@@ -34,7 +34,7 @@ export const patchUsername = async (newUsername: string) => {
     const response = await axios.patch(
       "https://nuneddine.p-e.kr/api/v1/member/username",
       {
-        username: newUsername, // Use the passed newUsername parameter
+        username: newUsername,
 
       },
       {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
+import { getQuiz } from '../services/api/quizAPI';
 
 interface QuizData {
   id: number;
@@ -12,6 +12,7 @@ interface QuizData {
   choice1: string | null;
   choice2: string | null;
   choice3: string | null;
+  isSolved: boolean;
 }
 
 interface QuizModalProps {
@@ -36,20 +37,28 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const [isSolved, setIsSolved] = useState<boolean>(false);
 
   useEffect(() => {
     if (isOpen) {
-      // Fetch quiz data from the API
-      axios.get<QuizData>('YOUR_API_ENDPOINT_HERE')
-        .then(response => setQuizData(response.data))
-        .catch(error => console.error('Error fetching quiz data:', error));
+      const fetchQuizData = async () => {
+        try {
+          const quizId = 2; // Example quiz ID
+          const data = await getQuiz(quizId);
+          setQuizData(data);
+          setIsSolved(data.isSolved); // Set the isSolved status
+        } catch (error) {
+          console.error('Error fetching quiz data:', error);
+        }
+      };
+
+      fetchQuizData();
     }
   }, [isOpen]);
 
   const handleAnswerSelection = (choiceId: number) => {
     setSelectedAnswer(choiceId);
     setShowResult(true);
-    // Check if selected answer is correct
     if (quizData && choiceId === quizData.answerId) {
       setIsCorrect(true);
     } else {
@@ -64,17 +73,36 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <CloseButton src='images/etc/closeBtn.png' alt="Close" onClick={onClose} />
-        <HeaderText>{quizData.name ? `${quizData.username}님이 만든 ${quizData.name}` : "오유진님이 만든 푸앙눈구리"}</HeaderText>
-        <QuizImage src={quizData.image} alt="Quiz" />
-        <QuizContainer>
-          <QuizText>{quizData.quiz || "Q. 문제를 맞춰보세요"}</QuizText>
-          <ChoicesContainer>
-            <ChoiceButton onClick={() => handleAnswerSelection(1)}><img src='images/quizs/numberBtn1.png' style={{height:"30px"}}/>{quizData.choice1 || "Option 1"}</ChoiceButton>
-            <ChoiceButton onClick={() => handleAnswerSelection(2)}><img src='images/quizs/numberBtn2.png' style={{height:"30px"}}/>{quizData.choice2 || "Option 2"}</ChoiceButton>
-            <ChoiceButton onClick={() => handleAnswerSelection(3)}><img src='images/quizs/numberBtn3.png' style={{height:"30px"}}/>{quizData.choice3 || "Option 3"}</ChoiceButton>
-          </ChoicesContainer>
-        </QuizContainer>
+        <CloseButton src="images/etc/closeBtn.png" alt="Close" onClick={onClose} />
+        {isSolved ? (
+          <img src="/images/quizs/alread.png" alt="Already Solved" />
+        ) : (
+          <>
+            <HeaderText>
+              {quizData.name
+                ? `${quizData.username}님이 만든 ${quizData.name}`
+                : '오유진님이 만든 푸앙눈구리'}
+            </HeaderText>
+            <QuizImage src={quizData.image} alt="Quiz" />
+            <QuizContainer>
+              <QuizText>{`Q. ${quizData.quiz}` || 'Q. 문제를 맞춰보세요'}</QuizText>
+              <ChoicesContainer>
+                <ChoiceButton onClick={() => handleAnswerSelection(1)}>
+                  <img src="images/quizs/numberBtn1.png" style={{ height: '30px' }} />
+                  {quizData.choice1 || 'Option 1'}
+                </ChoiceButton>
+                <ChoiceButton onClick={() => handleAnswerSelection(2)}>
+                  <img src="images/quizs/numberBtn2.png" style={{ height: '30px' }} />
+                  {quizData.choice2 || 'Option 2'}
+                </ChoiceButton>
+                <ChoiceButton onClick={() => handleAnswerSelection(3)}>
+                  <img src="images/quizs/numberBtn3.png" style={{ height: '30px' }} />
+                  {quizData.choice3 || 'Option 3'}
+                </ChoiceButton>
+              </ChoicesContainer>
+            </QuizContainer>
+          </>
+        )}
         {showResult && (
           <ResultMessage correct={isCorrect}>
             {isCorrect ? (
@@ -131,7 +159,7 @@ export const CloseButton = styled.img`
 `;
 
 const HeaderText = styled.div`
-  background-color: #E4F1FF;
+  background-color: #e4f1ff;
   color: #513421;
   padding: 8px 5%;
   border-radius: 20px;
@@ -150,18 +178,18 @@ const QuizImage = styled.img`
 
 const QuizContainer = styled.div`
   width: 100%;
-  background-color : #E4F1FF;
-  border: 1px solid #513421;   
+  background-color: #e4f1ff;
+  border: 1px solid #513421;
   border-radius: 12px;
   font-family: 'MaplestoryOTFBold';
 `;
 
 const QuizText = styled.div`
-  background-color: #3D9BF2;
+  background-color: #3d9bf2;
   color: white;
   padding: 12px;
   border-radius: 12px 12px 0 0;
-  border-bottom: 1px solid #513421;   
+  border-bottom: 1px solid #513421;
   font-size: 1.6rem;
   font-weight: bold;
   text-align: center;
@@ -181,8 +209,8 @@ const ChoiceButton = styled.button`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid #513421;   
-  background: #FFF;
+  border: 1px solid #513421;
+  background: #fff;
   box-shadow: 1px 2px 0px -1px rgba(61, 155, 242, 0.48);
   padding: 8px;
   font-size: 1rem;
