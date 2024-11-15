@@ -7,7 +7,7 @@ import BackBtn from '../components/BackBtn';
 
 interface MemberResponse {
   image: string;
-  name: string;
+  username: string;
 }
 
 interface Snowman {
@@ -15,24 +15,21 @@ interface Snowman {
   name: string | null;
   image: string;
   correctCount: number;
-  incorrectCount: number;
+  incorrentCount: number; 
 }
 
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
-
-  const goHome = () => {
-    navigate("/");
-  };
 
   const getProfile = async () => {
     try {
       const response: MemberResponse = await getMember(); // response 타입 명시
       setImage(response.image);
-      setName(response.name);
+      setUsername(response.username);
+      // console.log(response);
     } catch (error) {
       console.error("Failed to fetch member profile:", error);
     }
@@ -41,20 +38,21 @@ const MyPage: React.FC = () => {
   const getSnowman = async () => {
     try {
       const response: Snowman[] = await getMySnowman(); // response 타입 명시
+      console.log(response);
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to fetch snowman data:", error);
     }
   };
 
-  // const editUsername = async () => {
-  //   try {
-  //     const response = await patchUsername("누네띠네"); // username 인자를 추가
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Error updating username:", error);
-  //   }
-  // };
+  const editUsername = async () => {
+    try {
+      const response = await patchUsername(); // username 인자를 추가
+      console.log(response);
+    } catch (error) {
+      console.error("Error updating username:", error);
+    }
+  };
 
   useEffect(() => {
     getProfile();
@@ -68,24 +66,28 @@ const MyPage: React.FC = () => {
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>
-          {name || "오유진"}
-          <img src="/images/etc/edit.png" style={{width:"10px"}} onClick={editUsername}></img>
+          {username}
+          <img src="/images/mypage/edit.png" style={{width:"16px"}} onClick={editUsername}></img>
         </ProfileName>
       </ProfileSection>
       <MainContent>
-        <SnowmanContainer>
-          {snowmans.map((snowman) => {
-            const totalCount = snowman.correctCount + snowman.incorrectCount;
-            return (
-              <Snowman key={snowman.id}>
-                <SnowmanText>{snowman.name || "Unknown Snowman"}</SnowmanText>
-                <SnowmanCount>
-                  {snowman.correctCount}/{totalCount}명
-                </SnowmanCount>
-              </Snowman>
-            );
-          })}
-        </SnowmanContainer>
+      <SnowmanContainer>
+        {snowmans.length > 0 && snowmans[0] ? (
+          <Snowman key={snowmans[0].id}>
+            <img
+              src={snowmans[0].image || '/images/mypage/emtpySnowman.png'}
+              alt="Snowman"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <SnowmanText>{snowmans[0].name || 'Unnamed Snowman'}</SnowmanText>
+            <SnowmanCount>
+              {snowmans[0].correctCount}/{snowmans[0].incorrentCount}명
+            </SnowmanCount>
+          </Snowman>
+        ) : (
+          <div>No snowman data available</div>
+        )}
+      </SnowmanContainer>
       </MainContent>
     </Wrapper>
   );
@@ -121,6 +123,7 @@ const ProfileName = styled.div`
   border-radius: 100px;
   width: auto; 
   padding: 10px;
+  gap : 10px;
   border: 1px solid #513421;
   font-size: 11px;
   color: #513421;

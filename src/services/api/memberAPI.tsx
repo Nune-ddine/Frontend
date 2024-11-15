@@ -24,7 +24,7 @@ export const getMember = async () => {
   }
 };
 
-export const patchMember = async () => {
+export const patchUsername = async () => {
   if (!token) {
     console.log("Token not found");
     return;

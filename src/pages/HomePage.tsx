@@ -184,9 +184,12 @@ const HomePage = () => {
             <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate('/locating')}></img>
           </MainLayout>
         ) : (
-          <LoginLayout>
-            <img src='images/homes/kakaoLogin.png' onClick={() => navigate('/login')}>카카오 로그인하기</img>
-          </LoginLayout>
+        <LoginLayout>
+          <div onClick={() => navigate('/login')} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , height :"24px"}} />
+          </div>
+        </LoginLayout>
+        
         )}
       <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
