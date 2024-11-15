@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-interface SnowmanState {
+export interface SnowmanState {
   name: string;
   image: string;
   posX: number;

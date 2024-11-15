@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
 import { snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState } from 'recoil';
+import { createSnowman } from '../../services/snomanAPI';
 
 interface SnowmanPartProps {
   selectedImage: string;
@@ -21,7 +22,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   React.useEffect(() => {
     console.log('Updated snowman:', snowman);
   }, [snowman]);
-  
+
   const saveFinalImage = async () => {
     if (makePNGRef.current) {
       const image = await makePNGRef.current.captureImage();
@@ -33,6 +34,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
           image: image, // 이미지 설정
         }));
         printSnowman();
+        createSnowman(snowman);
       }
     }
   };

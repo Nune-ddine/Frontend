@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { SnowmanState } from "../contexts/snowmanState";
 
 export const getMember = async () => {
 const token = localStorage.getItem("token");
@@ -111,7 +112,7 @@ try {
 }
 };
 
-export const createSnowman = async () => {
+export const createSnowman = async ( snowman: SnowmanState ) => { //todo -> mapnumber도 바꿔야함
 const token = localStorage.getItem("token");
 if (!token) {
    console.log("Token not found");
@@ -120,15 +121,15 @@ if (!token) {
 
 try {
    const response = await axios.post("https://nuneddine.p-e.kr/api/v1/map/1/snowman", {
-      name: "수쨩테스트",
-      image: "이미지링크",
-      posX: 2,
-      posY: 3,
-      quiz: "퀴즈",
-      answerId: 3,
-      content1: "보기1",
-      content2: "보기2",
-      content3: "보기3"
+      name: snowman.name,
+      image: snowman.image,
+      posX: 2, //todo
+      posY: 3, //todo
+      quiz: snowman.quiz,
+      answerId: snowman.answerId,
+      content1: snowman.content1,
+      content2: snowman.content2,
+      content3: snowman.content3,
    }, {
       headers: {
       Authorization: `Bearer ${token}`,
