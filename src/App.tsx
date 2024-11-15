@@ -10,6 +10,7 @@ import SelectingMapPage from './pages/SelectingMapPage';
 import GotchaPage from './pages/GotchaPage';
 import TestPage from './pages/TestPage';
 import MakingPage from './pages/makingPage';
+import QuizTestPage from './pages/QuizTestPage';
 
 class App extends Component {
   
@@ -59,6 +60,7 @@ class App extends Component {
           <Route path='/locating' element={<LocatingPage />}/>
           <Route path='/elevator' element={<SelectingMapPage/>}/>
           <Route path="/test" element={<TestPage />} />
+          <Route path="/quiz" element={<QuizTestPage/>}/>
         </Routes>
       </div>
     );

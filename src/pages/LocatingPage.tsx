@@ -1,27 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Wrapper } from "./HomePage";
 import Header from "../components/Header";
 import Locator from "../services/locator";
-
-
-
+import closeBtn from "../../public/buttons/closeBtn.png"
+import { Wrapper } from "./MyPage";
 const LocatingPage = () => {
   const navigate = useNavigate();
-  
-  const goHome = () => {
-    navigate("/");
-  };
-  
   
   return (
     <Wrapper>
       <Header/>
       <Locator/>
-      <Button>
-        눈사람 만들 곳을 클릭해주세요!
-        <div onClick={goHome}>x</div>
-      </Button>
+      <Wrapper style={{height:"10%", alignItems:"center"}}>
+        <Button>
+          눈사람 만들 곳을 클릭해주세요!
+          <img onClick={()=>navigate("/")} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
+        </Button>
+      </Wrapper>
     </Wrapper>
   );
 };
@@ -32,14 +27,13 @@ const Button = styled.div`
   display: flex;
   justify-content: center;
   width: 90%;
+  border: 1px solid #513421;
   border-radius: 100px;
-  background-color: white;
-  padding: 3%;
+  color : #5DABF5;
+  background-color: #DCEEFF;
+  padding: 3% 0;
   gap : 10px;
   font-family: 'MaplestoryOTFBold';
-  // font-family: 'MaplestoryOTFBold';
-  // src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
-  // font-weight: normal;
-  // font-style: normal;
+  font-size : 1.6rem;
+  margin-bottom : 4rem;
 `;
-
