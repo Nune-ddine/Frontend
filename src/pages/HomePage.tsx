@@ -247,7 +247,7 @@ const HomePage = () => {
         </LoginLayout>
         
         )}
-      <button onClick={() => navigate('/making')}>Making Page</button>
+      {/* <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
@@ -257,7 +257,7 @@ const HomePage = () => {
       <button onClick={createSnowman}>Create Snowman Test</button>
       <button onClick={getMySnowmans}>Get My Snowmans Test</button>
       <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
-      <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button>
+      <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button> */}
     </Wrapper>
   )
 }

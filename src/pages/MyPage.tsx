@@ -71,6 +71,7 @@ const MyPage: React.FC = () => {
         </ProfileName>
       </ProfileSection>
       <MainContent>
+        <div style={{height:"20%",width:"100%", background:"grey"}}>그래픽 자리</div>
       <SnowmanContainer>
         {[...Array(3)].map((_, index) => (
           snowmans[index] ? (
@@ -139,7 +140,7 @@ const ProfileName = styled.div`
   padding: 10px;
   gap : 10px;
   border: 1px solid #513421;
-  font-size: 11px;
+  font-size: 1rem;
   color: #513421;
   div {
     background-color: #FFF1D2;
@@ -154,10 +155,9 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
   background: #E4F1FF;
   color : #513421;
-  height : 50%;
+  height : 80%;
 `;
 
 const SnowmanContainer = styled.div`
