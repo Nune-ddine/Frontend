@@ -43,7 +43,7 @@ const HomePage = () => {
     }
   
     try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gacha", {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gotcha", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,19 +136,16 @@ const HomePage = () => {
     }
   
     try {
-      const response = await axios.post("https://nuneddine.p-e.kr/api/map/1/snowman", {
-        name: "내눈사람3",
-        color: "white",
-        snowmanShape: "BASIC",
-        image: "",
-        snowmanItemRequests: [
-            1, 2
-        ],
-        quiz: "맞춰보세요3",
-        answerId: 1,
-        content1: "선택지1",
-        content2: "선택지2",
-        content3: "선택지3",
+      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/map/1/snowman", {
+        name: "수쨩테스트",
+        image: "이미지링크",
+        posX: 2,
+        posY: 3,
+        quiz: "퀴즈",
+        answerId: 3,
+        content1: "보기1",
+        content2: "보기2",
+        content3: "보기3"
       }, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -160,6 +157,93 @@ const HomePage = () => {
     }
   };
 
+  const getMySnowmans = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/my-snowman", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get my snowmans", error);
+    }
+  }
+
+  const getSnowmanInfo = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/detail/1", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to get snowman info", error);
+    }
+  }
+
+  const trySnowmanQuiz = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/snowman/1", {
+        number: 1
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Failed to try snowman quiz", error);
+    }
+  }
+
+  const editSnowman = async () => { 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("Token not found");
+      return;
+    }
+  
+    try {
+      const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/snowman/detail/1", {
+        name: "string",
+        color: "string",
+        snowmanShape: "BASIC",
+        image: "string",
+        snowmanItemRequests: [
+        {
+          id: 1
+        }
+      ]
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data); 
+    } catch (error) {
+      console.error("Failed to edit snowman", error);
+    }
+  }
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -195,7 +279,11 @@ const HomePage = () => {
       <button onClick={getInventory}>Get Inventory Test</button>
       <button onClick={getAllSnowman}>Get All Snowman Test</button>
       <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
-      <button onClick={createSnowman}>Create Snowman Test</button> */}
+      <button onClick={createSnowman}>Create Snowman Test</button>
+      <button onClick={getMySnowmans}>Get My Snowmans Test</button>
+      <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
+      <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button>
+      <button onClick={editSnowman}>Edit Snowman Test</button>
     </Wrapper>
   )
 }
