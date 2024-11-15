@@ -121,7 +121,7 @@ const ModalContent = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-const CloseButton = styled.img`
+export const CloseButton = styled.img`
   position: absolute;
   top: 10px;
   right: 10px;
