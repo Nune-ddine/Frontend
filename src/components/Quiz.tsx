@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { getQuiz } from '../services/api/quizAPI';
+import { getQuiz, postQuiz } from '../services/api/quizAPI';
 
 interface QuizData {
   id: number;
