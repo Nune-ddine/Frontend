@@ -1,6 +1,8 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
+import { snowmanState } from '../../contexts/snowmanState';
+import { useRecoilState } from 'recoil';
 
 interface MakePNGProps {
   selectedFeature: string;
@@ -15,6 +17,8 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
+  
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -139,7 +143,11 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
           )}
         </ButtonContainer>
       ) : (
-        <NameInput placeholder="눈사람에게 이름을 지어주세요" />
+        <NameInput 
+          placeholder="눈사람에게 이름을 지어주세요"
+          value={snowman.name}
+          onChange={(e) => setSnowman({ ...snowman, name: e.target.value })}
+          />
       )}
     </Wrapper>
   );

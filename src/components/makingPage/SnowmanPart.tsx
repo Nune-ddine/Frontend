@@ -2,6 +2,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
+import { snowmanState } from '../../contexts/snowmanState';
+import { useRecoilState } from 'recoil';
 
 interface SnowmanPartProps {
   selectedImage: string;
@@ -14,13 +16,30 @@ interface SnowmanPartProps {
 const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeature, isQuizMode, setIsQuizMode, setFinalImage }) => {
   const makePNGRef = useRef<MakePNGHandle>(null);
 
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
+
+  React.useEffect(() => {
+    console.log('Updated snowman:', snowman);
+  }, [snowman]);
+  
   const saveFinalImage = async () => {
     if (makePNGRef.current) {
       const image = await makePNGRef.current.captureImage();
       if (image) {
+        console.log(image);
         setFinalImage(image);
+        setSnowman((prevSnowman) => ({
+          ...prevSnowman,
+          image: image, // 이미지 설정
+        }));
+        printSnowman();
       }
     }
+  };
+
+  //snowman 값들 console로 화긴하는 함수
+  const printSnowman = () => {
+    console.log(snowman);
   };
 
   return (
