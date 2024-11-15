@@ -27,8 +27,9 @@ const Gotcha = () => {
       {showModal && (
         <Modal>
           <ModalContent>
-          <CloseButton onClick={closeModal}>X</CloseButton>
+          <CloseButton src='/images/etc/closeBtn.png' onClick={closeModal}/>
             <h2>시각 디자인학과 과잠 획득!</h2>
+            <div style={{backgroundColor:"brown", width:"200px;",height:"300px"}}>네모</div>
           </ModalContent>
         </Modal>
       )}
@@ -80,21 +81,21 @@ const Modal = styled.div`
 `;
 
 const ModalContent = styled.div`
+  color :  #513421;
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
   text-align: center;
   width: 80%;
   max-width: 400px;
+  font-size : 1.4rem;
 `;
 
-const CloseButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #0084FF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
+const CloseButton = styled.img`  
+position: relative;
+  top: -12px;
+  left: 190px;
+  width: 3rem;
   cursor: pointer;
+  z-index:10;
 `;
