@@ -24,26 +24,33 @@ export const getMember = async () => {
   }
 };
 
-export const patchUsername = async () => {
+export const patchUsername = async (newUsername: string) => {
   if (!token) {
     console.log("Token not found");
     return;
   }
 
   try {
-    const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
-      username: "테스트 닉네임",
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.patch(
+      "https://nuneddine.p-e.kr/api/v1/member/username",
+      {
+        username: newUsername, // Use the passed newUsername parameter
       },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    console.log(response.data);
+    console.log("Username updated successfully:", response.data);
+    return response.data; // Return the response if needed
   } catch (error) {
-    console.error("Failed to patch member test", error);
+    console.error("Failed to update username:", error);
+    throw error; // Rethrow the error for better error handling
   }
 };
+
 
 export const getMySnowman = async () => {
   try {

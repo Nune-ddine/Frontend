@@ -23,13 +23,14 @@ const MyPage: React.FC = () => {
   const [image, setImage] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false); // State for editing mode
+  const [newUsername, setNewUsername] = useState<string>(''); // Temp username for edit
 
   const getProfile = async () => {
     try {
-      const response: MemberResponse = await getMember(); // response 타입 명시
+      const response: MemberResponse = await getMember(); 
       setImage(response.image);
       setUsername(response.username);
-      // console.log(response);
     } catch (error) {
       console.error("Failed to fetch member profile:", error);
     }
@@ -37,8 +38,7 @@ const MyPage: React.FC = () => {
 
   const getSnowman = async () => {
     try {
-      const response: Snowman[] = await getMySnowman(); // response 타입 명시
-      // console.log(response);
+      const response: Snowman[] = await getMySnowman(); 
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to fetch snowman data:", error);
@@ -47,8 +47,9 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
-      const response = await patchUsername(); // username 인자를 추가
-      console.log(response);
+      await patchUsername(newUsername); // Pass newUsername to the API
+      setUsername(newUsername); // Update UI with the new username
+      setIsEditing(false); // Exit edit mode
     } catch (error) {
       console.error("Error updating username:", error);
     }
@@ -60,47 +61,77 @@ const MyPage: React.FC = () => {
   }, []);
 
   return (
-    <Wrapper style={{backgroundColor:"#f0f0f0"}}>
+    <Wrapper style={{ backgroundColor: "#f0f0f0" }}>
       <Header />
-      <BackBtn/>
+      <BackBtn />
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>
-          {username}
-          <img src="/images/mypage/edit.png" style={{width:"16px"}} onClick={editUsername}></img>
+          {isEditing ? (
+            <div>
+              <input
+                type="text"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                placeholder="새로운 이름 입력"
+                style={{
+                  border: "1px solid #513421",
+                  borderRadius: "8px",
+                  padding: "5px",
+                }}
+              />
+              <button onClick={editUsername} style={{ marginLeft: "10px" }}>
+                저장
+              </button>
+              <button onClick={() => setIsEditing(false)} style={{ marginLeft: "5px" }}>
+                취소
+              </button>
+            </div>
+          ) : (
+            <>
+              {username}
+              <img
+                src="/images/mypage/edit.png"
+                style={{ width: "16px", marginLeft: "10px", cursor: "pointer" }}
+                onClick={() => {
+                  setIsEditing(true);
+                  setNewUsername(username); // Initialize input with the current username
+                }}
+              />
+            </>
+          )}
         </ProfileName>
       </ProfileSection>
       <MainContent>
-        <div style={{height:"20%",width:"100%", background:"grey"}}>그래픽 자리</div>
-      <SnowmanContainer>
-        {[...Array(3)].map((_, index) => (
-          snowmans[index] ? (
-            <Snowman key={snowmans[index].id}>
-              <img
-                src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
-                alt="Snowman"
-                
-              />
-              <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
-              <SnowmanCount>
-                {snowmans[index].correctCount}/{snowmans[index].incorrentCount}명
-              </SnowmanCount>
-            </Snowman>
-          ) : (
-            <Snowman key={index}>
-              <img
-                src='/images/mypage/emptySnowman.png'
-                alt="Empty Snowman"
-                style={{ width: '80%'}}
-              />
-              <SnowmanText>
-                눈사람 <img src='/images/mypage/edit.png' style={{width:"12px"}}/> 
-              </SnowmanText>
-              <SnowmanCount>0/0명</SnowmanCount>
-            </Snowman>
-          )
-        ))}
-      </SnowmanContainer>
+        <div style={{ height: "20%", width: "100%", background: "grey" }}>그래픽 자리</div>
+        <SnowmanContainer>
+          {[...Array(3)].map((_, index) =>
+            snowmans[index] ? (
+              <Snowman key={snowmans[index].id}>
+                <img
+                  src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
+                  alt="Snowman"
+                />
+                <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
+                <SnowmanCount>
+                  {snowmans[index].correctCount}/{snowmans[index].incorrentCount}명
+                </SnowmanCount>
+              </Snowman>
+            ) : (
+              <Snowman key={index}>
+                <img
+                  src="/images/mypage/emptySnowman.png"
+                  alt="Empty Snowman"
+                  style={{ width: "80%" }}
+                />
+                <SnowmanText>
+                  눈사람 <img src="/images/mypage/edit.png" style={{ width: "12px" }} />
+                </SnowmanText>
+                <SnowmanCount>0/0명</SnowmanCount>
+              </Snowman>
+            )
+          )}
+        </SnowmanContainer>
       </MainContent>
     </Wrapper>
   );
@@ -138,7 +169,7 @@ const ProfileName = styled.div`
   border-radius: 100px;
   width: auto; 
   padding: 10px;
-  gap : 10px;
+  gap : 2rem;
   border: 1px solid #513421;
   font-size: 1rem;
   color: #513421;
