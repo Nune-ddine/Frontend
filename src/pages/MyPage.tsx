@@ -171,11 +171,11 @@ const Snowman = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-
+  margin-top : 10%;
   &:nth-child(1),
   &:nth-child(3)  {
     align-self: center;
-    margin-bottom: -80%; /* Adjust for overlap if needed */
+    margin-bottom: -60%; /* Adjust for overlap if needed */
   }
 
   &:nth-child(2){
