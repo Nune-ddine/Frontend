@@ -21,32 +21,32 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
     const container = containerRef.current;
     if (!container) return;
 
-    const imgSrc = event.dataTransfer.getData('imgSrc');
+    const imgsrc = event.dataTransfer.getData('imgsrc');
     const name = event.dataTransfer.getData('name');
 
-    if (imgSrc) {
+    if (imgsrc) {
       const containerRect = container.getBoundingClientRect();
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
       let imgWidth = 100, imgHeight = 100;
-      if (imgSrc.includes('shape')) {
+      if (imgsrc.includes('shape')) {
         imgWidth = 400;
         imgHeight = 400;
-      } else if (imgSrc.includes('eye') || imgSrc.includes('mouth')) {
+      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
         imgWidth = 50;
         imgHeight = 50;
-      } else if (imgSrc.includes('hat') || imgSrc.includes('scarf')) {
+      } else if (imgsrc.includes('hat') || imgsrc.includes('scarf')) {
         imgWidth = 100;
         imgHeight = 100;
       }
 
       const img = document.createElement('img');
-      img.src = imgSrc;
+      img.src = imgsrc;
       img.alt = name;
       img.style.position = 'absolute';
 
-      if (imgSrc.includes('shape')) {
+      if (imgsrc.includes('shape')) {
         const offsetY = 70;
         img.style.left = `${containerRect.width / 2 - imgWidth / 2}px`;
         img.style.top = `${containerRect.height / 2 - imgHeight / 2 + offsetY}px`;

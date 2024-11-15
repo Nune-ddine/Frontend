@@ -38,10 +38,10 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
       <RightBtnContainer>
         {isQuizMode ? (
           <>
-            <NextButton onClick={saveFinalImage}>{'>'}</NextButton>
+            <NextButton id="doneBtn" onClick={saveFinalImage}>{'완성'}</NextButton>
           </>
         ) : (
-          <NextButton onClick={() => setIsQuizMode(true)}>{'>'}</NextButton>
+          <NextButton id="nextBtn" onClick={() => setIsQuizMode(true)}>{'>'}</NextButton>
         )}
       </RightBtnContainer>
     </Wrapper>
@@ -87,6 +87,10 @@ const RightBtnContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+
+  #doneBtn {
+    font-size: 10px;
+  }
 `;
 
 const GotoMapBtn = styled.button`

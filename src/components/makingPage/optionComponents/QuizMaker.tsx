@@ -10,7 +10,7 @@ return (
          <Subtitle>
             문제 입력(15자 이내)
          </Subtitle>
-         <QuizTextarea>
+         <QuizTextarea placeholder="문제를 입력해주세요">
 
          </QuizTextarea>
       </QuizContainer>
@@ -31,6 +31,7 @@ return (
                <OptionNum>3</OptionNum>
                <OptionInput placeholder="보기를 입력해주세요"></OptionInput>  
             </Option>
+            <span>* 보기 입력 후 정답인 번호를 눌러주세요</span>
          </Options>
       </OptionContainer>
    </Wrapper>
@@ -59,7 +60,7 @@ const Title = styled.div`
    font-family: 'Maplestory-Bold', sans-serif;
    font-weight: bold;
    font-size: 20px;
-   color: black;
+   color: #513421;
 `
 
 const QuizContainer = styled.div`
@@ -76,19 +77,24 @@ const OptionContainer = styled.div`
 const Subtitle = styled.div`
    width: 100%;
    height: 20%;
-   box-sizing: border-box;
 
-   color: black;
+   color: #513421;
    font-family: 'Maplestory-Bold', sans-serif;
    font-weight: bold;
 `
 
-const QuizTextarea = styled.textarea`
+const QuizTextarea = styled.input`
    width: 100%;
-   height: 80%;
+   height: 70%;
    box-sizing: border-box;
-   border: none;
-   border-radius: 15px;
+   border: 1px solid #513421;
+   border-radius: 4px;
+   background-color: #FFF1D2;
+   font-family: sans-serif;
+   padding-left: 20px;
+   padding-right: 20px;
+   //placeholder 크기 조절
+   font-size: 12px;
 ` 
 
 const Options = styled.div`
@@ -100,6 +106,12 @@ const Options = styled.div`
    box-sizing: border-box;
    gap: 10px;
    font-family: 'Maplestory-Bold', sans-serif;
+
+   span {
+      color: #513421;
+      font-size: 10px;
+      font-family: sans-serif;
+   }
 `
 
 
@@ -118,18 +130,23 @@ const OptionNum = styled.div`
    justify-content: center;
    align-items: center;
    text-align: center;
+   color: #513421;
    width: 10%;
    height: 100%;
+   border: 1px solid #513421;
    box-sizing: border-box;
-   background-color: white;
-   border-radius: 10px;
+   background-color: #FFDD94;
+   border-radius: 4px;
 `
 const OptionInput = styled.input`
    width: 90%;
    height: 100%;
    box-sizing: border-box;
    padding-left: 20px;
-   border: none;
-   border-radius: 8px;
-   font-family: 'Maplestory-Light', sans-serif;
+   border: 1px solid #513421;
+   border-radius: 4px;
+   font-family: sans-serif;
+   color: #513421;
+   background-color: #FFF1D2;
+   font-size: 12px;
 `
