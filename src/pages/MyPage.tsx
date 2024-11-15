@@ -38,7 +38,8 @@ const MyPage: React.FC = () => {
 
   const getSnowman = async () => {
     try {
-      const response: Snowman[] = await getMySnowman(); 
+      const response: Snowman[] = await getMySnowman(); // response 타입 명시
+      // console.log(response);
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to fetch snowman data:", error);
@@ -103,6 +104,7 @@ const MyPage: React.FC = () => {
         </ProfileName>
       </ProfileSection>
       <MainContent>
+
         <div style={{ height: "20%", width: "100%", background: "grey" }}>그래픽 자리</div>
         <SnowmanContainer>
           {[...Array(3)].map((_, index) =>
@@ -202,11 +204,13 @@ const Snowman = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+
   margin-top : 10%;
   &:nth-child(1),
   &:nth-child(3)  {
     align-self: center;
     margin-bottom: -60%; /* Adjust for overlap if needed */
+
   }
 
   &:nth-child(2){
