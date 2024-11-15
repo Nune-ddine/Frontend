@@ -11,6 +11,7 @@ import GotchaPage from './pages/GotchaPage';
 import TestPage from './pages/TestPage';
 import MakingPage from './pages/makingPage';
 import QuizTestPage from './pages/QuizTestPage';
+import { RecoilRoot } from 'recoil';
 
 class App extends Component {
   
@@ -49,20 +50,22 @@ class App extends Component {
 
   render() {
     return (
-      <div id="App">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/myPage" element={<MyPage />} />
-          <Route path="/gotcha" element={<GotchaPage />} />
-          <Route path='/login' element={<LoginTestPage />} />
-          <Route path='/making' element={<MakingPage />} />
-          <Route path='/snowmanResult' element={<SnowmanResultPage />} />
-          <Route path='/locating' element={<LocatingPage />}/>
-          <Route path='/elevator' element={<SelectingMapPage/>}/>
-          <Route path="/test" element={<TestPage />} />
-          <Route path="/quiz" element={<QuizTestPage/>}/>
-        </Routes>
-      </div>
+      <RecoilRoot>
+        <div id="App">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/gotcha" element={<GotchaPage />} />
+            <Route path='/login' element={<LoginTestPage />} />
+            <Route path='/making' element={<MakingPage />} />
+            <Route path='/snowmanResult' element={<SnowmanResultPage />} />
+            <Route path='/locating' element={<LocatingPage />}/>
+            <Route path='/elevator' element={<SelectingMapPage/>}/>
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/quiz" element={<QuizTestPage/>}/>
+          </Routes>
+        </div>
+      </RecoilRoot>
     );
   }
 }

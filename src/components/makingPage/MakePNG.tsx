@@ -120,7 +120,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
           overflow: 'hidden',
         }}
       />
-      {!isQuizMode && (
+      {!isQuizMode ? (
         <ButtonContainer>
           {images.length > 0 && (
             <>
@@ -138,6 +138,8 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
             </Button>
           )}
         </ButtonContainer>
+      ) : (
+        <NameInput placeholder="눈사람에게 이름을 지어주세요" />
       )}
     </Wrapper>
   );
@@ -177,4 +179,19 @@ const Button = styled.button`
     padding-left: 8px;
     padding-right: 8px;
   }
+`;
+
+const NameInput = styled.input`
+  width: 90%;
+  height: 50px;
+  border: none;
+  border-radius: 40px;
+  margin-bottom: 16px;
+  background-color: #D4EAFF;
+  font-family: sans-serif;
+  padding-left: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #513421;
 `;
