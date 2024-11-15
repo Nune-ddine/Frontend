@@ -47,14 +47,14 @@ const MyPage: React.FC = () => {
     }
   };
 
-  const editUsername = async () => {
-    try {
-      const response = await patchUsername("누네띠네"); // username 인자를 추가
-      console.log(response);
-    } catch (error) {
-      console.error("Error updating username:", error);
-    }
-  };
+  // const editUsername = async () => {
+  //   try {
+  //     const response = await patchUsername("누네띠네"); // username 인자를 추가
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error("Error updating username:", error);
+  //   }
+  // };
 
   useEffect(() => {
     getProfile();

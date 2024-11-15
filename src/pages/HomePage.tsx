@@ -43,7 +43,7 @@ const HomePage = () => {
     }
   
     try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gacha", {
+      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gatcha", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -188,14 +188,14 @@ const HomePage = () => {
             <img src='images/homes/kakaoLogin.png' onClick={() => navigate('/login')}>카카오 로그인하기</img>
           </LoginLayout>
         )}
-      {/* <button onClick={() => navigate('/making')}>Making Page</button>
+      <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
       <button onClick={getInventory}>Get Inventory Test</button>
       <button onClick={getAllSnowman}>Get All Snowman Test</button>
       <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
-      <button onClick={createSnowman}>Create Snowman Test</button> */}
+      <button onClick={createSnowman}>Create Snowman Test</button>
     </Wrapper>
   )
 }

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import URL from '../../constants/constants';
 
+const token = localStorage.getItem("token");
+
 export const getMember = async () => {
-  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${URL}/member`, {
       headers: {
@@ -23,23 +24,24 @@ export const getMember = async () => {
   }
 };
 
-export const patchUsername = async (username: string) => {
-  const token = localStorage.getItem("token");
+export const patchMember = async () => {
+  if (!token) {
+    console.log("Token not found");
+    return;
+  }
 
   try {
-    const response = await axios.patch(
-      `${URL}/member/username`,
-      { username: `${username}` },
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }
-    );
-    return response.data;
+    const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
+      username: "테스트 닉네임",
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log(response.data);
   } catch (error) {
-    console.error("Failed to post username:", error);
-    throw error;
+    console.error("Failed to patch member test", error);
   }
 };
 

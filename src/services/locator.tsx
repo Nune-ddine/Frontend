@@ -21,6 +21,8 @@ const Locator = () => {
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
     setSnowmen((prevSnowmen) => [...prevSnowmen, { x, y }]);
+
+    console.log(`x: ${x}, y: ${y}`);
   };
 
   return (
