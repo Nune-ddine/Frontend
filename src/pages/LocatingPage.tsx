@@ -2,15 +2,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Locator from "../services/locator";
-import { Wrapper } from "./HomePage";
 import closeBtn from "../../public/buttons/closeBtn.png"
+import { Wrapper } from "./MyPage";
 const LocatingPage = () => {
   const navigate = useNavigate();
-  
-  const goHome = () => {
-    navigate("/");
-  };
-  
   
   return (
     <Wrapper>
@@ -19,7 +14,7 @@ const LocatingPage = () => {
       <Wrapper style={{height:"10%", alignItems:"center"}}>
         <Button>
           눈사람 만들 곳을 클릭해주세요!
-          <CloseBtn onClick={goHome}>X</CloseBtn>
+          <img onClick={()=>navigate("/")} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
         </Button>
       </Wrapper>
     </Wrapper>
@@ -28,14 +23,6 @@ const LocatingPage = () => {
 
 export default LocatingPage;
 
-// export const Wrapper = styled.div`
-//   height : 100%;
-//   display : flex;
-//   flex-direction: column;
-//   justify-content : space-between;
-//   align-items: center;
-//   background-color : #6FABEB;
-// `
 const Button = styled.div`
   display: flex;
   justify-content: center;
@@ -44,19 +31,9 @@ const Button = styled.div`
   border-radius: 100px;
   color : #5DABF5;
   background-color: #DCEEFF;
-  padding: 3%;
+  padding: 3% 0;
   gap : 10px;
   font-family: 'MaplestoryOTFBold';
-  font-size : 20px;
+  font-size : 1.6rem;
+  margin-bottom : 4rem;
 `;
-
-const CloseBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  width : 26px;
-  height: 26px;
-  color : #513421;
-  border-radius: 100px;
-  background-color : #FFF1D2;
-  border: 1px solid #513421;
-`

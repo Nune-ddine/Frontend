@@ -11,6 +11,7 @@ import axios from 'axios';
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   // getMemberTest
   // header에 토큰을 담아서 보내기
@@ -169,32 +170,62 @@ const HomePage = () => {
     if (code && !localStorage.getItem("token")) {
       login(code); // 실제 로그인 함수 호출
     }
-  }, [location]);
+  }, [location, token]);
 
   return (
     <Wrapper>
       <Header/>
       <Main>
-        <></>
+        <img onClick={() => navigate('/elevator')} src='images/homes/map.png' style={{width:"24%"}}></img>
       </Main>
-      <button onClick={() => navigate('/making')}>Making Page</button>
+      {token ? (
+          <MainLayout>
+            <img src='images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate('/locating')}></img>
+          </MainLayout>
+        ) : (
+          <LoginLayout>
+            <img src='images/homes/kakaoLogin.png' onClick={() => navigate('/login')}>카카오 로그인하기</img>
+          </LoginLayout>
+        )}
+      {/* <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
       <button onClick={getInventory}>Get Inventory Test</button>
       <button onClick={getAllSnowman}>Get All Snowman Test</button>
       <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
-      <button onClick={createSnowman}>Create Snowman Test</button>
+      <button onClick={createSnowman}>Create Snowman Test</button> */}
     </Wrapper>
   )
 }
 
 export default HomePage
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   height : 100%;
   display : flex;
   flex-direction: column;
   justify-content : space-between;
   background-color : #6FABEB;
+  font-family: 'MaplestoryOTFBold';
 `
+const MainLayout = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height : 15%;
+`;
+const LoginLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FFDD00;
+    border: none;
+    border-radius: 5px;
+  }
+`;

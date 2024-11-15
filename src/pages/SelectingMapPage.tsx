@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import Header from "../components/Header"
-import { Wrapper } from "./HomePage"
-import { BackButton } from "./MyPage"
+import { Wrapper } from "./MyPage"
+import styled from "styled-components";
+import BackBtn from "../components/BackBtn";
 
 const SelectingMapPage = () => {
     const navigate = useNavigate();
@@ -9,10 +10,19 @@ const SelectingMapPage = () => {
   return (
     <Wrapper>
         <Header/>
-        <BackButton onClick={()=> navigate('/')}>◀</BackButton>
-        <div>맵들</div>
+        <BackBtn/>
+        <Map src="/images/homes/map.png" style={{ top: "20%", left: "10%" }}/>
+        <Map src="/images/homes/map.png" style={{ top: "30%", right: "10%" }}/>
+        <Map src="/images/homes/map.png" style={{ top: "40%", left: "10%" }}/>
+        <Map src="/images/homes/map.png" style={{ top: "50%", right: "10%" }}/>
+        <Map src="/images/homes/map.png" style={{ top: "60%", left: "10%" }}/>
     </Wrapper>
   )
 }
 
-export default SelectingMapPage
+export default SelectingMapPage;
+
+const Map = styled.img`
+position: absolute;
+width : 35%;
+`

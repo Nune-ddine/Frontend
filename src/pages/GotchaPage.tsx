@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import image from "../../public/images/gotchas/gotcha.png";
-import { Wrapper } from "./HomePage";
 import Header from "../components/Header";
+import{ Wrapper } from "./MyPage";
+import BackBtn from "../components/BackBtn";
 import Gotcha from "../components/GotchaPage/Gotcha";
 
 const GotchaPage = () => {
   return (
     <Wrapper>
-        <Header></Header>
-        <Image src={image} alt="gotcha" />
+        <Header/>
+        <BackBtn/>
         <Gotcha/>
     </Wrapper>
   );
