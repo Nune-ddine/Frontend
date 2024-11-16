@@ -38,11 +38,11 @@ const MyPage: React.FC = () => {
 
   const getSnowman = async () => {
     try {
-      const response: Snowman[] = await getMySnowman(); // response 타입 명시
-      // console.log(response);
+      const response: Snowman[] = await getMySnowman();
+      console.log(response);
       setSnowmans(response);
     } catch (error) {
-      console.error("Failed to fetch snowman data:", error);
+      console.error("Failed to get snowman data:", error);
     }
   };
 
@@ -112,6 +112,7 @@ const MyPage: React.FC = () => {
                 <img
                   src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
                   alt="Snowman"
+                  style={{ width: "80%" }}
                 />
                 <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
                 <SnowmanCount>
@@ -126,7 +127,7 @@ const MyPage: React.FC = () => {
                   style={{ width: "80%" }}
                 />
                 <SnowmanText>
-                  눈사람 <img src="/images/mypage/edit.png" style={{ width: "12px" }} />
+                  눈사람을 만들어주세요
                 </SnowmanText>
                 <SnowmanCount>0/0명</SnowmanCount>
               </Snowman>
@@ -220,11 +221,14 @@ const Snowman = styled.div`
 `;
 
 const SnowmanText = styled.div`
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   margin-top: 0.5rem;
 `;
 
 const SnowmanCount = styled.div`
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 1rem;
+  padding : 0 0.8rem;
+  border-radius: 26px;
+  border: 1px solid #513421;
+  background: #FFF1D2;
 `;
