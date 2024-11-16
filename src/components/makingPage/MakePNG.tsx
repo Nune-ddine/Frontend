@@ -19,19 +19,6 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
 
-  // 화면 스크롤 방지
-  const preventScroll = (e: Event) => {
-    e.preventDefault();
-  };
-
-  const enablePreventScroll = () => {
-    document.body.addEventListener('touchmove', preventScroll, { passive: false });
-  };
-
-  const disablePreventScroll = () => {
-    document.body.removeEventListener('touchmove', preventScroll);
-  };
-
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const container = containerRef.current;
@@ -54,25 +41,23 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const containerHeight = containerRect.height;
 
       if (imgsrc.includes('shape')) {
-        img.style.width = `${containerWidth}px`;
-        img.style.height = `${containerHeight}px`;
-        img.style.left = '0px';
-        img.style.top = '0px';
+        img.style.width = `${containerWidth * 0.6}px`; // 전체 크기의 60%로 줄임
+        img.style.height = `${containerHeight * 0.6}px`;
+        img.style.left = `${(containerWidth - containerWidth * 0.6) / 2}px`;
+        img.style.top = `${(containerHeight - containerHeight * 0.6) / 2}px`;
       } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
-        img.style.width = `${containerWidth * 0.1}px`;
+        img.style.width = `${containerWidth * 0.05}px`; // 전체 크기의 5%로 줄임
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.025, 0), containerWidth - containerWidth * 0.05)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.025, 0), containerHeight - containerWidth * 0.05)}px`;
+      } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
+        img.style.width = `${containerWidth * 0.1}px`; // 전체 크기의 10%로 줄임
         img.style.height = 'auto';
         img.style.left = `${Math.min(Math.max(x - containerWidth * 0.05, 0), containerWidth - containerWidth * 0.1)}px`;
         img.style.top = `${Math.min(Math.max(y - containerWidth * 0.05, 0), containerHeight - containerWidth * 0.1)}px`;
-      } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * 0.2}px`;
-        img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.1, 0), containerWidth - containerWidth * 0.2)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.1, 0), containerHeight - containerWidth * 0.2)}px`;
       }
 
       img.style.objectFit = 'contain';
-      img.style.maxWidth = '100%';
-      img.style.maxHeight = '100%';
       container.appendChild(img);
 
       setImages((prevImages) => [...prevImages, img]);
@@ -87,22 +72,14 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const captureImage = async (): Promise<string | null> => {
     const container = containerRef.current;
     if (!container) return null;
-  
-    // 컨테이너의 실제 크기를 가져오기
-    const { width, height } = container.getBoundingClientRect();
-  
-    // 캔버스 옵션 설정
+
     const canvas = await html2canvas(container, {
-      backgroundColor: null, // 투명 배경 유지
-      scale: window.devicePixelRatio, // 디바이스 픽셀 비율 적용
-      width, // 실제 너비
-      height, // 실제 높이
+      backgroundColor: null,
+      width: container.offsetWidth,
+      height: container.offsetHeight,
     });
-  
-    // 캔버스를 PNG 데이터 URL로 변환
-    return canvas.toDataURL('snowmanImg/png');
+    return canvas.toDataURL('image/png');
   };
-  
 
   useImperativeHandle(ref, () => ({
     captureImage,
@@ -135,10 +112,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   };
 
   return (
-    <Wrapper
-      onTouchStart={enablePreventScroll}
-      onTouchEnd={disablePreventScroll}
-    >
+    <Wrapper>
       <Container
         ref={containerRef}
         onDrop={handleDrop}
@@ -177,13 +151,10 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 200%;
+  height: 200%;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const ButtonContainer = styled.div`

@@ -9,7 +9,9 @@ const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
   return (
     <Wrapper>
       <Title>눈사람이 완성되었어요!</Title>
-      {image ? <SnowmanContainer><SnowmanImg src={image} alt="Final Snowman" /></SnowmanContainer> : <p>No image available</p>}
+      {image ? <SnowmanContainer>
+          <SnowmanImg src={image} alt="Final_Snowman" />
+        </SnowmanContainer> : <p>No image available</p>}
       <SnowmanName>오유진의 눈사람</SnowmanName> 
     </Wrapper>
   );
@@ -40,7 +42,7 @@ const SnowmanContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90%; // 부모 크기에 비례한 이미지 크기 조정
+  width: 100%; // 부모 크기에 비례한 이미지 크기 조정
   height: 70%;
   overflow: hidden;
 `;
