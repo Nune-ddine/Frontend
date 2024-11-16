@@ -52,4 +52,6 @@ const Image = styled.img`
   margin-bottom: 10px;
 
   user-select: none; /* 텍스트 선택 방지 */
+
+  -webkit-touch-callout : none;
 `;

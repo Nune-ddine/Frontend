@@ -41,15 +41,15 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const containerHeight = containerRect.height;
 
       const shapeOffset = 0.8;
-      const faceOffset = 0.05;
-      const clothesOffset = 0.1;
+      const faceOffset = 0.08;
+      const clothesOffset = 0.2;
 
       if (imgsrc.includes('shape')) {
         img.style.width = `${containerWidth * shapeOffset}px`;
         img.style.height = `${containerHeight * shapeOffset}px`;
         img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
         img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
-      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
+      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth') || imgsrc.includes('nose')) {
         img.style.width = `${containerWidth * faceOffset}px`;
         img.style.height = 'auto';
         img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset / 2, 0), containerWidth - containerWidth * faceOffset)}px`;
