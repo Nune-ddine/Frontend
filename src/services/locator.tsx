@@ -55,4 +55,5 @@ export default Locator;
 const Snowman = styled.img`
   position: absolute;
   height: 50px;
+  width: 70px;
 `;
