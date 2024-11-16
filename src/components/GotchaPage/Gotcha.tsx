@@ -44,9 +44,7 @@ const Gotcha: React.FC = () => {
             <img
               src="/images/etc/puangman.png"
               style={{
-                backgroundColor: "brown",
-                width: "200px",
-                height: "300px",
+                width: "100%",
               }}
               alt="Gotcha Result"
             />
@@ -104,11 +102,11 @@ const Modal = styled.div`
 const ModalContent = styled.div`
   color: #513421;
   background-color: white;
-  padding: 2rem;
+  padding: 0 0 2rem 0;
   border-radius: 10px;
   text-align: center;
   width: 80%;
-  max-width: 400px;
+  max-width: 360px;
   font-size: 1.4rem;
   display: flex;
   flex-direction: column;
