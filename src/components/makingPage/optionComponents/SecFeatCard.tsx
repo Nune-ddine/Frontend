@@ -15,7 +15,14 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
   return (
     <Wrapper imgsrc={img} >
       <Image src={img} alt={name} draggable onDragStart={handleDragStart}/>
-      <div>{name}</div>
+      <div style={
+        {
+          fontSize: '0.8rem',
+          fontFamily: 'Maplestory-Light',
+          marginBottom: '1rem',
+          color: '#5d5d5d',
+        }
+      }>{name}</div>
     </Wrapper>
   );
 };
