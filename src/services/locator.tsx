@@ -1,16 +1,26 @@
-import { useState, useRef } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
-interface Snowman {
-    x: number;
-    y: number;
-}
+import { locatorIdState, snowmanState } from "../contexts/recoilAtoms";
 
 const Locator = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [snowmen, setSnowmen] = useState<Snowman[]>([]);
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const setId = useSetRecoilState(locatorIdState);
+  const { id } = useParams();
 
-  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    setSnowman(snowman);
+    console.log("Updated snowman:", snowman);
+  }, [snowman]);
+
+  useEffect(() => {
+    setId(id);
+    console.log("Updated id:", id);
+  }, [id, setId]);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const container = containerRef.current;
     if (!container) return;
 
@@ -20,20 +30,22 @@ const Locator = () => {
     const x = e.clientX - containerRect.left - snowmanSize / 1.5;
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
-    setSnowmen((prevSnowmen) => [...prevSnowmen, { x, y }]);
-
-    console.log(`x: ${x}, y: ${y}`);
+    setSnowman({ x, y });
+    // console.log("Updated snowman:", snowman);
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      onClick={handleClick} 
+      onClick={handleClick}
       style={{ position: "relative", height: "100vh" }}
     >
-      {snowmen.map((snowman, index) => (
-        <Snowman src='/images/etc/puangman.png'key={index} style={{ top: `${snowman.y}px`, left: `${snowman.x}px`, }} />
-      ))}
+      {snowman && (
+        <Snowman
+          src="/images/etc/puangman.png"
+          style={{ top: `${snowman.y}px`, left: `${snowman.x}px` }}
+        />
+      )}
     </div>
   );
 };

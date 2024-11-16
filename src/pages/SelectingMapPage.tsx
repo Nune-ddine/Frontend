@@ -11,11 +11,11 @@ const SelectingMapPage = () => {
     <Wrapper>
         <Header/>
         <BackBtn/>
-        <Map src="/images/homes/map.png" style={{ top: "20%", left: "10%" }}/>
-        <Map src="/images/homes/map.png" style={{ top: "30%", right: "10%" }}/>
-        <Map src="/images/homes/map.png" style={{ top: "40%", left: "10%" }}/>
-        <Map src="/images/homes/map.png" style={{ top: "50%", right: "10%" }}/>
-        <Map src="/images/homes/map.png" style={{ top: "60%", left: "10%" }}/>
+        <Map onClick={()=> navigate('/1')} src="/images/homes/map.png" style={{ top: "20%", left: "10%" }}/>
+        <Map onClick={()=> navigate('/2')} src="/images/homes/map.png" style={{ top: "30%", right: "10%" }}/>
+        <Map onClick={()=> navigate('/3')} src="/images/homes/map.png" style={{ top: "40%", left: "10%" }}/>
+        <Map onClick={()=> navigate('/4')} src="/images/homes/map.png" style={{ top: "50%", right: "10%" }}/>
+        <Map onClick={()=> navigate('/5')} src="/images/homes/map.png" style={{ top: "60%", left: "10%" }}/>
     </Wrapper>
   )
 }

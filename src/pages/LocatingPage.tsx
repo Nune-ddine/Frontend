@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Locator from "../services/locator";
@@ -6,6 +6,7 @@ import closeBtn from "../../public/buttons/closeBtn.png"
 import { Wrapper } from "./MyPage";
 const LocatingPage = () => {
   const navigate = useNavigate();
+  const {id} = useParams();
   
   return (
     <Wrapper>
@@ -14,7 +15,7 @@ const LocatingPage = () => {
       <Wrapper style={{height:"10%", alignItems:"center"}}>
         <Button>
           눈사람 만들 곳을 클릭해주세요!
-          <img onClick={()=>navigate("/")} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
+          <img onClick={()=>navigate(`/${id}`)} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
         </Button>
       </Wrapper>
     </Wrapper>
