@@ -47,7 +47,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 55%;
+  height: 50%;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   //위로 그림자
@@ -59,6 +59,6 @@ const SecondFeature = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 90%;
   box-sizing: border-box;
 `;

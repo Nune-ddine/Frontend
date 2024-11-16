@@ -9,20 +9,40 @@ interface SecFeatRowProps {
   onSelectImage: (img: string) => void;
 }
 
-const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items}) => {
+const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
+  // 예시: itemExist 배열은 '외투' 카테고리의 아이템 존재 여부를 나타냄
+  const itemExist = [false, false, false, false]; // '외투'에서 보유한 아이템 없음
+
+  // 모든 값이 false인지 검사
+  const allFalse = partKey === '외투' && itemExist.every((exist) => !exist);
+
   return (
     <Wrapper>
-      <Title><div>{partKey}</div></Title>
+      <Title>
+        <div>{partKey}</div>
+      </Title>
       <Content>
-        {items.map((item) => (
-          <SecFeatCard key={item.name} name={item.name} img={item.img} />
-        ))}
+        {allFalse ? (
+          // 모든 아이템이 없는 경우 표시할 메시지
+          <EmptyMessage>아직 아무것도 뽑지 못했어요ㅠ</EmptyMessage>
+        ) : (
+          // 아이템 존재 여부에 따라 렌더링
+          items.map((item, idx) =>
+            partKey === '외투'
+              ? itemExist[idx]
+                ? <SecFeatCard key={item.name} name={item.name} img={item.img} />
+                : null
+              : <SecFeatCard key={item.name} name={item.name} img={item.img} />
+          )
+        )}
       </Content>
     </Wrapper>
   );
 };
 
 export default SecFeatRow;
+
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,6 +51,8 @@ const Wrapper = styled.div`
   width: 100%;
   height: 33%;
   box-sizing: border-box;
+
+  /* border: 1px solid black; */
 `;
 
 const Title = styled.div`
@@ -56,7 +78,15 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 80%;
+  height: 90%;
   box-sizing: border-box;
   border-radius: 5px;
+`;
+
+const EmptyMessage = styled.div`
+  width: 100%;
+  font-size: 1.3rem;
+  color: #999;
+  text-align: center;
+  padding: 10px;
 `;

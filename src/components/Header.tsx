@@ -16,8 +16,7 @@ const Header = () => {
           <Text>1 / 3</Text>
         </Button>
       </Left>
-      <MyPageBtn onClick={() => navigate('/myPage')}>
-      </MyPageBtn>
+      <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
     </Wrapper>
   )
 }
@@ -28,7 +27,7 @@ const Wrapper = styled.div`
   // position: fixed;
   top: 0;
   width : 100%;
-  height: 6.5%;
+  height: 7%;
 
   box-sizing: border-box;
   padding: 10px;
@@ -50,19 +49,13 @@ const Button = styled.div`
 
   img {
     height:70%;
-    
+
   }
 `
-const MyPageBtn = styled.button`
-  background-image: url('/images/etc/mypageBtn.png');
-  background-size: cover;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100px;
+const MyPageBtn = styled.img`
   height: 100%;
-  aspect-ratio: 1/1;
+  width: auto;
+  padding-right: 10px;
 `;
 
 const Left = styled.div`

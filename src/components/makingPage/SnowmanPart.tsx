@@ -54,7 +54,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
       <LeftBtnContainer>
         <GotoMapBtn onClick={() => navigate(`/locating/${id}`)}>{'<'} 맵으로 돌아가기</GotoMapBtn>
         {isQuizMode ? (
-            <BackButton onClick={() => setIsQuizMode(false)}>{'<'}</BackButton>
+            <BackButton src="/images/etc/leftBtn.png" onClick={() => setIsQuizMode(false)}/>
         ) : ( <></>
         )}
       </LeftBtnContainer>
@@ -64,10 +64,10 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
       <RightBtnContainer>
         {isQuizMode ? (
           <>
-            <NextButton id="doneBtn" onClick={saveFinalImage}>{'완성'}</NextButton>
+            <NextButton src="/images/etc/rightBtn.png" id="doneBtn" onClick={saveFinalImage}/>
           </>
         ) : (
-          <NextButton id="nextBtn" onClick={() => setIsQuizMode(true)}>{'>'}</NextButton>
+          <NextButton src="/images/etc/rightBtn.png" id="nextBtn" onClick={() => setIsQuizMode(true)}/>
         )}
       </RightBtnContainer>
     </Wrapper>
@@ -78,7 +78,7 @@ export default SnowmanPart;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 45%;
+  height: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -133,26 +133,16 @@ const GotoMapBtn = styled.button`
   font-size: 10px;
 `;
 
-const NextButton = styled.button`
-  padding: 9px;
-  background-color: #FFF1D2;
-  color: #513421;
-  border: none;
-  border-radius: 100%;
-  aspect-ratio: 1;
+const NextButton = styled.img`
+  padding-bottom: 15px;
+  height: 8%;
+  aspect-ratio: 1/1;  
   cursor: pointer;
-  border: 1px solid #513421;
-  margin-bottom: 15px;
 `;
 
-const BackButton = styled.button`
-  padding: 9px;
-  background-color: #FFF1D2;
-  color: #513421;
-  border: none;
-  border-radius: 100%;
-  aspect-ratio: 1;
+const BackButton = styled.img`
+  padding-bottom: 15px;
+  height: 8%;
+  aspect-ratio: 1/1;
   cursor: pointer;
-  border: 1px solid #513421;
-  margin-bottom: 15px;
 `;

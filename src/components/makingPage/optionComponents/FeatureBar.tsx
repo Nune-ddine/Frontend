@@ -13,7 +13,6 @@ const FeatureBar: React.FC<FeatureBarProps> = ({ onFeatureClick }) => {
       <Feature onClick={() => onFeatureClick("형태")}>형태</Feature>
       <Feature onClick={() => onFeatureClick("얼굴")}>얼굴</Feature>
       <Feature onClick={() => onFeatureClick("옷")}>옷</Feature>
-      <Feature onClick={() => onFeatureClick("옷")}>티셔츠</Feature>
     </Wrapper>
   );
 };
