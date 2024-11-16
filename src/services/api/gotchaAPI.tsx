@@ -22,7 +22,7 @@ export const getGotcha = async (): Promise<GotchaItem | null> => {
     console.log(response);
     return response.data;
   } catch (error) {
-    console.error("Failed to fetch gotcha data:", error);
+    console.error("Failed to get gotcha data:", error);
     return null;
   }
 };

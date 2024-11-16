@@ -3,8 +3,10 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
 import { snowmanState } from '../../contexts/snowmanState';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { createSnowman } from '../../services/snomanAPI';
+import { locatorIdState } from '../../contexts/recoilAtoms';
+import { useNavigate } from 'react-router-dom';
 
 interface SnowmanPartProps {
   selectedImage: string;
@@ -18,9 +20,12 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   const makePNGRef = useRef<MakePNGHandle>(null);
 
   const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const id = useRecoilValue(locatorIdState);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     console.log('Updated snowman:', snowman);
+    console.log(id);
   }, [snowman]);
 
   const saveFinalImage = async () => {
@@ -47,7 +52,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   return (
     <Wrapper>
       <LeftBtnContainer>
-        <GotoMapBtn>{'<'} 맵으로 돌아가기</GotoMapBtn>
+        <GotoMapBtn onClick={() => navigate(`/locating/${id}`)}>{'<'} 맵으로 돌아가기</GotoMapBtn>
         {isQuizMode ? (
             <BackButton src="/images/etc/leftBtn.png" onClick={() => setIsQuizMode(false)}/>
         ) : ( <></>

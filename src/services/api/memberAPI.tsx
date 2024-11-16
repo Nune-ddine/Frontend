@@ -57,8 +57,7 @@ export const getMySnowman = async () => {
   try {
     const response = await axios.get(`${URL}/my-snowman`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        'Authorization': `Bearer ${token}`
       }
     });
 

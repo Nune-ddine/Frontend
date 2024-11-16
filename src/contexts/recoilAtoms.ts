@@ -7,5 +7,5 @@ export const snowmanState = atom<{ x: number; y: number } | null>({
 
 export const locatorIdState = atom<string | undefined>({
   key: "locatorIdState",
-  default: undefined,
+  default: "1",
 });

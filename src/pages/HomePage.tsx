@@ -6,7 +6,7 @@ import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import Snowmans from '../components/HomePage/Snowmans';
 
 const HomePage = () => {
   const location = useLocation();
@@ -29,9 +29,9 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Header/>
-      <Main>
-        <img onClick={() => navigate('/elevator')} src='images/homes/map.png' style={{width:"24%"}}></img>
-      </Main>
+        <Snowmans>
+          <img onClick={() => navigate('/elevator')} src='images/homes/map.png' style={{width:"24%"}} />
+        </Snowmans>
       {token ? (
           <MainLayout>
             <img src='images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
@@ -76,11 +76,12 @@ const MainLayout = styled.div`
   align-items: center;
   height : 15%;
 `;
-const LoginLayout = styled.div`
+export const LoginLayout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  height : 15%;
   margin-top: 5%;
   margin-bottom: 5%;
 
