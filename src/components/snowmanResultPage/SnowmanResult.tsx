@@ -11,7 +11,7 @@ const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
     <Wrapper>
       <Title>눈사람이 완성되었어요!</Title>
       {image ? <SnowmanImg src={image} alt="Final Snowman" /> : <p>No image available</p>}
-      <SnowmanNameInput type="text" placeholder="눈사람에게 이름을 지어주세요" />
+      <SnowmanName>오유진의 눈사람</SnowmanName> 
     </Wrapper>
   );
 };
@@ -24,32 +24,35 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  padding-top: 5rem;
+  height: 70%; 
   box-sizing: border-box;
-  border: 2px solid grey;
+
+  padding-top: 20%;
 `;
 
 const Title = styled.div`
   font-family: 'Maplestory-Bold', sans-serif;
-  font-size: 2rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  color: #513421;
 `;
 
 const SnowmanImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: 70%;
   object-fit: contain;
+  margin-top: -5%; //todo: 이렇게 해도 되나..
 `;
 
-const SnowmanNameInput = styled.input`
-  width: 50%;
-  height: 15%;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  box-sizing: border-box;
-  font-size: 14px;
+const SnowmanName = styled.div`
+  background-color: #D4EAFF;
+  font-family: sans-serif;
+  padding: 10px;
+  width: 22%;
   text-align: center;
+  border-radius: 40px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  color: #513421;
 `;
