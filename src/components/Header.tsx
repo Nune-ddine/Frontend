@@ -12,7 +12,7 @@ const Header = () => {
           <Text>1224p</Text>
         </Button>
         <Button>
-          <img src="/images/etc/questionmarkBtn.png" alt="quizChance" />
+          <img onClick={() => navigate('/making')} src="/images/etc/questionmarkBtn.png" alt="quizChance" />
           <Text>1 / 3</Text>
         </Button>
       </Left>
