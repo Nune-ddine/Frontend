@@ -11,17 +11,22 @@ const Gotcha: React.FC = () => {
   const handleClick = async () => {
     setIsPlaying(true);
     try {
-      const gotchaData = await getGotcha(); // Fetch API result
+      const gotchaData = await getGotcha();
       setTimeout(() => {
         setIsPlaying(false);
         if (gotchaData) {
-          setItemData(gotchaData); // Update state with fetched data
+          setItemData(gotchaData);
           setShowModal(true);
         }
       }, 7500);
-    } catch (error) {
-      console.error("Error fetching gotcha data:", error);
+    } catch (error: any) {
       setIsPlaying(false);
+      if (error.response?.status === 204) {
+        alert("더 이상 뽑을 아이템이 없습니다");
+      } else {
+        console.error("Error fetching gotcha data:", error);
+        alert("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
+      }
     }
   };
 
