@@ -29,6 +29,9 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   }, [snowman]);
 
   const saveFinalImage = async () => {
+    // 진짜 만들 거냐고 물어보는 alert 창
+    const confirm = window.confirm("한번 굴린 눈사람은 꽁꽁 얼어붙어서 수정할 수 없어요! \n눈사람을 굴리시겠어요?");
+    if (!confirm) return;
     if (makePNGRef.current) {
       const image = await makePNGRef.current.captureImage();
       if (image) {

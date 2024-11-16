@@ -144,17 +144,31 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
           />
         </ButtonContainer>
       ) : (
-        <NameInput
-          placeholder="눈사람에게 이름을 지어주세요"
-          value={snowman.name}
-          onChange={(e) => setSnowman({ ...snowman, name: e.target.value })}
-        />
+        <>
+  <NameInput
+    placeholder="눈사람에게 이름을 지어주세요"
+    value={snowman.name}
+    onChange={(e) => {
+      if (e.target.value.length <= 10) {
+        setSnowman({ ...snowman, name: e.target.value });
+      }
+    }}
+  />
+  <CharCount>{snowman.name.length}/10</CharCount>
+</>
+
       )}
     </Wrapper>
   );
 });
 
 export default MakePNG;
+
+const CharCount = styled.div`
+  font-size: 12px;
+  color: #666;
+  margin-top: -10px;
+`;
 
 const Wrapper = styled.div`
   width: 100%;

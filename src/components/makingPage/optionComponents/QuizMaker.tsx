@@ -43,18 +43,20 @@ const QuizMaker = () => {
       <Wrapper>
          <Title>친구들이 맞힐 문제를 만들어주세요!</Title>
          <QuizContainer>
-         <QuizSubtitle>문제 입력(15자 이내)</QuizSubtitle>
+         <QuizSubtitle>문제 입력(20자 이내)</QuizSubtitle>
          <QuizTextarea
             type="text"
             placeholder="문제를 입력해주세요"
-            onChange={(e) =>
-               setSnowman({ ...snowman, quiz: e.target.value })
-            }
+            onChange={(e) => {
+               if (e.target.value.length <= 20) {
+                  setSnowman({ ...snowman, quiz: e.target.value });
+               }
+            }}
             value={snowman.quiz}
          />
          </QuizContainer>
          <OptionContainer>
-         <OptionSubtitle>보기 입력(15자 이내)</OptionSubtitle>
+         <OptionSubtitle>보기 입력(10자 이내)</OptionSubtitle>
          <Options>
             <Option>
                <OptionNum
@@ -66,9 +68,11 @@ const QuizMaker = () => {
                <OptionInput
                type="text"
                placeholder="보기를 입력해주세요"
-               onChange={(e) =>
-                  setSnowman({ ...snowman, content1: e.target.value })
-               }
+               onChange={(e) => {
+                  if (e.target.value.length <= 10) {
+                     setSnowman({ ...snowman, content1: e.target.value });
+                  }
+               }}
                value={snowman.content1}
                selected={snowman.answerId === 1}
                />
