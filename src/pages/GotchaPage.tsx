@@ -6,7 +6,7 @@ import Gotcha from "../components/GotchaPage/Gotcha";
 
 const GotchaPage = () => {
   return (
-    <Wrapper>
+    <Wrapper style={{background:"white"}}>
         <Header/>
         <BackBtn/>
         <Gotcha/>
