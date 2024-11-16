@@ -11,6 +11,7 @@ import GotchaPage from './pages/GotchaPage';
 import TestPage from './pages/TestPage';
 import MakingPage from './pages/makingPage';
 import QuizTestPage from './pages/QuizTestPage';
+import { RecoilRoot } from 'recoil';
 
 class App extends Component {
   
@@ -50,6 +51,7 @@ class App extends Component {
   render() {
     return (
       <div id="App">
+        <RecoilRoot>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/:id" element={<HomePage />} />
@@ -63,6 +65,7 @@ class App extends Component {
           <Route path="/test" element={<TestPage />} />
           <Route path="/quiz" element={<QuizTestPage/>}/>
         </Routes>
+        </RecoilRoot>
       </div>
     );
   }
