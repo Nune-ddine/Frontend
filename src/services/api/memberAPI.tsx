@@ -1,8 +1,9 @@
 import axios from 'axios';
 import URL from '../../constants/constants';
 
+const token = localStorage.getItem("token");
+
 export const getMember = async () => {
-  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${URL}/member`, {
       headers: {
@@ -23,25 +24,34 @@ export const getMember = async () => {
   }
 };
 
-export const patchUsername = async (username: string) => {
-  const token = localStorage.getItem("token");
+export const patchUsername = async (newUsername: string) => {
+  if (!token) {
+    console.log("Token not found");
+    return;
+  }
 
   try {
     const response = await axios.patch(
-      `${URL}/member/username`,
-      { username: `${username}` },
+      "https://nuneddine.p-e.kr/api/v1/member/username",
+      {
+        username: newUsername,
+
+      },
       {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
-    return response.data;
+
+    console.log("Username updated successfully:", response.data);
+    return response.data; // Return the response if needed
   } catch (error) {
-    console.error("Failed to post username:", error);
-    throw error;
+    console.error("Failed to update username:", error);
+    throw error; // Rethrow the error for better error handling
   }
 };
+
 
 export const getMySnowman = async () => {
   try {

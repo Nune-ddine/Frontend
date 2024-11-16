@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CloseButton } from "../Quiz";
+import { getGotcha, GotchaItem } from "../../services/api/gotchaAPI";
 
-const Gotcha = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+const Gotcha: React.FC = () => {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [itemData, setItemData] = useState<GotchaItem | null>(null);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsPlaying(true);
-    setTimeout(() => {
+    try {
+      const gotchaData = await getGotcha(); // Fetch API result
+      setTimeout(() => {
+        setIsPlaying(false);
+        if (gotchaData) {
+          setItemData(gotchaData); // Update state with fetched data
+          setShowModal(true);
+        }
+      }, 7500);
+    } catch (error) {
+      console.error("Error fetching gotcha data:", error);
       setIsPlaying(false);
-      setShowModal(true);
-    }, 7500);
+    }
   };
 
   const closeModal = () => {
@@ -24,12 +36,20 @@ const Gotcha = () => {
         alt="Gotcha"
       />
       <Button onClick={handleClick}>과잠 가챠 돌리기 300p</Button>
-      {showModal && (
+      {showModal && itemData && (
         <Modal>
           <ModalContent>
-          <CloseButton src='/images/etc/closeBtn.png' onClick={closeModal}/>
-            <h2>시각 디자인학과 과잠 획득!</h2>
-            <div style={{backgroundColor:"brown", width:"200px;",height:"300px"}}>네모</div>
+            <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
+            <h2>{itemData.itemName} 획득!</h2>
+            <img
+              src="/images/etc/puangman.png"
+              style={{
+                backgroundColor: "brown",
+                width: "200px",
+                height: "300px",
+              }}
+              alt="Gotcha Result"
+            />
           </ModalContent>
         </Modal>
       )}
@@ -39,12 +59,13 @@ const Gotcha = () => {
 
 export default Gotcha;
 
+// Styled Components
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'MaplestoryOTFBold';
+  font-family: "MaplestoryOTFBold";
   margin-bottom: 5rem;
 `;
 
@@ -57,15 +78,15 @@ const Button = styled.button`
   display: flex;
   width: 75%;
   height: 10%;
-  background-color: #3D9BF2;
+  background-color: #3d9bf2;
   color: #ffffff;
   padding: 1%;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
   border-radius: 100px;
-  border: 3px solid #0084FF;
-  margin-top: 3rem;
+  border: 3px solid #0084ff;
+  margin-top: 1rem;
 `;
 
 const Modal = styled.div`
@@ -81,21 +102,16 @@ const Modal = styled.div`
 `;
 
 const ModalContent = styled.div`
-  color :  #513421;
+  color: #513421;
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
   text-align: center;
   width: 80%;
   max-width: 400px;
-  font-size : 1.4rem;
-`;
-
-const CloseButton = styled.img`  
-position: relative;
-  top: -12px;
-  left: 190px;
-  width: 3rem;
-  cursor: pointer;
-  z-index:10;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

@@ -37,12 +37,15 @@ const HomePage = () => {
             <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate('/locating')}></img>
           </MainLayout>
         ) : (
-          <LoginLayout>
-            <img src='images/homes/kakaoLogin.png' onClick={() => navigate('/login')}>카카오 로그인하기</img>
-          </LoginLayout>
+        <LoginLayout>
+          <div onClick={() => navigate('/login')}>
+            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
+          </div>
+        </LoginLayout>
+        
         )}
-      <button onClick={() => navigate('/making')}>Making Page</button>
-      {/* <button onClick={getMember}>Get Member Test</button>
+      {/* <button onClick={() => navigate('/making')}>Making Page</button>
+      <button onClick={getMember}>Get Member Test</button>
       <button onClick={getGotcha}>Get Gotcha Test</button>
       <button onClick={patchMember}>Patch Member Test</button>
       <button onClick={getInventory}>Get Inventory Test</button>
@@ -76,12 +79,23 @@ const LoginLayout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+  }
+
   button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #FFDD00;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
 `;

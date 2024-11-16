@@ -7,7 +7,7 @@ import BackBtn from '../components/BackBtn';
 
 interface MemberResponse {
   image: string;
-  name: string;
+  username: string;
 }
 
 interface Snowman {
@@ -15,24 +15,22 @@ interface Snowman {
   name: string | null;
   image: string;
   correctCount: number;
-  incorrectCount: number;
+  incorrentCount: number; 
 }
 
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
-
-  const goHome = () => {
-    navigate("/");
-  };
+  const [isEditing, setIsEditing] = useState<boolean>(false); // State for editing mode
+  const [newUsername, setNewUsername] = useState<string>(''); // Temp username for edit
 
   const getProfile = async () => {
     try {
-      const response: MemberResponse = await getMember(); // response 타입 명시
+      const response: MemberResponse = await getMember(); 
       setImage(response.image);
-      setName(response.name);
+      setUsername(response.username);
     } catch (error) {
       console.error("Failed to fetch member profile:", error);
     }
@@ -41,6 +39,7 @@ const MyPage: React.FC = () => {
   const getSnowman = async () => {
     try {
       const response: Snowman[] = await getMySnowman(); // response 타입 명시
+      // console.log(response);
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to fetch snowman data:", error);
@@ -49,8 +48,9 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
-      const response = await patchUsername("누네띠네"); // username 인자를 추가
-      console.log(response);
+      await patchUsername(newUsername); // Pass newUsername to the API
+      setUsername(newUsername); // Update UI with the new username
+      setIsEditing(false); // Exit edit mode
     } catch (error) {
       console.error("Error updating username:", error);
     }
@@ -62,29 +62,77 @@ const MyPage: React.FC = () => {
   }, []);
 
   return (
-    <Wrapper style={{backgroundColor:"#f0f0f0"}}>
+    <Wrapper style={{ backgroundColor: "#f0f0f0" }}>
       <Header />
-      <BackBtn/>
+      <BackBtn />
       <ProfileSection>
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>
-          {name || "오유진"}
-          <img src="/images/etc/edit.png" style={{width:"10px"}} onClick={editUsername}></img>
+          {isEditing ? (
+            <div>
+              <input
+                type="text"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                style={{
+                  border: "1px solid #513421",
+                  borderRadius: "8px",
+                  width:"80px",
+                  height:"24px"
+                }}
+              />
+              <Button onClick={editUsername} style={{ marginLeft: "1rem" }}>
+                저장
+              </Button>
+              <Button onClick={() => setIsEditing(false)} style={{ marginLeft: "1rem" }}>
+                취소
+              </Button>
+            </div>
+          ) : (
+            <>
+              {username}
+              <img
+                src="/images/mypage/edit.png"
+                style={{ width: "16px", marginLeft: "10px", cursor: "pointer" }}
+                onClick={() => {
+                  setIsEditing(true);
+                  setNewUsername(username); // Initialize input with the current username
+                }}
+              />
+            </>
+          )}
         </ProfileName>
       </ProfileSection>
       <MainContent>
+
+        <div style={{ height: "20%", width: "100%", background: "grey" }}>그래픽 자리</div>
         <SnowmanContainer>
-          {snowmans.map((snowman) => {
-            const totalCount = snowman.correctCount + snowman.incorrectCount;
-            return (
-              <Snowman key={snowman.id}>
-                <SnowmanText>{snowman.name || "Unknown Snowman"}</SnowmanText>
+          {[...Array(3)].map((_, index) =>
+            snowmans[index] ? (
+              <Snowman key={snowmans[index].id}>
+                <img
+                  src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
+                  alt="Snowman"
+                />
+                <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
                 <SnowmanCount>
-                  {snowman.correctCount}/{totalCount}명
+                  {snowmans[index].correctCount}/{snowmans[index].incorrentCount}명
                 </SnowmanCount>
               </Snowman>
-            );
-          })}
+            ) : (
+              <Snowman key={index}>
+                <img
+                  src="/images/mypage/emptySnowman.png"
+                  alt="Empty Snowman"
+                  style={{ width: "80%" }}
+                />
+                <SnowmanText>
+                  눈사람 <img src="/images/mypage/edit.png" style={{ width: "12px" }} />
+                </SnowmanText>
+                <SnowmanCount>0/0명</SnowmanCount>
+              </Snowman>
+            )
+          )}
         </SnowmanContainer>
       </MainContent>
     </Wrapper>
@@ -97,7 +145,8 @@ export const Wrapper = styled.div`
   height : 100%;
   display : flex;
   flex-direction: column;
-  justify-content : space-between;
+  // justify-content : space-between;
+  gap : 3%;
   background-color : #F3F9FF;
   font-family: 'MaplestoryOTFBold';
 `
@@ -114,6 +163,7 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   margin-right: 0.5rem;
   background-size: auto;
+  border: 1px solid #513421;
 `;
 
 const ProfileName = styled.div`
@@ -121,8 +171,9 @@ const ProfileName = styled.div`
   border-radius: 100px;
   width: auto; 
   padding: 10px;
+  gap : 2rem;
   border: 1px solid #513421;
-  font-size: 11px;
+  font-size: 1rem;
   color: #513421;
   div {
     background-color: #FFF1D2;
@@ -132,12 +183,16 @@ const ProfileName = styled.div`
     padding-right: 8px;
   }
 `;
-
+const Button = styled.button`
+  width : 56px;
+`
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  background: #E4F1FF;
+  color : #513421;
+  height : 80%;
 `;
 
 const SnowmanContainer = styled.div`
@@ -150,12 +205,19 @@ const Snowman = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e0e0e0;
-  border-radius: 50%;
-  width: 80px;
-  height: 120px;
-  margin: 1rem;
-  padding: 0.5rem;
+  position: relative;
+
+  margin-top : 10%;
+  &:nth-child(1),
+  &:nth-child(3)  {
+    align-self: center;
+    margin-bottom: -60%; /* Adjust for overlap if needed */
+
+  }
+
+  &:nth-child(2){
+    align-self: start;
+  }
 `;
 
 const SnowmanText = styled.div`
