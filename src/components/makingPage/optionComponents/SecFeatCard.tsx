@@ -14,7 +14,7 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
 
   return (
     <Wrapper imgsrc={img} draggable onDragStart={handleDragStart}>
-      <Image src={img} alt={name} />
+      <Image src={img} alt={name} draggable="false" />
       <div>{name}</div>
     </Wrapper>
   );
@@ -50,4 +50,6 @@ const Image = styled.img`
   // 원본 이미지 비율을 유지
   aspect-ratio: attr(width) / attr(height);
   margin-bottom: 10px;
+
+  user-select: none; /* 텍스트 선택 방지 */
 `;
