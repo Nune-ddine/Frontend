@@ -50,9 +50,9 @@ class App extends Component {
 
   render() {
     return (
-      <div id="App">
-        <RecoilRoot>
-        <Routes>
+      <RecoilRoot>
+        <div id="App">
+          <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/:id" element={<HomePage />} />
           <Route path="/myPage" element={<MyPage />} />
@@ -64,9 +64,9 @@ class App extends Component {
           <Route path='/elevator' element={<SelectingMapPage/>}/>
           <Route path="/test" element={<TestPage />} />
           <Route path="/quiz" element={<QuizTestPage/>}/>
-        </Routes>
-        </RecoilRoot>
-      </div>
+          </Routes>
+        </div>
+      </RecoilRoot>
     );
   }
 }

@@ -43,7 +43,7 @@ const QuizMaker = () => {
       <Wrapper>
          <Title>친구들이 맞힐 문제를 만들어주세요!</Title>
          <QuizContainer>
-         <Subtitle>문제 입력(15자 이내)</Subtitle>
+         <QuizSubtitle>문제 입력(15자 이내)</QuizSubtitle>
          <QuizTextarea
             type="text"
             placeholder="문제를 입력해주세요"
@@ -54,7 +54,7 @@ const QuizMaker = () => {
          />
          </QuizContainer>
          <OptionContainer>
-         <Subtitle>보기 입력(15자 이내)</Subtitle>
+         <OptionSubtitle>보기 입력(15자 이내)</OptionSubtitle>
          <Options>
             <Option>
                <OptionNum
@@ -128,6 +128,7 @@ const Wrapper = styled.div`
    justify-content: center;
    box-sizing: border-box;
    padding: 20px;
+   padding-bottom: 0;
    gap: 10px;
 `
 
@@ -153,9 +154,17 @@ const OptionContainer = styled.div`
    height: 50%;
    box-sizing: border-box;
 `
-const Subtitle = styled.div`
+const QuizSubtitle = styled.div`
    width: 100%;
    height: 20%;
+
+   color: #513421;
+   font-family: 'Maplestory-Bold', sans-serif;
+   font-weight: bold;
+`
+const OptionSubtitle = styled.div`
+   width: 100%;
+   height: 13%;
 
    color: #513421;
    font-family: 'Maplestory-Bold', sans-serif;

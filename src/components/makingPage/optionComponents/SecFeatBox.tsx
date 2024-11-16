@@ -9,6 +9,7 @@ interface SecFeatBoxProps {
 }
 
 const SecFeatBox: React.FC<SecFeatBoxProps> = ({ items, onSelectImage }) => {
+  
   return (
     <Wrapper>
       {Object.keys(items).map((partKey) => (
@@ -25,10 +26,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
-  max-height: 400px;
+  height: 90%;
   padding: 10px;
   box-sizing: border-box;
-  overflow-y: auto;
   padding-left: 20px;
+  padding-right: 20px;
+
+  /* border: 1px solid black; */
 `;

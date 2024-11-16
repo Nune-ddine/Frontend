@@ -42,5 +42,16 @@ export const SNOWMAN_ITEMS = {
       { name: "빨강목도리", img: "/images/items/clothes/muffler/muffler_red.png" },
       { name: "노랑목도리", img: "/images/items/clothes/muffler/muffler_yellow.png" },
    ],
+   외투: [
+      { name: "겨울외투", img: "/images/items/clothes/muffler/muffler_check.png"  },
+      { name: "봄외투", img: "/images/items/clothes/muffler/muffler_check.png"  },
+      { name: "여름외투", img: "/images/items/clothes/muffler/muffler_check.png"  },
+      { name: "가을외투", img: "/images/items/clothes/muffler/muffler_check.png" },
+   ]
 },
+티셔츠: {
+   티셔츠: [
+
+   ],
+}
 };
