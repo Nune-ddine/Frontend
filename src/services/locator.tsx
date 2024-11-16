@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { locatorIdState, snowmanState } from "../contexts/recoilAtoms";
 
@@ -9,6 +9,7 @@ const Locator = () => {
   const [snowman, setSnowman] = useRecoilState(snowmanState);
   const setId = useSetRecoilState(locatorIdState);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSnowman(snowman);
@@ -32,6 +33,7 @@ const Locator = () => {
 
     setSnowman({ x, y });
     // console.log("Updated snowman:", snowman);
+    navigate(`/making`);
   };
 
   return (
