@@ -5,6 +5,8 @@ import FeatureBar from './optionComponents/FeatureBar';
 import SecFeatBox from './optionComponents/SecFeatBox';
 import { SNOWMAN_ITEMS } from '../../constants/snowmanItems';
 import QuizMaker from './optionComponents/QuizMaker';
+import { useRecoilState } from 'recoil';
+import { isQuizModeState } from '../../contexts/snowmanState';
 
 type FeatureType = keyof typeof SNOWMAN_ITEMS;
 
@@ -13,8 +15,9 @@ interface OptionPartProps {
   isQuizMode: boolean; // Quiz 모드 상태를 받아서 표시 여부 결정
 }
 
-const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage, isQuizMode }) => {
+const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage }) => {
   const [selectedFeature, setSelectedFeature] = useState<FeatureType | null>(null);
+  const [isQuizMode, setIsQuizMode] = useRecoilState(isQuizModeState);
 
   const renderFeatureContent = () => {
     if (selectedFeature) {

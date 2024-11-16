@@ -1,68 +1,63 @@
-// src/components/SnowmanPart.tsx
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import MakePNG, { MakePNGHandle } from './MakePNG';
-import { snowmanState } from '../../contexts/snowmanState';
+import MakePNG from './MakePNG';
+import { isQuizModeState, snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState } from 'recoil';
 import { createSnowman } from '../../services/snomanAPI';
+import { useNavigate } from 'react-router-dom';
 
-interface SnowmanPartProps {
-  selectedImage: string;
-  selectedFeature: string;
-  isQuizMode: boolean;
-  setIsQuizMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setFinalImage: (img: string) => void;
-}
-
-const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeature, isQuizMode, setIsQuizMode, setFinalImage }) => {
-  const makePNGRef = useRef<MakePNGHandle>(null);
-
+const SnowmanPart = () => {
   const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const [isQuizMode, setIsQuizMode] = useRecoilState(isQuizModeState);
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     console.log('Updated snowman:', snowman);
   }, [snowman]);
 
   const saveFinalImage = async () => {
-    if (makePNGRef.current) {
-      const image = await makePNGRef.current.captureImage();
-      if (image) {
-        console.log(image);
-        setFinalImage(image);
-        setSnowman((prevSnowman) => ({
-          ...prevSnowman,
-          image: image, // 이미지 설정
-        }));
-        printSnowman();
-        createSnowman(snowman);
-      }
-    }
-  };
-
-  //snowman 값들 console로 화긴하는 함수
-  const printSnowman = () => {
-    console.log(snowman);
+    // if (makePNGRef.current) {
+    //   const image = await makePNGRef.current.captureImage();
+    //   if (image) {
+    //     console.log('Captured image:', image);
+    //     setSnowman((prevSnowman) => ({
+    //       ...prevSnowman,
+    //       image, // 이미지 설정
+    //     }));
+    //     console.log('Final snowman state:', snowman);
+    //     createSnowman(snowman); // 서버에 저장 (API 호출)
+    //   }
+    // }
   };
 
   return (
     <Wrapper>
       <LeftBtnContainer>
         <GotoMapBtn>{'<'} 맵으로 돌아가기</GotoMapBtn>
-        {isQuizMode ? (
-            <BackButton src="/images/etc/leftBtn.png" onClick={() => setIsQuizMode(false)}/>
-        ) : ( <></>
+        {isQuizMode && (
+          <BackButton
+            src="/images/etc/leftBtn.png"
+            onClick={() => setIsQuizMode(false)}
+          />
         )}
       </LeftBtnContainer>
       <SnowmanContainer>
-        <MakePNG ref={makePNGRef} selectedFeature={selectedFeature} isQuizMode={isQuizMode} /> {/* isQuizMode를 MakePNG에 전달 */}
+        <MakePNG  />
       </SnowmanContainer>
       <RightBtnContainer>
         {isQuizMode ? (
-          <>
-            <NextButton src="/images/etc/rightBtn.png" id="doneBtn" onClick={saveFinalImage}/>
-          </>
+          <NextButton
+            src="/images/etc/rightBtn.png"
+            id="doneBtn"
+            onClick={() => navigate('/snowmanResult')}
+          />
         ) : (
-          <NextButton src="/images/etc/rightBtn.png" id="nextBtn" onClick={() => setIsQuizMode(true)}/>
+          <NextButton
+            src="/images/etc/rightBtn.png"
+            id="nextBtn"
+            onClick={() => setIsQuizMode(true)}
+          />
         )}
       </RightBtnContainer>
     </Wrapper>
@@ -78,12 +73,11 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* border: 2px solid black; */
 `;
 
 const LeftBtnContainer = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   width: 20%;
   height: 100%;
   justify-content: space-between;
@@ -96,7 +90,6 @@ const SnowmanContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 2px solid black; */
   position: relative;
 `;
 

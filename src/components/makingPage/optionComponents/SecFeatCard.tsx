@@ -1,5 +1,7 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+import { selectedItemState } from '../../../contexts/snowmanState';
 
 interface SecFeatCardProps {
   name: string;
@@ -7,49 +9,43 @@ interface SecFeatCardProps {
 }
 
 const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
-  const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-    event.dataTransfer.setData('imgsrc', img); // 드래그된 이미지의 경로를 저장
-    event.dataTransfer.setData('name', name);
+  const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
+
+  const handleClick = () => {
+    setSelectedItem({ imgSrc: img, name }); // 클릭된 아이템 정보 저장
   };
 
   return (
-    <Wrapper imgsrc={img} draggable onDragStart={handleDragStart}>
-      <Image src={img} alt={name} draggable="false" />
-      <div>{name}</div>
+    <Wrapper onClick={handleClick}>
+      <Image src={img} alt={name} />
+      <Name>{name}</Name>
     </Wrapper>
   );
 };
 
 export default SecFeatCard;
 
-interface WrapperProps {
-  imgsrc: string;
-}
-
-const Wrapper = styled.div<WrapperProps>`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 25%;
-  height: 100%;
-  cursor: grab;
-  font-family: sans-serif;
-
-  ${({ imgsrc }) =>
-    imgsrc.includes('shape') &&
-    css`
-      width: 50%;
-
-    `}
-
-    /* border: 1px solid black; */
+  height: auto;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
-  height: 40%;
-  // 원본 이미지 비율을 유지
-  aspect-ratio: attr(width) / attr(height);
-  margin-bottom: 10px;
+  height: auto;
+  max-width: 80%;
+  margin-bottom: 8px;
+  object-fit: contain;
+  user-select: none;
+`;
 
-  user-select: none; /* 텍스트 선택 방지 */
+const Name = styled.p`
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #513421;
 `;

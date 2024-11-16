@@ -26,3 +26,17 @@ export const snowmanState = atom<SnowmanState>({
     content3: '',
   },
 });
+
+
+export const selectedItemState = atom({
+  key: 'selectedItemState',
+  default: {
+    imgSrc: '', // Image path of the clicked item
+    name: '',   // Name of the clicked item
+  },
+});
+
+export const isQuizModeState = atom({
+  key: 'isQuizModeState',
+  default: false,
+});

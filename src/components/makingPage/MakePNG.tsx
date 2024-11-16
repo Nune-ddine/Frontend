@@ -1,117 +1,48 @@
-import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import html2canvas from 'html2canvas';
+import { selectedItemState, snowmanState } from '../../contexts/snowmanState';
 import styled from 'styled-components';
-import { snowmanState } from '../../contexts/snowmanState';
-import { useRecoilState } from 'recoil';
 
-interface MakePNGProps {
-  selectedFeature: string;
-  isQuizMode: boolean;
-}
-
-export interface MakePNGHandle {
-  captureImage: () => Promise<string | null>;
-}
-
-const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQuizMode }, ref) => {
+const MakePNG = () => {
+  const selectedItem = useRecoilValue(selectedItemState); // 클릭된 아이템 정보 가져오기
   const containerRef = useRef<HTMLDivElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
-  const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const [snowman, setSnowman] = useRecoilState(snowmanState); // snowman 상태
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+  const handlePositionClick = (e: React.MouseEvent) => {
+    const container = containerRef.current;
+    if (!container || !selectedItem.imgSrc) return;
+
+    const img = document.createElement('img');
+    img.src = selectedItem.imgSrc;
+    img.alt = selectedItem.name;
+    img.style.position = 'absolute';
+
+    // 클릭한 위치에 배치
+    const rect = container.getBoundingClientRect();
+    img.style.left = `${e.clientX - rect.left}px`;
+    img.style.top = `${e.clientY - rect.top}px`;
+
+    img.style.width = '50px'; // 크기 조정
+    img.style.height = '50px';
+    img.style.objectFit = 'contain';
+
+    container.appendChild(img);
+  };
+
+  const saveSnowmanAsBase64 = async () => {
     const container = containerRef.current;
     if (!container) return;
 
-    const imgsrc = event.dataTransfer.getData('imgsrc');
-    const name = event.dataTransfer.getData('name');
-
-    if (imgsrc) {
-      const containerRect = container.getBoundingClientRect();
-      const x = event.clientX - containerRect.left;
-      const y = event.clientY - containerRect.top;
-
-      const img = document.createElement('img');
-      img.src = imgsrc;
-      img.alt = name;
-      img.style.position = 'absolute';
-
-      const containerWidth = containerRect.width;
-      const containerHeight = containerRect.height;
-
-      const shapeOffset = 0.8;
-      const faceOffset = 0.05;
-      const clothesOffset = 0.1;
-
-      if (imgsrc.includes('shape')) {
-        img.style.width = `${containerWidth * shapeOffset}px`;
-        img.style.height = `${containerHeight * shapeOffset}px`;
-        img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
-        img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
-      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
-        img.style.width = `${containerWidth * faceOffset}px`;
-        img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset / 2, 0), containerWidth - containerWidth * faceOffset)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * faceOffset / 2, 0), containerHeight - containerWidth * faceOffset)}px`;
-      } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * clothesOffset}px`;
-        img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * clothesOffset / 2, 0), containerWidth - containerWidth * clothesOffset)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * clothesOffset / 2, 0), containerHeight - containerWidth * clothesOffset)}px`;
-      }
-
-      img.style.objectFit = 'contain';
-      container.appendChild(img);
-
-      setImages((prevImages) => [...prevImages, img]);
-      setRedoImages([]);
-    }
-  };
-
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
-
-  const captureImage = async (): Promise<string | null> => {
-    const container = containerRef.current;
-    if (!container) return null;
-
-    const canvas = await html2canvas(container, {
-      backgroundColor: null,
-      width: container.offsetWidth,
-      height: container.offsetHeight,
-    });
-    return canvas.toDataURL('image/png');
-  };
-
-  useImperativeHandle(ref, () => ({
-    captureImage,
-  }));
-
-  const handleUndo = () => {
-    const lastImage = images.pop();
-    if (lastImage && containerRef.current) {
-      containerRef.current.removeChild(lastImage);
-      setImages([...images]);
-      setRedoImages((prevRedoImages) => [lastImage, ...prevRedoImages]);
-    }
-  };
-
-  const handleRedo = () => {
-    const lastRedoImage = redoImages.shift();
-    if (lastRedoImage && containerRef.current) {
-      containerRef.current.appendChild(lastRedoImage);
-      setImages((prevImages) => [...prevImages, lastRedoImage]);
-      setRedoImages([...redoImages]);
-    }
-  };
-
-  const handleClearAll = () => {
-    if (containerRef.current) {
-      images.forEach((img) => containerRef.current?.removeChild(img));
-      setImages([]);
-      setRedoImages([]);
+    try {
+      const canvas = await html2canvas(container, { backgroundColor: null });
+      const base64Image = canvas.toDataURL('image/png'); // Base64로 변환
+      setSnowman((prevSnowman) => ({
+        ...prevSnowman,
+        image: base64Image, // Base64 이미지 저장
+      }));
+    } catch (error) {
+      console.error('Failed to capture the snowman as Base64:', error);
     }
   };
 
@@ -119,40 +50,17 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
     <Wrapper>
       <Container
         ref={containerRef}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      />
-      {!isQuizMode ? (
-        <ButtonContainer>
-          <ImgButton
-            src="/images/etc/undoBtn.png"
-            onClick={handleUndo}
-            disabled={images.length === 0}
-            visible={images.length > 0}
-          />
-          <ImgButton
-            src="/images/etc/clearAllBtn.png"
-            onClick={handleClearAll}
-            disabled={images.length === 0}
-            visible={images.length > 0}
-          />
-          <ImgButton
-            src="/images/etc/redoBtn.png"
-            onClick={handleRedo}
-            disabled={redoImages.length === 0}
-            visible={redoImages.length > 0}
-          />
-        </ButtonContainer>
-      ) : (
-        <NameInput
-          placeholder="눈사람에게 이름을 지어주세요"
-          value={snowman.name}
-          onChange={(e) => setSnowman({ ...snowman, name: e.target.value })}
-        />
-      )}
+        onClick={handlePositionClick}
+        style={{ position: 'relative', width: '100%', height: '100%', border: '1px solid black' }}
+      >
+        {/* 아이템 배치 영역 */}
+      </Container>
+      <ButtonContainer>
+        <Button onClick={saveSnowmanAsBase64}>Save Snowman</Button>
+      </ButtonContainer>
     </Wrapper>
   );
-});
+};
 
 export default MakePNG;
 
@@ -166,8 +74,8 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 200%;
-  height: 120%;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
 `;
@@ -175,28 +83,18 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin-bottom: 1%;
-  height: 10%;
-`;
-
-const ImgButton = styled.img<{ disabled?: boolean; visible?: boolean }>`
-  height: 70%;
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-  pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
-`;
-
-const NameInput = styled.input`
-  width: 90%;
-  height: 8%;
-  border: none;
-  border-radius: 40px;
-  margin-bottom: 16px;
-  background-color: #d4eaff;
-  font-family: sans-serif;
-  padding-left: 10px;
   margin-top: 10px;
-  font-size: 0.8rem;
-  text-align: center;
-  color: #513421;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #45a049;
+  }
 `;
