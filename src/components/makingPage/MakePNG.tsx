@@ -40,21 +40,25 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const containerWidth = containerRect.width;
       const containerHeight = containerRect.height;
 
+      const shapeOffset = 0.8;
+      const faceOffset = 0.05;
+      const clothesOffset = 0.1;
+
       if (imgsrc.includes('shape')) {
-        img.style.width = `${containerWidth * 0.6}px`; // 전체 크기의 60%로 줄임
-        img.style.height = `${containerHeight * 0.6}px`;
-        img.style.left = `${(containerWidth - containerWidth * 0.6) / 2}px`;
-        img.style.top = `${(containerHeight - containerHeight * 0.6) / 2}px`;
+        img.style.width = `${containerWidth * shapeOffset}px`; // 전체 크기의 60%로 줄임
+        img.style.height = `${containerHeight * shapeOffset}px`;
+        img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
+        img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
       } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
-        img.style.width = `${containerWidth * 0.05}px`; // 전체 크기의 5%로 줄임
+        img.style.width = `${containerWidth * faceOffset}px`; // 전체 크기의 5%로 줄임
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.025, 0), containerWidth - containerWidth * 0.05)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.025, 0), containerHeight - containerWidth * 0.05)}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset/2, 0), containerWidth - containerWidth * 0.05)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * faceOffset/2, 0), containerHeight - containerWidth * 0.05)}px`;
       } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * 0.1}px`; // 전체 크기의 10%로 줄임
+        img.style.width = `${containerWidth * clothesOffset}px`; // 전체 크기의 10%로 줄임
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.05, 0), containerWidth - containerWidth * 0.1)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.05, 0), containerHeight - containerWidth * 0.1)}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * clothesOffset/2, 0), containerWidth - containerWidth * 0.1)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * clothesOffset/2, 0), containerHeight - containerWidth * 0.1)}px`;
       }
 
       img.style.objectFit = 'contain';
@@ -152,7 +156,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 200%;
-  height: 200%;
+  height: 120%;
   position: relative;
   overflow: hidden;
 `;
