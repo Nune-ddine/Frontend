@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 interface Snowman {
@@ -9,6 +10,7 @@ interface Snowman {
 const Locator = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [snowmen, setSnowmen] = useState<Snowman[]>([]);
+  const { id } = useParams();
 
   const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const container = containerRef.current;
@@ -22,7 +24,8 @@ const Locator = () => {
 
     setSnowmen((prevSnowmen) => [...prevSnowmen, { x, y }]);
 
-    console.log(`x: ${x}, y: ${y}`);
+    // console.log(`x: ${x}, y: ${y}`);
+    // console.log(id);
   };
 
   return (

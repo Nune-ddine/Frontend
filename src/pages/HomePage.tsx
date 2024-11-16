@@ -21,6 +21,9 @@ const HomePage = () => {
     if (code && !localStorage.getItem("token")) {
       login(code); // 실제 로그인 함수 호출
     }
+    if (location.pathname === "/") {
+      navigate("/1", { replace: true });
+    }
   }, [location, token]);
 
   return (
