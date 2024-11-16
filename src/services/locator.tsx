@@ -10,6 +10,16 @@ const Locator = () => {
   const setId = useSetRecoilState(locatorIdState);
   const { id } = useParams();
 
+  useEffect(() => {
+    setSnowman(snowman);
+    console.log("Updated snowman:", snowman);
+  }, [snowman]);
+
+  useEffect(() => {
+    setId(id);
+    console.log("Updated id:", id);
+  }, [id, setId]);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const container = containerRef.current;
     if (!container) return;
@@ -21,8 +31,7 @@ const Locator = () => {
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
     setSnowman({ x, y });
-    setId(id);
-    console.log(snowman, id);
+    // console.log("Updated snowman:", snowman);
   };
 
   return (
