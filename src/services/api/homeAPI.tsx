@@ -3,14 +3,15 @@ import URL from "../../constants/constants";
 
 const token = localStorage.getItem("token");
 
-export const getAllSnowman = async () => {
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/map/1");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to fetch all snowman data", error);
-    }
-  };
+export const getAllSnowman = async (snowmanId: string): Promise<any> => {
+  try {
+    const response = await axios.get(`${URL}/map/${snowmanId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch all snowman data", error);
+    throw error;
+  }
+};
 
 export const getSnowmanQuiz = async () => {
     if (!token) {

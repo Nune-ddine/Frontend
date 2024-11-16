@@ -146,7 +146,7 @@ export const Wrapper = styled.div`
   display : flex;
   flex-direction: column;
   // justify-content : space-between;
-  gap : 3%;
+  // gap : 3%;
   background-color : #F3F9FF;
   font-family: 'MaplestoryOTFBold';
 `

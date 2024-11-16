@@ -12,7 +12,7 @@ const LocatingPage = () => {
     <Wrapper>
       <Header/>
       <Locator/>
-      <Wrapper style={{height:"10%", alignItems:"center"}}>
+      <Wrapper style={{height:"15%", alignItems:"center", marginBottom:"5%", marginTop:"5%"}}>
         <Button>
           눈사람 만들 곳을 클릭해주세요!
           <img onClick={()=>navigate(`/${id}`)} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
@@ -36,5 +36,5 @@ const Button = styled.div`
   gap : 10px;
   font-family: 'MaplestoryOTFBold';
   font-size : 1.6rem;
-  margin-bottom : 4rem;
+  // margin-bottom : 4rem;
 `;

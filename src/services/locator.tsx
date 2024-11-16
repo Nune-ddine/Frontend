@@ -38,7 +38,7 @@ const Locator = () => {
     <div
       ref={containerRef}
       onClick={handleClick}
-      style={{ position: "relative", height: "100vh" }}
+      style={{ position: "relative", height: "100vh", border:"1px solid black" }}
     >
       {snowman && (
         <Snowman
