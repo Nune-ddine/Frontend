@@ -68,7 +68,7 @@ export default SnowmanPart;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 50%;
+  height: 60%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -85,7 +85,7 @@ const LeftBtnContainer = styled.div`
 `;
 
 const SnowmanContainer = styled.div`
-  width: 50%;
+  width: 60%;
   height: 100%;
   display: flex;
   flex-direction: column;

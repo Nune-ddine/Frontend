@@ -11,7 +11,7 @@ interface SecFeatRowProps {
 
 const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
   // 예시: itemExist 배열은 '외투' 카테고리의 아이템 존재 여부를 나타냄
-  const itemExist = [false, false, false, false]; // '외투'에서 보유한 아이템 없음
+  const itemExist = [false, false, true, false]; // '외투'에서 보유한 아이템 없음
 
   // 모든 값이 false인지 검사
   const allFalse = partKey === '외투' && itemExist.every((exist) => !exist);

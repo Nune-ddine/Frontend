@@ -23,13 +23,7 @@ const MakingPage: React.FC = () => {
   return (
     <PageWrapper>
       <Header />
-      <SnowmanPart
-        selectedImage={selectedImage}
-        selectedFeature={selectedFeature}
-        isQuizMode={isQuizMode}
-        setIsQuizMode={setIsQuizMode}
-        setFinalImage={setFinalImage}
-      />
+      <SnowmanPart/>
       <OptionPart
         onSelectImage={(img, feature) => {
           setSelectedImage(img);

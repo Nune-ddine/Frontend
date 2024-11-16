@@ -1,18 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import { snowmanState } from '../../contexts/snowmanState';
+import { useRecoilState } from 'recoil';
 
-interface SnowmanResultProps {
-  image: string | null; // 최종 PNG 이미지 경로
-}
+const SnowmanResult: React.FC = () => {
+  const [snowman] = useRecoilState(snowmanState); // snowman 상태 읽기
 
-const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
   return (
     <Wrapper>
       <Title>눈사람이 완성되었어요!</Title>
-      {image ? <SnowmanContainer>
-          <SnowmanImg src={image} alt="Final_Snowman" />
-        </SnowmanContainer> : <p>No image available</p>}
-      <SnowmanName>오유진의 눈사람</SnowmanName> 
+      {snowman && snowman.image ? (
+        <SnowmanContainer>
+          <SnowmanImg src={snowman.image} alt="Final Snowman" />
+        </SnowmanContainer>
+      ) : (
+        <p>No image available</p>
+      )}
+      <SnowmanName>오유진의 눈사람</SnowmanName>
     </Wrapper>
   );
 };
@@ -25,10 +29,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%; 
+  height: 70%;
   box-sizing: border-box;
 
-  padding-top: 20%;
 `;
 
 const Title = styled.div`
@@ -43,21 +46,23 @@ const SnowmanContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%; // 부모 크기에 비례한 이미지 크기 조정
-  height: 70%;
+  max-height: 60%; // 부모 높이에 비례
   overflow: hidden;
+  position: relative;
 `;
 
 const SnowmanImg = styled.img`
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; // 찌그러지지 않게 조정
+  object-fit: contain; // 비율 유지
+  margin: auto;
 `;
 
 const SnowmanName = styled.div`
   background-color: #D4EAFF;
   font-family: sans-serif;
   padding: 10px;
-  width: 22%;
+  width: 50%; // 이름 박스 크기 확대
   text-align: center;
   border-radius: 40px;
   font-size: 1rem;
