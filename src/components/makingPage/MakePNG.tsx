@@ -1,6 +1,8 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
+import { snowmanState } from '../../contexts/snowmanState';
+import { useRecoilState } from 'recoil';
 
 interface MakePNGProps {
   selectedFeature: string;
@@ -15,38 +17,40 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const containerRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
+  
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const container = containerRef.current;
     if (!container) return;
 
-    const imgSrc = event.dataTransfer.getData('imgSrc');
+    const imgsrc = event.dataTransfer.getData('imgsrc');
     const name = event.dataTransfer.getData('name');
 
-    if (imgSrc) {
+    if (imgsrc) {
       const containerRect = container.getBoundingClientRect();
       const x = event.clientX - containerRect.left;
       const y = event.clientY - containerRect.top;
 
       let imgWidth = 100, imgHeight = 100;
-      if (imgSrc.includes('shape')) {
+      if (imgsrc.includes('shape')) {
         imgWidth = 400;
         imgHeight = 400;
-      } else if (imgSrc.includes('eye') || imgSrc.includes('mouth')) {
+      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
         imgWidth = 50;
         imgHeight = 50;
-      } else if (imgSrc.includes('hat') || imgSrc.includes('scarf')) {
+      } else if (imgsrc.includes('hat') || imgsrc.includes('scarf')) {
         imgWidth = 100;
         imgHeight = 100;
       }
 
       const img = document.createElement('img');
-      img.src = imgSrc;
+      img.src = imgsrc;
       img.alt = name;
       img.style.position = 'absolute';
 
-      if (imgSrc.includes('shape')) {
+      if (imgsrc.includes('shape')) {
         const offsetY = 70;
         img.style.left = `${containerRect.width / 2 - imgWidth / 2}px`;
         img.style.top = `${containerRect.height / 2 - imgHeight / 2 + offsetY}px`;
@@ -120,7 +124,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
           overflow: 'hidden',
         }}
       />
-      {!isQuizMode && (
+      {!isQuizMode ? (
         <ButtonContainer>
           {images.length > 0 && (
             <>
@@ -138,6 +142,12 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
             </Button>
           )}
         </ButtonContainer>
+      ) : (
+        <NameInput 
+          placeholder="눈사람에게 이름을 지어주세요"
+          value={snowman.name}
+          onChange={(e) => setSnowman({ ...snowman, name: e.target.value })}
+          />
       )}
     </Wrapper>
   );
@@ -177,4 +187,19 @@ const Button = styled.button`
     padding-left: 8px;
     padding-right: 8px;
   }
+`;
+
+const NameInput = styled.input`
+  width: 90%;
+  height: 50px;
+  border: none;
+  border-radius: 40px;
+  margin-bottom: 16px;
+  background-color: #D4EAFF;
+  font-family: sans-serif;
+  padding-left: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #513421;
 `;
