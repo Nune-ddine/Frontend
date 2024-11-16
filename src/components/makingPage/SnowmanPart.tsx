@@ -34,15 +34,22 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
       if (image) {
         console.log(image);
         setFinalImage(image);
-        setSnowman((prevSnowman) => ({
-          ...prevSnowman,
+  
+        const updatedSnowman = {
+          ...snowman,
           image: image, // 이미지 설정
-        }));
+        };
+  
+        setSnowman(updatedSnowman);
         printSnowman();
-        createSnowman(snowman);
+        console.log("Sending snowman data to API:", updatedSnowman);
+        await createSnowman(updatedSnowman); // 업데이트된 값을 전달
       }
     }
   };
+  
+  
+  
 
   //snowman 값들 console로 화긴하는 함수
   const printSnowman = () => {
