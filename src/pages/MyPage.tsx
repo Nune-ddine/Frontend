@@ -75,16 +75,17 @@ const MyPage: React.FC = () => {
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
                 style={{
-                  border: "1px solid #513421",
+                  border: "1px solid #FFF1D2",
                   borderRadius: "8px",
                   width:"80px",
-                  height:"24px"
+                  height:"24px",
+                  background:"#FFF1D2"
                 }}
               />
-              <Button onClick={editUsername} style={{ marginLeft: "1rem" }}>
+              <Button onClick={editUsername}>
                 저장
               </Button>
-              <Button onClick={() => setIsEditing(false)} style={{ marginLeft: "1rem" }}>
+              <Button onClick={() => setIsEditing(false)}>
                 취소
               </Button>
             </div>
@@ -116,7 +117,7 @@ const MyPage: React.FC = () => {
                 />
                 <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
                 <SnowmanCount>
-                  {snowmans[index].correctCount}/{snowmans[index].incorrentCount}명
+                  {snowmans[index].correctCount}/{snowmans[index].incorrentCount + snowmans[index].correctCount}명
                 </SnowmanCount>
               </Snowman>
             ) : (
@@ -127,7 +128,7 @@ const MyPage: React.FC = () => {
                   style={{ width: "80%" }}
                 />
                 <SnowmanText>
-                  눈사람을 만들어주세요
+                  빈 눈사람
                 </SnowmanText>
                 <SnowmanCount>0/0명</SnowmanCount>
               </Snowman>
@@ -158,8 +159,7 @@ const ProfileSection = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 16%;
   border-radius: 50%;
   margin-right: 0.5rem;
   background-size: auto;
@@ -170,7 +170,7 @@ const ProfileName = styled.div`
   background-color: #FFE2A4;
   border-radius: 100px;
   width: auto; 
-  padding: 10px;
+  padding: 1rem;
   gap : 2rem;
   border: 1px solid #513421;
   font-size: 1rem;
@@ -178,13 +178,13 @@ const ProfileName = styled.div`
   div {
     background-color: #FFF1D2;
     border-radius: 100px;
-    padding: 2px;
+    // padding: 2px;
     padding-left: 8px;
     padding-right: 8px;
   }
 `;
 const Button = styled.button`
-  width : 56px;
+background-color: #FFF1D2;
 `
 const MainContent = styled.div`
   display: flex;
