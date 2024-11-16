@@ -73,8 +73,8 @@ const Wrapper = styled.div`
 `;
 
 const GotchaImg = styled.img`
-  width: 100%;
-  height: 500px;
+  width: 130%;
+  // height: 500px;
 `;
 
 const Button = styled.button`
@@ -89,7 +89,7 @@ const Button = styled.button`
   font-size: 1.6rem;
   border-radius: 100px;
   border: 3px solid #0084ff;
-  margin-top: 1rem;
+  // margin-top: 1rem;
 `;
 
 const Modal = styled.div`
