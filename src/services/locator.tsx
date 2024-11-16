@@ -33,7 +33,7 @@ const Locator = () => {
 
     setSnowman({ x, y });
     // console.log("Updated snowman:", snowman);
-    navigate(`/making`);
+    // navigate(`/making`);
   };
 
   return (
