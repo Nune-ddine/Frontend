@@ -19,6 +19,19 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
 
+  // 화면 스크롤 방지
+  const preventScroll = (e: Event) => {
+    e.preventDefault();
+  };
+
+  const enablePreventScroll = () => {
+    document.body.addEventListener('touchmove', preventScroll, { passive: false });
+  };
+
+  const disablePreventScroll = () => {
+    document.body.removeEventListener('touchmove', preventScroll);
+  };
+
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const container = containerRef.current;
@@ -37,28 +50,29 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       img.alt = name;
       img.style.position = 'absolute';
 
-      // 이미지 크기를 div 크기에 상대적으로 설정
       const containerWidth = containerRect.width;
       const containerHeight = containerRect.height;
 
       if (imgsrc.includes('shape')) {
-        img.style.width = `${containerWidth * 1}px`; // div의 80% 너비
-        img.style.height = `${containerHeight * 1}px`; // div의 80% 높이
-        // img.style.left = `${(containerWidth - containerWidth * 0.8) / 2}px`;
-        // img.style.top = `${(containerHeight - containerHeight * 0.8) / 2}px`;
+        img.style.width = `${containerWidth}px`;
+        img.style.height = `${containerHeight}px`;
+        img.style.left = '0px';
+        img.style.top = '0px';
       } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
-        img.style.width = `${containerWidth * 0.1}px`; // div의 10% 너비
-        img.style.height = `${containerHeight * 0.1}px`; 
-        img.style.left = `${x - containerWidth * 0.05}px`;
-        img.style.top = `${y - containerWidth * 0.05}px`;
+        img.style.width = `${containerWidth * 0.1}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.05, 0), containerWidth - containerWidth * 0.1)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.05, 0), containerHeight - containerWidth * 0.1)}px`;
       } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * 0.2}px`; // div의 20% 너비
-        img.style.height = `${containerHeight * 0.2}px`; 
-        img.style.left = `${x - containerWidth * 0.1}px`;
-        img.style.top = `${y - containerWidth * 0.1}px`;
+        img.style.width = `${containerWidth * 0.2}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * 0.1, 0), containerWidth - containerWidth * 0.2)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * 0.1, 0), containerHeight - containerWidth * 0.2)}px`;
       }
 
       img.style.objectFit = 'contain';
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '100%';
       container.appendChild(img);
 
       setImages((prevImages) => [...prevImages, img]);
@@ -73,10 +87,22 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const captureImage = async (): Promise<string | null> => {
     const container = containerRef.current;
     if (!container) return null;
-
-    const canvas = await html2canvas(container, { backgroundColor: null });
-    return canvas.toDataURL('image/png');
+  
+    // 컨테이너의 실제 크기를 가져오기
+    const { width, height } = container.getBoundingClientRect();
+  
+    // 캔버스 옵션 설정
+    const canvas = await html2canvas(container, {
+      backgroundColor: null, // 투명 배경 유지
+      scale: window.devicePixelRatio, // 디바이스 픽셀 비율 적용
+      width, // 실제 너비
+      height, // 실제 높이
+    });
+  
+    // 캔버스를 PNG 데이터 URL로 변환
+    return canvas.toDataURL('snowmanImg/png');
   };
+  
 
   useImperativeHandle(ref, () => ({
     captureImage,
@@ -109,7 +135,10 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   };
 
   return (
-    <Wrapper>
+    <Wrapper
+      onTouchStart={enablePreventScroll}
+      onTouchEnd={disablePreventScroll}
+    >
       <Container
         ref={containerRef}
         onDrop={handleDrop}
@@ -152,7 +181,9 @@ const Container = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
-  border: 1px solid #ccc; //todo: 나중에 지우기, 드래그 영역 확인용
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ButtonContainer = styled.div`

@@ -32,7 +32,7 @@ const JaRangButton = styled.button`
    color: white;
    border-radius: 100px;
    box-sizing: border-box;
-   font-size: 22px;
+   font-size: 1.5rem;
    text-align: center;
 `
 
@@ -46,6 +46,6 @@ const MapButton = styled.button`
    color: #3D9BF2;
    border-radius: 100px;
    box-sizing: border-box;
-   font-size: 22px;
+   font-size: 1.5rem;
    text-align: center;
 `  

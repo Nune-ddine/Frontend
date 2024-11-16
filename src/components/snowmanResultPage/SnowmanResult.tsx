@@ -1,4 +1,3 @@
-// src/components/snowmanResultPage/SnowmanResult.tsx
 import React from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +9,7 @@ const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
   return (
     <Wrapper>
       <Title>눈사람이 완성되었어요!</Title>
-      {image ? <SnowmanImg src={image} alt="Final Snowman" /> : <p>No image available</p>}
+      {image ? <SnowmanContainer><SnowmanImg src={image} alt="Final Snowman" /></SnowmanContainer> : <p>No image available</p>}
       <SnowmanName>오유진의 눈사람</SnowmanName> 
     </Wrapper>
   );
@@ -24,7 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 70%; 
+  height: 100%; 
   box-sizing: border-box;
 
   padding-top: 20%;
@@ -32,16 +31,24 @@ const Wrapper = styled.div`
 
 const Title = styled.div`
   font-family: 'Maplestory-Bold', sans-serif;
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
   color: #513421;
 `;
 
-const SnowmanImg = styled.img`
-  width: 100%;
+const SnowmanContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%; // 부모 크기에 비례한 이미지 크기 조정
   height: 70%;
-  object-fit: contain;
-  margin-top: -5%; //todo: 이렇게 해도 되나..
+  overflow: hidden;
+`;
+
+const SnowmanImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; // 찌그러지지 않게 조정
 `;
 
 const SnowmanName = styled.div`
@@ -51,7 +58,7 @@ const SnowmanName = styled.div`
   width: 22%;
   text-align: center;
   border-radius: 40px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-top: 1rem;
   color: #513421;
