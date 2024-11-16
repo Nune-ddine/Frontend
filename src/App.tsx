@@ -50,23 +50,22 @@ class App extends Component {
 
   render() {
     return (
-      <div id="App">
-        <RecoilRoot>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:id" element={<HomePage />} />
-          <Route path="/myPage" element={<MyPage />} />
-          <Route path="/gotcha" element={<GotchaPage />} />
-          <Route path='/login' element={<LoginTestPage />} />
-          <Route path='/making' element={<MakingPage />} />
-          <Route path='/snowmanResult' element={<SnowmanResultPage />} />
-          <Route path='/locating/:id' element={<LocatingPage />}/>
-          <Route path='/elevator' element={<SelectingMapPage/>}/>
-          <Route path="/test" element={<TestPage />} />
-          <Route path="/quiz" element={<QuizTestPage/>}/>
-        </Routes>
-        </RecoilRoot>
-      </div>
+      <RecoilRoot>
+        <div id="App">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/gotcha" element={<GotchaPage />} />
+            <Route path='/login' element={<LoginTestPage />} />
+            <Route path='/making' element={<MakingPage />} />
+            <Route path='/snowmanResult' element={<SnowmanResultPage />} />
+            <Route path='/locating' element={<LocatingPage />}/>
+            <Route path='/elevator' element={<SelectingMapPage/>}/>
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/quiz" element={<QuizTestPage/>}/>
+          </Routes>
+        </div>
+      </RecoilRoot>
     );
   }
 }
