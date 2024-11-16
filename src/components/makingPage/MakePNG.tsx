@@ -45,20 +45,20 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const clothesOffset = 0.1;
 
       if (imgsrc.includes('shape')) {
-        img.style.width = `${containerWidth * shapeOffset}px`; // 전체 크기의 60%로 줄임
+        img.style.width = `${containerWidth * shapeOffset}px`;
         img.style.height = `${containerHeight * shapeOffset}px`;
         img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
         img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
       } else if (imgsrc.includes('eye') || imgsrc.includes('mouth')) {
-        img.style.width = `${containerWidth * faceOffset}px`; // 전체 크기의 5%로 줄임
+        img.style.width = `${containerWidth * faceOffset}px`;
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset/2, 0), containerWidth - containerWidth * 0.05)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * faceOffset/2, 0), containerHeight - containerWidth * 0.05)}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset / 2, 0), containerWidth - containerWidth * faceOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * faceOffset / 2, 0), containerHeight - containerWidth * faceOffset)}px`;
       } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * clothesOffset}px`; // 전체 크기의 10%로 줄임
+        img.style.width = `${containerWidth * clothesOffset}px`;
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * clothesOffset/2, 0), containerWidth - containerWidth * 0.1)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * clothesOffset/2, 0), containerHeight - containerWidth * 0.1)}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * clothesOffset / 2, 0), containerWidth - containerWidth * clothesOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * clothesOffset / 2, 0), containerHeight - containerWidth * clothesOffset)}px`;
       }
 
       img.style.objectFit = 'contain';
@@ -124,13 +124,24 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       />
       {!isQuizMode ? (
         <ButtonContainer>
-          {images.length > 0 && (
-            <>
-              <Button onClick={handleUndo}>Undo</Button>
-              <Button onClick={handleClearAll}>Clear All</Button>
-            </>
-          )}
-          {redoImages.length > 0 && <Button onClick={handleRedo}>Redo</Button>}
+          <ImgButton
+            src="/images/etc/undoBtn.png"
+            onClick={handleUndo}
+            disabled={images.length === 0}
+            visible={images.length > 0}
+          />
+          <ImgButton
+            src="/images/etc/clearAllBtn.png"
+            onClick={handleClearAll}
+            disabled={images.length === 0}
+            visible={images.length > 0}
+          />
+          <ImgButton
+            src="/images/etc/redoBtn.png"
+            onClick={handleRedo}
+            disabled={redoImages.length === 0}
+            visible={redoImages.length > 0}
+          />
         </ButtonContainer>
       ) : (
         <NameInput
@@ -164,23 +175,15 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 1%;
+  height: 10%;
 `;
 
-const Button = styled.button`
-  background-color: #ffe2a4;
-  border-radius: 10px;
-  padding: 5px 10px;
-  border: 1px solid #513421;
-  font-size: 14px;
-  color: #513421;
-  cursor: pointer;
-  &:disabled {
-    background-color: #f5f5f5;
-    color: #ccc;
-    cursor: not-allowed;
-  }
+const ImgButton = styled.img<{ disabled?: boolean; visible?: boolean }>`
+  height: 70%;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
+  pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
 `;
 
 const NameInput = styled.input`
