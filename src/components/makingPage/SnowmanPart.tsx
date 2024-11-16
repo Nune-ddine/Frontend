@@ -135,14 +135,14 @@ const GotoMapBtn = styled.button`
 
 const NextButton = styled.img`
   padding-bottom: 15px;
-  height: 8%;
+  height: 10%;
   aspect-ratio: 1/1;  
   cursor: pointer;
 `;
 
 const BackButton = styled.img`
   padding-bottom: 15px;
-  height: 8%;
+  height: 10%;
   aspect-ratio: 1/1;
   cursor: pointer;
 `;

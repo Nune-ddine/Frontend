@@ -170,6 +170,7 @@ const Container = styled.div`
   height: 120%;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 `;
 
 const ButtonContainer = styled.div`
@@ -177,6 +178,7 @@ const ButtonContainer = styled.div`
   gap: 10px;
   margin-bottom: 1%;
   height: 10%;
+  z-index: 2;
 `;
 
 const ImgButton = styled.img<{ disabled?: boolean; visible?: boolean }>`
@@ -184,6 +186,7 @@ const ImgButton = styled.img<{ disabled?: boolean; visible?: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
+  z-index: 3;
 `;
 
 const NameInput = styled.input`
