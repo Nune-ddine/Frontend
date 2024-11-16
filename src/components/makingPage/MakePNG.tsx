@@ -185,7 +185,7 @@ const Button = styled.button`
 
 const NameInput = styled.input`
   width: 90%;
-  height: 50px;
+  height: 8%;
   border: none;
   border-radius: 40px;
   margin-bottom: 16px;
@@ -193,7 +193,7 @@ const NameInput = styled.input`
   font-family: sans-serif;
   padding-left: 10px;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 0.8rem;
   text-align: center;
   color: #513421;
 `;
