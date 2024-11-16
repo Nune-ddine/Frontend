@@ -31,10 +31,9 @@ const Wrapper = styled.div<WrapperProps>`
   flex-direction: column;
   align-items: center;
   width: 25%;
+  height: 100%;
   cursor: grab;
   font-family: sans-serif;
-  padding-left: 20px;
-  padding-right: 20px;
 
   ${({ imgsrc }) =>
     imgsrc.includes('shape') &&
@@ -42,10 +41,13 @@ const Wrapper = styled.div<WrapperProps>`
       width: 50%;
 
     `}
+
+    /* border: 1px solid black; */
 `;
 
 const Image = styled.img`
-  width: 70%;
-  height: auto;
+  height: 40%;
+  // 원본 이미지 비율을 유지
+  aspect-ratio: attr(width) / attr(height);
   margin-bottom: 10px;
 `;
