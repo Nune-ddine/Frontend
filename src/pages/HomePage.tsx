@@ -100,204 +100,204 @@ const LoginLayout = styled.div`
 
   // getMemberTest
   // header에 토큰을 담아서 보내기
-  const getMember = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getMember = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/member", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/member", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
   
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get member test", error);
-    }
-  };
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get member test", error);
+  //   }
+  // };
 
-  const getGotcha = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getGotcha = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gotcha", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/gotcha", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
   
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get gotcha test", error);
-    }
-  }
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get gotcha test", error);
+  //   }
+  // }
 
-  // patchMemberTest
-  // header에 토큰을 담아서 보내기
-  const patchMember = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // // patchMemberTest
+  // // header에 토큰을 담아서 보내기
+  // const patchMember = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
-        username: "테스트 닉네임",
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.patch("https://nuneddine.p-e.kr/api/v1/member/username", {
+  //       username: "테스트 닉네임",
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
   
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to patch member test", error);
-    }
-  };
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to patch member test", error);
+  //   }
+  // };
 
-  const getInventory = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getInventory = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/inventory", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/item/inventory", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
   
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get inventory test", error);
-    }
-  };
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get inventory test", error);
+  //   }
+  // };
 
-  const getAllSnowman = async () => {
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/map/1");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to fetch all snowman data", error);
-    }
-  };
+  // const getAllSnowman = async () => {
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/map/1");
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch all snowman data", error);
+  //   }
+  // };
 
-  const getSnowmanQuiz = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getSnowmanQuiz = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/1", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/1", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
   
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get snowman quiz test", error);
-    }
-  };
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get snowman quiz test", error);
+  //   }
+  // };
 
-  const createSnowman = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const createSnowman = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/map/1/snowman", {
-        name: "수쨩테스트",
-        image: "이미지링크",
-        posX: 2,
-        posY: 3,
-        quiz: "퀴즈",
-        answerId: 3,
-        content1: "보기1",
-        content2: "보기2",
-        content3: "보기3"
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data); 
-    } catch (error) {
-      console.error("Failed to create snowman", error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post("https://nuneddine.p-e.kr/api/v1/map/1/snowman", {
+  //       name: "수쨩테스트",
+  //       image: "이미지링크",
+  //       posX: 2,
+  //       posY: 3,
+  //       quiz: "퀴즈",
+  //       answerId: 3,
+  //       content1: "보기1",
+  //       content2: "보기2",
+  //       content3: "보기3"
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log(response.data); 
+  //   } catch (error) {
+  //     console.error("Failed to create snowman", error);
+  //   }
+  // };
 
-  const getMySnowmans = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getMySnowmans = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/my-snowman", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get my snowmans", error);
-    }
-  }
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/my-snowman", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get my snowmans", error);
+  //   }
+  // }
 
-  const getSnowmanInfo = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const getSnowmanInfo = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/detail/1", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to get snowman info", error);
-    }
-  }
+  //   try {
+  //     const response = await axios.get("https://nuneddine.p-e.kr/api/v1/snowman/detail/1", {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to get snowman info", error);
+  //   }
+  // }
 
-  const trySnowmanQuiz = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token not found");
-      return;
-    }
+  // const trySnowmanQuiz = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.log("Token not found");
+  //     return;
+  //   }
   
-    try {
-      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/snowman/2", {
-        number: 1
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Failed to try snowman quiz", error);
-    }
-  }
+  //   try {
+  //     const response = await axios.post("https://nuneddine.p-e.kr/api/v1/snowman/2", {
+  //       number: 1
+  //     }, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Failed to try snowman quiz", error);
+  //   }
+  // }
 
