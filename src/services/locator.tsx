@@ -3,17 +3,17 @@ import { useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { locatorIdState, snowmanLocState } from "../contexts/recoilAtoms";
+import { snowmanState } from "../contexts/snowmanState";
 
 const Locator = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [snowman, setSnowman] = useRecoilState(snowmanLocState);
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
   const setId = useSetRecoilState(locatorIdState);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSnowman(snowman);
-    console.log("Updated snowman:", snowman);
+    console.log("[ Updated Location ]:", snowman.posX, snowman.posY);
   }, [snowman]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Locator = () => {
     const x = e.clientX - containerRect.left - snowmanSize / 1.5;
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
-    setSnowman({ x, y });
+    setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
     navigate(`/making`);
   };

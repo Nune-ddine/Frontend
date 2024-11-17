@@ -25,7 +25,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
 
   React.useEffect(() => {
     console.log('Updated snowman:', snowman);
-    console.log(id);
+    console.log('[Map number] :', id);
   }, [snowman]);
 
   const saveFinalImage = async () => {

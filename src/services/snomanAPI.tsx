@@ -41,7 +41,7 @@ import type { SnowmanState } from "../contexts/snowmanState";
  
 
 export const getInventory = async () => {
-   console.log("getInventory test");
+   console.log("getInventory");
    const token = localStorage.getItem("token");
    if (!token) {
       console.log("Token not found");
@@ -54,8 +54,7 @@ export const getInventory = async () => {
          Authorization: `Bearer ${token}`,
          },
       });
-   
-      console.log(response.data);
+      // console.log(response.data);
    } catch (error) {
       console.error("Failed to get inventory test", error);
    }
