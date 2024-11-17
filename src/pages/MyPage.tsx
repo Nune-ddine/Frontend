@@ -143,7 +143,7 @@ const MyPage: React.FC = () => {
                   style={{ width: "80%" }}
                 />
                 <SnowmanText>
-                  안 굴린 눈사루
+                  안 굴린 눈사람
                 </SnowmanText>
                 <SnowmanCount>0/0명</SnowmanCount>
               </Snowman>
