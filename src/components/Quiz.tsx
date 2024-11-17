@@ -12,7 +12,11 @@ interface QuizData {
   choice1: string | null;
   choice2: string | null;
   choice3: string | null;
-  isSolved: boolean;
+  solved: boolean;
+  myAnswerId:number;
+  ratio1:number;
+  ratio2:number;
+  ratio3:number;
 }
 
 interface QuizModalProps {
@@ -45,8 +49,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
       const fetchQuizData = async () => {
         try {
           const data = await getQuiz(snowmanId);
+          console.log(data);
           setQuizData(data);
-          setIsSolved(data.isSolved); // Set the isSolved status
+          setIsSolved(data.solved); // Set the isSolved status
         } catch (error) {
           console.error("Error fetching quiz data:", error);
         }
@@ -91,6 +96,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
                   {quizData.choice1 || "Option 1"}
+                  <div>
+                  {quizData.ratio1} %
+                  </div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -100,6 +108,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
                   {quizData.choice2 || "Option 2"}
+                  <div>
+                  {quizData.ratio2} %
+                  </div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -109,6 +120,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
                   {quizData.choice3 || "Option 3"}
+                  <div>
+                  {quizData.ratio3} %
+                  </div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
