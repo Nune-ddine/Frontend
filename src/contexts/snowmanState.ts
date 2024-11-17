@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 export interface SnowmanState {
   name: string;
-  image: string;
+  image: string | null;
   posX: number | null;
   posY: number | null;
   quiz: string;
@@ -25,4 +25,9 @@ export const snowmanState = atom<SnowmanState>({
     content2: '',
     content3: '',
   },
+});
+
+export const snowmanExsitState = atom<boolean>({
+  key: 'snowmanExistState',
+  default: false,
 });

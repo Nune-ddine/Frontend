@@ -1,7 +1,7 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
-import { snowmanState } from '../../contexts/snowmanState';
+import { snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState } from 'recoil';
 
 interface MakePNGProps {
@@ -18,6 +18,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const [isSnowmanExist, setIsSnowmanExist] = useRecoilState(snowmanExsitState);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -79,12 +80,12 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         img.style.top = `${Math.min(Math.max(y - containerWidth * mufflerOffset / 2, 0), containerHeight - containerWidth * mufflerOffset)}px`;
       }
       
-
       img.style.objectFit = 'contain';
       container.appendChild(img);
 
       setImages((prevImages) => [...prevImages, img]);
       setRedoImages([]);
+      setIsSnowmanExist(true);
     }
   };
 
@@ -115,6 +116,9 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       setImages([...images]);
       setRedoImages((prevRedoImages) => [lastImage, ...prevRedoImages]);
     }
+    if (images.length === 0) {
+      setIsSnowmanExist(false); // 아이템이 모두 제거되면 false로 설정
+    }
   };
 
   const handleRedo = () => {
@@ -123,6 +127,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       containerRef.current.appendChild(lastRedoImage);
       setImages((prevImages) => [...prevImages, lastRedoImage]);
       setRedoImages([...redoImages]);
+      setIsSnowmanExist(true); // Redo로 아이템이 추가되면 true로 설정
     }
   };
 
@@ -131,6 +136,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       images.forEach((img) => containerRef.current?.removeChild(img));
       setImages([]);
       setRedoImages([]);
+      setIsSnowmanExist(false); // 모두 초기화하면 false로 설정
     }
   };
 

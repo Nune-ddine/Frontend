@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
-import { snowmanState } from '../../contexts/snowmanState';
+import { snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { locatorIdState } from '../../contexts/recoilAtoms';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   const makePNGRef = useRef<MakePNGHandle>(null);
 
   const [snowman, setSnowman] = useRecoilState(snowmanState);
+  const [isSnowmanExist, setIsSnowmanExist] = useRecoilState(snowmanExsitState);
   const id = useRecoilValue(locatorIdState);
   const navigate = useNavigate();
 
@@ -28,7 +29,33 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
     console.log('[Map number] :', id);
   }, [snowman]);
 
+  const checkSnowmanExist = () => {
+    if (!isSnowmanExist) {
+      alert('눈사람을 먼저 만들어주세요!');
+      return false;
+    }
+    return true;
+  }
+
+
   const saveFinalImage = async () => {
+    //snowman의 모든 필드가 입력되어있는지 확인 - exception handling
+      //   if (!snowman.image){
+      // alert("아직 눈사람의 형태가 없어요!");
+      // return;}
+    if (!snowman.name){
+      alert("눈사람의 이름을 입력해주세요!"); 
+      return;}
+    if (!snowman.quiz){
+      alert("문제를 입력해주세요!");
+      return;}
+    if (!snowman.content1 || !snowman.content2 || !snowman.content3){
+      alert("보기를 모두 입력해주세요!");
+      return;}
+    if (!snowman.answerId){
+      alert("입력하신 보기 중 정답을 골라주세요!");
+      return;}
+
     // 진짜 만들 거냐고 물어보는 alert 창
     const confirm = window.confirm("한번 굴린 눈사람은 꽁꽁 얼어붙어서 수정할 수 없어요! \n눈사람을 굴리시겠어요?");
     if (!confirm) return;
@@ -77,7 +104,12 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
             <NextButton src="/images/etc/rightBtn.png" id="doneBtn" onClick={saveFinalImage}/>
           </>
         ) : (
-          <NextButton src="/images/etc/rightBtn.png" id="nextBtn" onClick={() => setIsQuizMode(true)}/>
+          <NextButton src="/images/etc/rightBtn.png" id="nextBtn" onClick={() => {
+            if (checkSnowmanExist()) {
+              setIsQuizMode(true);
+            }
+          }
+          }/>
         )}
       </RightBtnContainer>
     </Wrapper>
