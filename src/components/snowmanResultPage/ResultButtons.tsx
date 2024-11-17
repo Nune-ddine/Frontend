@@ -5,16 +5,26 @@ const ResultButtons = () => {
    const navigate = useNavigate();
 
    const handleJaRang = () => {
+      // 시스템 자체 공유 기능 팝업
       if (navigator.share) {
          navigator.share({
-               title: '기록하며 성장하기',
-               text: 'Hello World',
-               url: 'https://shinsangeun.github.io',
+               title: '눈사람 공작소',
+               text: '나만의 눈사람을 만들어보세요!',
+               url: 'https://snowman-factory-develop.netlify.app/1',
          });
       }else{
          alert("공유하기가 지원되지 않는 환경 입니다.")
       }
-      console.log('자랑하기')
+      console.log('자랑하기 성공')
+
+      //or 클립보드에 링크 복사
+      // navigator.clipboard.writeText('https://snowman-factory-develop.netlify.app')
+      // .then(() => {
+      //    alert('링크가 복사되었어요!')
+      // })
+      // .catch((error) => {
+      //    alert('링크 복사에 실패했어요 ㅠ.ㅠ')
+      // });
    }
 
 return (
