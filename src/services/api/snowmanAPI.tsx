@@ -1,8 +1,9 @@
 import axios from "axios";
-import type { SnowmanState } from "../contexts/snowmanState";
-
+import { SnowmanState } from "../../contexts/snowmanState";
+import { locatorIdState } from "../../contexts/recoilAtoms";
 
    export const createSnowman = async (snowman: SnowmanState) => {
+      const mapNumber = locatorIdState;
       const token = localStorage.getItem("token");
       console.log("<< createSnowman test >>");
       if (!token) {
@@ -11,7 +12,7 @@ import type { SnowmanState } from "../contexts/snowmanState";
       }
    
       try {
-      const response = await axios.post("https://nuneddine.p-e.kr/api/v1/map/1/snowman", {
+      const response = await axios.post(`https://nuneddine.p-e.kr/api/v1/map/${mapNumber}/snowman`, {
          name: snowman.name,
          image: snowman.image,
          posX: 1000, // todo

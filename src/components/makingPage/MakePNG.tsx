@@ -37,29 +37,48 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       img.alt = name;
       img.style.position = 'absolute';
 
+      //각 중분류 별 이미지 크기 조정
       const containerWidth = containerRect.width;
       const containerHeight = containerRect.height;
-
       const shapeOffset = 0.8;
-      const faceOffset = 0.08;
-      const clothesOffset = 0.2;
-
+      const eyeOffset = 0.1;
+      const mouthOffset = 0.06;
+      const noseOffset = 0.03;
+      const hatOffset = 0.15;
+      const mufflerOffset = 0.2;
+      
       if (imgsrc.includes('shape')) {
         img.style.width = `${containerWidth * shapeOffset}px`;
         img.style.height = `${containerHeight * shapeOffset}px`;
         img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
         img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
-      } else if (imgsrc.includes('eye') || imgsrc.includes('mouth') || imgsrc.includes('nose')) {
-        img.style.width = `${containerWidth * faceOffset}px`;
+      } else if (imgsrc.includes('eye')) {
+        img.style.width = `${containerWidth * eyeOffset}px`;
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * faceOffset / 2, 0), containerWidth - containerWidth * faceOffset)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * faceOffset / 2, 0), containerHeight - containerWidth * faceOffset)}px`;
-      } else if (imgsrc.includes('hat') || imgsrc.includes('muffler')) {
-        img.style.width = `${containerWidth * clothesOffset}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * eyeOffset / 2, 0), containerWidth - containerWidth * eyeOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * eyeOffset / 2, 0), containerHeight - containerWidth * eyeOffset)}px`;
+      } else if (imgsrc.includes('mouth')) {
+        img.style.width = `${containerWidth * mouthOffset}px`;
         img.style.height = 'auto';
-        img.style.left = `${Math.min(Math.max(x - containerWidth * clothesOffset / 2, 0), containerWidth - containerWidth * clothesOffset)}px`;
-        img.style.top = `${Math.min(Math.max(y - containerWidth * clothesOffset / 2, 0), containerHeight - containerWidth * clothesOffset)}px`;
+        img.style.left = `${Math.min(Math.max(x - containerWidth * mouthOffset / 2, 0), containerWidth - containerWidth * mouthOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * mouthOffset / 2, 0), containerHeight - containerWidth * mouthOffset)}px`;
+      } else if (imgsrc.includes('nose')) {
+        img.style.width = `${containerWidth * noseOffset}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * noseOffset / 2, 0), containerWidth - containerWidth * noseOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * noseOffset / 2, 0), containerHeight - containerWidth * noseOffset)}px`;
+      } else if (imgsrc.includes('hat')) {
+        img.style.width = `${containerWidth * hatOffset}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * hatOffset / 2, 0), containerWidth - containerWidth * hatOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * hatOffset / 2, 0), containerHeight - containerWidth * hatOffset)}px`;
+      } else if (imgsrc.includes('muffler')) {
+        img.style.width = `${containerWidth * mufflerOffset}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * mufflerOffset / 2, 0), containerWidth - containerWidth * mufflerOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * mufflerOffset / 2, 0), containerHeight - containerWidth * mufflerOffset)}px`;
       }
+      
 
       img.style.objectFit = 'contain';
       container.appendChild(img);

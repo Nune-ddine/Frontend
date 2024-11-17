@@ -4,7 +4,7 @@ import Header from '../components/Header';
 // import Footer from '../components/Footer';
 import Main from '../components/Main';
 import { useEffect } from 'react';
-import { login } from '../services/login';
+import { handleLoginClick, login } from '../services/api/loginAPI';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
 
@@ -39,7 +39,7 @@ const HomePage = () => {
           </MainLayout>
         ) : (
         <LoginLayout>
-          <div onClick={() => navigate('/login')}>
+          <div onClick={() => handleLoginClick()}>
             <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
           </div>
         </LoginLayout>
@@ -75,6 +75,10 @@ const MainLayout = styled.div`
   justify-content: space-around;
   align-items: center;
   height : 15%;
+
+  img {
+    cursor: pointer;
+  }
 `;
 export const LoginLayout = styled.div`
   display: flex;
@@ -90,6 +94,7 @@ export const LoginLayout = styled.div`
     justify-content: center;
     align-items: center;
     width: 90%;
+    cursor: pointer;
   }
 
   button {
