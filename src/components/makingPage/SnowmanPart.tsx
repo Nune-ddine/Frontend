@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
 import { snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createSnowman } from '../../services/snomanAPI';
 import { locatorIdState } from '../../contexts/recoilAtoms';
 import { useNavigate } from 'react-router-dom';
+import { createSnowman } from '../../services/api/snowmanAPI';
 
 interface SnowmanPartProps {
   selectedImage: string;

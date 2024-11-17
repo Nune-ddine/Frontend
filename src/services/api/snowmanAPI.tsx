@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { SnowmanState } from "../contexts/snowmanState";
+import { SnowmanState } from "../../contexts/snowmanState";
 
 
    export const createSnowman = async (snowman: SnowmanState) => {
