@@ -1,20 +1,16 @@
 import axios from "axios";
-
-export interface GotchaItem {
-  itemName: string;
-  itemId: number;
-}
+import { GotchaResponse } from "../../components/GotchaPage/Gotcha";
 
 const token = localStorage.getItem("token");
 
-export const getGotcha = async (): Promise<GotchaItem | null> => {
+export const getGotcha = async (): Promise<GotchaResponse | null> => {
   if (!token) {
     console.error("Token not found");
     return null;
   }
 
   try {
-    const response = await axios.get<GotchaItem>("https://nuneddine.p-e.kr/api/v1/item/gotcha", {
+    const response = await axios.get<GotchaResponse>("https://nuneddine.p-e.kr/api/v1/item/gotcha", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

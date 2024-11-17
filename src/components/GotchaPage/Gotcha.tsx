@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { CloseButton } from "../Quiz";
-import { getGotcha, GotchaItem } from "../../services/api/gotchaAPI";
+import { getGotcha } from "../../services/api/gotchaAPI";
+
+export interface GotchaItem {
+  id: number;
+  itemName: string;
+  itemCategory: string;
+}
+
+export interface GotchaResponse {
+  item: GotchaItem;
+  gachable: boolean;
+}
 
 const Gotcha: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [itemData, setItemData] = useState<GotchaItem | null>(null);
+  const [modalMessage, setModalMessage] = useState<string | null>(null);
 
   const handleClick = async () => {
     setIsPlaying(true);
@@ -15,14 +27,30 @@ const Gotcha: React.FC = () => {
       setTimeout(() => {
         setIsPlaying(false);
         if (gotchaData) {
-          setItemData(gotchaData);
+          setItemData(gotchaData?.item || null); // Update here to match the response interface
           setShowModal(true);
         }
       }, 7500);
     } catch (error: any) {
       setIsPlaying(false);
       if (error.response?.status === 204) {
-        alert("더 이상 뽑을 아이템이 없습니다");
+        setModalMessage("더 이상 뽑을 아이템이 없습니다");
+        setTimeout(() => {
+          setIsPlaying(false);
+          setShowModal(true);
+        }, 7500);
+      } else if (error.response?.status === 412) {
+        setModalMessage("가챠 포인트가 부족합니다");
+        setTimeout(() => {
+          setIsPlaying(false);
+          setShowModal(true);
+        }, 7500);
+      } else if (error.response?.status === 423) {
+        setModalMessage("꽝입니다. 다시 시도해보세요!");
+        setTimeout(() => {
+          setIsPlaying(false);
+          setShowModal(true);
+        }, 7500);
       } else {
         console.error("Error fetching gotcha data:", error);
         alert("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
@@ -32,6 +60,8 @@ const Gotcha: React.FC = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setModalMessage(null);
+    setItemData(null);
   };
 
   return (
@@ -41,11 +71,15 @@ const Gotcha: React.FC = () => {
         alt="Gotcha"
       />
       <Button onClick={handleClick}>과잠 가챠 돌리기 300p</Button>
-      {showModal && itemData && (
+      {showModal && (
         <Modal>
           <ModalContent>
             <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
-            <h2>{itemData.itemName} 획득!</h2>
+            {itemData ? (
+              <h2>{itemData?.itemName} 획득!</h2>
+            ) : (
+              <h2>{modalMessage}</h2>
+            )}
             <img
               src="/images/etc/puangman.png"
               style={{
@@ -74,7 +108,7 @@ const Wrapper = styled.div`
 
 const GotchaImg = styled.img`
   width: 100%;
-  margin-bottom : 2rem;
+  margin-bottom: 2rem;
 `;
 
 const Button = styled.button`
@@ -88,7 +122,7 @@ const Button = styled.button`
   align-items: center;
   font-size: 1.6rem;
   border-radius: 100px;
-  border: 3px solid #0084ff
+  border: 3px solid #0084ff;
 `;
 
 const Modal = styled.div`
