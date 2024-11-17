@@ -10,7 +10,7 @@ const ResultButtons = () => {
          navigator.share({
                title: '눈사람 공작소',
                text: '나만의 눈사람을 만들어보세요!',
-               url: 'https://snowman-factory-develop.netlify.app/1',
+               url: 'https://snowman-factory-develop.netlify.app',
          });
       }else{
          alert("공유하기가 지원되지 않는 환경 입니다.")
