@@ -13,9 +13,16 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
   };
 
   return (
-    <Wrapper imgsrc={img} draggable onDragStart={handleDragStart}>
-      <Image src={img} alt={name} draggable="false" />
-      <div>{name}</div>
+    <Wrapper imgsrc={img} >
+      <Image src={img} alt={name} draggable onDragStart={handleDragStart}/>
+      <div style={
+        {
+          fontSize: '0.8rem',
+          fontFamily: 'Maplestory-Light',
+          marginBottom: '1rem',
+          color: '#5d5d5d',
+        }
+      }>{name}</div>
     </Wrapper>
   );
 };
@@ -34,6 +41,7 @@ const Wrapper = styled.div<WrapperProps>`
   height: 100%;
   cursor: grab;
   font-family: sans-serif;
+  user-select: none; /* 텍스트 선택 방지 */
 
   ${({ imgsrc }) =>
     imgsrc.includes('shape') &&
@@ -51,5 +59,5 @@ const Image = styled.img`
   aspect-ratio: attr(width) / attr(height);
   margin-bottom: 10px;
 
-  user-select: none; /* 텍스트 선택 방지 */
+  -webkit-touch-callout : none;
 `;

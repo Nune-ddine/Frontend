@@ -6,7 +6,6 @@ const KAKAO_LOGIN_LINK = `https://kauth.kakao.com/oauth/authorize?client_id=${RE
 
 const handleClick = () => {
     window.location.href = KAKAO_LOGIN_LINK;
-    // 어떤 버튼을 눌렀는지 localstorage에 저장
 };
 
 return(

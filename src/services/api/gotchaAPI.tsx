@@ -19,7 +19,7 @@ export const getGotcha = async (): Promise<GotchaItem | null> => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to get gotcha data:", error);

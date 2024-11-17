@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
 import { snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createSnowman } from '../../services/snomanAPI';
 import { locatorIdState } from '../../contexts/recoilAtoms';
 import { useNavigate } from 'react-router-dom';
+import { createSnowman } from '../../services/api/snowmanAPI';
 
 interface SnowmanPartProps {
   selectedImage: string;
@@ -25,24 +25,34 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
 
   React.useEffect(() => {
     console.log('Updated snowman:', snowman);
-    console.log(id);
+    console.log('[Map number] :', id);
   }, [snowman]);
 
   const saveFinalImage = async () => {
+    // 진짜 만들 거냐고 물어보는 alert 창
+    const confirm = window.confirm("한번 굴린 눈사람은 꽁꽁 얼어붙어서 수정할 수 없어요! \n눈사람을 굴리시겠어요?");
+    if (!confirm) return;
     if (makePNGRef.current) {
       const image = await makePNGRef.current.captureImage();
       if (image) {
         console.log(image);
         setFinalImage(image);
-        setSnowman((prevSnowman) => ({
-          ...prevSnowman,
+  
+        const updatedSnowman = {
+          ...snowman,
           image: image, // 이미지 설정
-        }));
+        };
+  
+        setSnowman(updatedSnowman);
         printSnowman();
-        createSnowman(snowman);
+        console.log("Sending snowman data to API:", updatedSnowman);
+        await createSnowman(updatedSnowman); // 업데이트된 값을 전달
       }
     }
   };
+  
+  
+  
 
   //snowman 값들 console로 화긴하는 함수
   const printSnowman = () => {
@@ -135,14 +145,14 @@ const GotoMapBtn = styled.button`
 
 const NextButton = styled.img`
   padding-bottom: 15px;
-  height: 8%;
+  height: 10%;
   aspect-ratio: 1/1;  
   cursor: pointer;
 `;
 
 const BackButton = styled.img`
   padding-bottom: 15px;
-  height: 8%;
+  height: 10%;
   aspect-ratio: 1/1;
   cursor: pointer;
 `;
