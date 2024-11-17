@@ -31,14 +31,14 @@ class App extends Component {
 
     if (root && app) {
       let width = root.clientWidth;
-      // let height = width * 1.7777; // 9:16
-      let height = width * 2.164102; // 9:16
+      let height = width * 1.7777; // 9:16
+      // let height = width * 2.164102; // 9:16
       // 844 / 390 = 2.164102
 
       if (height > root.clientHeight) { 
         height = root.clientHeight;
-        // width = height * 0.5625; // 16:9
-        width = height * 0.462086; // 16:9
+        width = height * 0.5625; // 16:9
+        // width = height * 0.462086; // 16:9
         // 390 / 844 = 0.462086
       }
 

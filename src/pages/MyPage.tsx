@@ -105,7 +105,6 @@ const MyPage: React.FC = () => {
         </ProfileName>
       </ProfileSection>
       <MainContent>
-        <div style={{ height: "20%", width: "100%", background: "grey" }}>그래픽 자리</div>
         <SnowmanContainer>
           {[...Array(3)].map((_, index) =>
             snowmans[index] ? (
