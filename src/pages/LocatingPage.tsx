@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { MainLayout } from "./HomePage";
 import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
-import Locator from "../services/Locator";
+import Locator from "../services/locator";
 const LocatingPage = () => {
   const navigate = useNavigate();
   
