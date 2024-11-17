@@ -1,18 +1,23 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { snowmanState } from '../../contexts/snowmanState';
+
 
 interface SnowmanResultProps {
   image: string | null; // 최종 PNG 이미지 경로
 }
 
 const SnowmanResult: React.FC<SnowmanResultProps> = ({ image }) => {
+  const [snowman] = useRecoilState(snowmanState);
+
   return (
     <Wrapper>
       <Title>눈사람이 완성되었어요!</Title>
       {image ? <SnowmanContainer>
           <SnowmanImg src={image} alt="Final_Snowman" />
         </SnowmanContainer> : <p>No image available</p>}
-      <SnowmanName>오유진의 눈사람</SnowmanName> 
+      <SnowmanName>{snowman.name}</SnowmanName>  
     </Wrapper>
   );
 };
