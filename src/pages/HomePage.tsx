@@ -75,6 +75,10 @@ const MainLayout = styled.div`
   justify-content: space-around;
   align-items: center;
   height : 15%;
+
+  img {
+    cursor: pointer;
+  }
 `;
 export const LoginLayout = styled.div`
   display: flex;
