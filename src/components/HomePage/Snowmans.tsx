@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getAllSnowman } from "../../services/api/homeAPI";
 
@@ -13,6 +13,7 @@ interface Snowman {
 const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { id } = useParams();
   const [snowmen, setSnowmen] = useState<Snowman[]>([]);
+  const navigate = useNavigate();
 
   const getSnowmans = async () => {
     if (!id) {
@@ -41,18 +42,22 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   }, [id]);
 
   return (
-    <div style={{ position: "relative", height: "100%", border: "1px solid black" }}>
+    <div style={{ position: "relative", height: "100%", 
+    // border: "1px solid black" 
+    }}>
+    <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' 
+    style={{width:"24%", position: "relative", zIndex: 2 }} />  
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}
-          src={"/images/etc/puangman.png"}
+          src={`${snowman.image}`||`/images/etc/puangman.png`}
           style={{
             top: `${snowman.posY}px`,
             left: `${snowman.posX}px`,
           }}
         />
       ))}
-      {children} {/* children을 포함하여 추가적인 렌더링을 지원 */}
+    {children}
     </div>
   );
 };
@@ -63,4 +68,5 @@ const StyledSnowman = styled.img`
   position: absolute;
   height: 50px;
   width: 70px;
+  z-index: 1;
 `;

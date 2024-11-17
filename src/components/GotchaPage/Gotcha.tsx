@@ -74,7 +74,7 @@ const Wrapper = styled.div`
 
 const GotchaImg = styled.img`
   width: 100%;
-  height: 500px;
+  margin-bottom : 2rem;
 `;
 
 const Button = styled.button`
@@ -83,13 +83,12 @@ const Button = styled.button`
   height: 10%;
   background-color: #3d9bf2;
   color: #ffffff;
-  padding: 1%;
+  padding: 2.0rem;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
   border-radius: 100px;
-  border: 3px solid #0084ff;
-  margin-top: 1rem;
+  border: 3px solid #0084ff
 `;
 
 const Modal = styled.div`

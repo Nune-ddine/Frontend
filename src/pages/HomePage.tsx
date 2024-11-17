@@ -2,11 +2,11 @@
 import styled from 'styled-components';
 import Header from '../components/Header';
 // import Footer from '../components/Footer';
-import Main from '../components/Main';
 import { useEffect } from 'react';
 import { handleLoginClick, login } from '../services/api/loginAPI';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
+import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 
 const HomePage = () => {
   const location = useLocation();
@@ -27,15 +27,13 @@ const HomePage = () => {
   }, [location, token]);
 
   return (
-    <Wrapper>
+    <BackgroundWrapper>
       <Header/>
-        <Snowmans>
-          <img onClick={() => navigate('/elevator')} src='images/homes/map.png' style={{width:"24%"}} />
-        </Snowmans>
+        <Snowmans/>
       {token ? (
           <MainLayout>
-            <img src='images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
-            <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/locating${location.pathname}`)}></img>
+            <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/locating${location.pathname}`)}></img>
           </MainLayout>
         ) : (
         <LoginLayout>
@@ -43,7 +41,6 @@ const HomePage = () => {
             <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
           </div>
         </LoginLayout>
-        
         )}
       {/* <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>
@@ -56,21 +53,13 @@ const HomePage = () => {
       <button onClick={getMySnowmans}>Get My Snowmans Test</button>
       <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
       <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button> */}
-    </Wrapper>
+    </BackgroundWrapper>
   )
 }
 
 export default HomePage
 
-const Wrapper = styled.div`
-  height : 100%;
-  display : flex;
-  flex-direction: column;
-  justify-content : space-between;
-  background-color : #6FABEB;
-  font-family: 'MaplestoryOTFBold';
-`
-const MainLayout = styled.div`
+export const MainLayout = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;

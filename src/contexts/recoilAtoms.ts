@@ -1,7 +1,8 @@
 import { atom } from "recoil";
 
-// export const snowmanLocState = atom<{ x: number; y: number } | null>({
-//   key: "snowmanLocState",
+
+// export const snowmanState = atom<{ x: number; y: number } | null>({
+//   key: "snowmanState",
 //   default: null,
 // });
 

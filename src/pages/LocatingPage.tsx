@@ -1,24 +1,27 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
+import { MainLayout } from "./HomePage";
+import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
 import Locator from "../services/locator";
-import closeBtn from "../../public/buttons/closeBtn.png"
-import { Wrapper } from "./MyPage";
 const LocatingPage = () => {
   const navigate = useNavigate();
-  const {id} = useParams();
   
   return (
-    <Wrapper>
+    <BackgroundWrapper>
       <Header/>
-      <Locator/>
-      <Wrapper style={{height:"15%", alignItems:"center", justifyContent:"center" }}>
+      <Locator />
+      <MainLayout>
+            <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
+      </MainLayout>
+      {/* <Wrapper style={{height:"15%", alignItems:"center", justifyContent:"center" }}>
         <Button>
           눈사람 만들 곳을 클릭해주세요!
           <img onClick={()=>navigate(`/${id}`)} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
         </Button>
-      </Wrapper>
-    </Wrapper>
+      </Wrapper> */}
+    </BackgroundWrapper>
   );
 };
 
