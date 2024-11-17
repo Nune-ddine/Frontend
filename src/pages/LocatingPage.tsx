@@ -4,17 +4,16 @@ import Header from "../components/Header";
 import closeBtn from "../../public/buttons/closeBtn.png"
 import { Wrapper } from "./MyPage";
 import { MainLayout } from "./HomePage";
-import Locator from "../services/locator";
+import Locator from "../services/Locator";
+import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
 const LocatingPage = () => {
   const navigate = useNavigate();
   const {id} = useParams();
   
   return (
-    <Wrapper>
+    <BackgroundWrapper>
       <Header/>
-      <Locator>
-        
-      </Locator>
+      <Locator />
       <MainLayout>
             <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
             <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
@@ -25,7 +24,7 @@ const LocatingPage = () => {
           <img onClick={()=>navigate(`/${id}`)} src="/images/etc/closeBtn.png" style={{width:"30px", height:"30px"}}/>
         </Button>
       </Wrapper> */}
-    </Wrapper>
+    </BackgroundWrapper>
   );
 };
 

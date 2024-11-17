@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
+import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 
 const HomePage = () => {
   const location = useLocation();
@@ -26,7 +27,7 @@ const HomePage = () => {
   }, [location, token]);
 
   return (
-    <Wrapper>
+    <BackgroundWrapper>
       <Header/>
         <Snowmans>
          <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' style={{width:"24%"}} />
@@ -55,20 +56,12 @@ const HomePage = () => {
       <button onClick={getMySnowmans}>Get My Snowmans Test</button>
       <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
       <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button> */}
-    </Wrapper>
+    </BackgroundWrapper>
   )
 }
 
 export default HomePage
 
-const Wrapper = styled.div`
-  height : 100%;
-  display : flex;
-  flex-direction: column;
-  justify-content : space-between;
-  background-color : #6FABEB;
-  font-family: 'MaplestoryOTFBold';
-`
 export const MainLayout = styled.div`
   display: flex;
   justify-content: space-around;
