@@ -43,7 +43,6 @@ const HomePage = () => {
             <img src='/images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
           </div>
         </LoginLayout>
-        
         )}
       {/* <button onClick={() => navigate('/making')}>Making Page</button>
       <button onClick={getMember}>Get Member Test</button>

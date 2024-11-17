@@ -1,14 +1,11 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
-import closeBtn from "../../public/buttons/closeBtn.png"
-import { Wrapper } from "./MyPage";
 import { MainLayout } from "./HomePage";
 import Locator from "../services/Locator";
 import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
 const LocatingPage = () => {
   const navigate = useNavigate();
-  const {id} = useParams();
   
   return (
     <BackgroundWrapper>

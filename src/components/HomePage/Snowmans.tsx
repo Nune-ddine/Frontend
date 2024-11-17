@@ -41,7 +41,9 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   }, [id]);
 
   return (
-    <div style={{ position: "relative", height: "100%", border: "1px solid black" }}>
+    <div style={{ position: "relative", height: "100%", 
+    // border: "1px solid black" 
+    }}>
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}

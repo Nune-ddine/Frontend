@@ -34,14 +34,15 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
-    // navigate(`/making`);
   };
 
   return (
     <div
       ref={containerRef}
       onClick={handleClick}
-      style={{ position: "relative", height: "100%", border:"1px solid black" }}
+      style={{ position: "relative", height: "100%",
+      // border:"1px solid black" 
+    }}
     >
       <Snowmans>
        {/* <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' style={{width:"24%"}} />
