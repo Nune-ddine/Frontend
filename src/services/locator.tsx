@@ -45,7 +45,7 @@ const Locator = () => {
       {snowman && (
         <Snowman
           src="/images/etc/puangman.png"
-          style={{ top: `${snowman.y}px`, left: `${snowman.x}px` }}
+          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px` }}
         />
       )}
     </div>
