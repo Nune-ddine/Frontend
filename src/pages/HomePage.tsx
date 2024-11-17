@@ -28,7 +28,9 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Header/>
-        <Snowmans/>
+        <Snowmans>
+         <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' style={{width:"24%"}} />
+        </Snowmans>
       {token ? (
           <MainLayout>
             <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>

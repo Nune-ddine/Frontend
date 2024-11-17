@@ -43,7 +43,10 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       onClick={handleClick}
       style={{ position: "relative", height: "100%", border:"1px solid black" }}
     >
-      <Snowmans/>
+      <Snowmans>
+       {/* <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' style={{width:"24%"}} />
+        이거 어차피 클릭이 안 되어서 끌게요 */}
+      </Snowmans>
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
