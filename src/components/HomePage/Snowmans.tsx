@@ -57,6 +57,8 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 
   return (
     <div style={{ position: "relative", height: "100%" }}>
+    <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' 
+    style={{width:"24%", position: "relative", zIndex: 2 }} />  
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}
