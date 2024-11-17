@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import Header from '../components/Header';
 // import Footer from '../components/Footer';
-import Main from '../components/Main';
 import { useEffect } from 'react';
 import { login } from '../services/login';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -34,13 +33,13 @@ const HomePage = () => {
         </Snowmans>
       {token ? (
           <MainLayout>
-            <img src='images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
-            <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/locating${location.pathname}`)}></img>
+            <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/locating${location.pathname}`)}></img>
           </MainLayout>
         ) : (
         <LoginLayout>
           <div onClick={() => navigate('/login')}>
-            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
+            <img src='/images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
           </div>
         </LoginLayout>
         

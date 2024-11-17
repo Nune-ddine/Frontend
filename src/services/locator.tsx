@@ -1,10 +1,10 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useRef, useEffect, Children } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { locatorIdState } from "../contexts/recoilAtoms";
-import Snowmans from "../components/HomePage/Snowmans";
 import { snowmanState } from "../contexts/snowmanState";
+import Snowmans from "../components/HomePage/Snowmans";
 
 const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,8 +14,7 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSnowman(snowman);
-    console.log("Updated snowman:", snowman);
+    console.log("[ Updated Location ]:", snowman.posX, snowman.posY);
   }, [snowman]);
 
   useEffect(() => {
@@ -30,16 +29,11 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     const containerRect = container.getBoundingClientRect();
     const snowmanSize = 50;
 
-    const x = e.clientX - containerRect.left - snowmanSize / 1.5;
+    const x = e.clientX - containerRect.left - snowmanSize / 3.5;
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
-    setSnowman((prev) => ({
-      ...prev,
-      posX: x,
-      posY: y,
-    }));
-    
-    console.log("Updated snowman:", snowman);
+    setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
+    // console.log("Updated snowman:", snowman);
     // navigate(`/making`);
   };
 
@@ -47,16 +41,17 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     <div
       ref={containerRef}
       onClick={handleClick}
-      style={{ position: "relative", height: "100vh", border:"1px solid black" }}
+      style={{ position: "relative", height: "100%", border:"1px solid black" }}
     >
-      <Snowmans/>
+      {/* {children} children을 포함하여 추가적인 렌더링을 지원 */}
       {snowman && (
         <Snowman
-          src="/images/etc/puangman.png"
-          style={{ top: `${snowman.posX}px`, left: `${snowman.posX}px` }}
-        />
+          src="/images/mypage/emptySnowman.png"
+          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px` }}
+        ></Snowman>
       )}
-      {children}
+      <Snowmans/>
+      
     </div>
   );
 };
@@ -66,5 +61,5 @@ export default Locator;
 const Snowman = styled.img`
   position: absolute;
   height: 50px;
-  width: 70px;
+  width: 30px;
 `;

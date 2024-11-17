@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import closeBtn from "../../public/buttons/closeBtn.png"
 import { Wrapper } from "./MyPage";
-import Locator from "../services/locator";
 import { MainLayout } from "./HomePage";
+import Locator from "../services/locator";
 const LocatingPage = () => {
   const navigate = useNavigate();
   const {id} = useParams();
@@ -12,12 +12,10 @@ const LocatingPage = () => {
   return (
     <Wrapper>
       <Header/>
-      <Locator>
-        <img onClick={() => navigate('/elevator')} src='images/homes/map.png' style={{width:"24%"}} />
-      </Locator>
+      <Locator/>
       <MainLayout>
-            <img src='images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
-            <img src='images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
+            <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
       </MainLayout>
       {/* <Wrapper style={{height:"15%", alignItems:"center", justifyContent:"center" }}>
         <Button>
