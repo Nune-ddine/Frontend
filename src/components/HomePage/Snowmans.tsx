@@ -13,6 +13,7 @@ interface Snowman {
 const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { id } = useParams();
   const [snowmen, setSnowmen] = useState<Snowman[]>([]);
+  const navigate = useNavigate();
 
   const getSnowmans = async () => {
     if (!id) {
@@ -44,6 +45,8 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     <div style={{ position: "relative", height: "100%", 
     // border: "1px solid black" 
     }}>
+    <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' 
+    style={{width:"24%", position: "relative", zIndex: 2 }} />  
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}
@@ -54,7 +57,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
           }}
         />
       ))}
-      {children} {/* children을 포함하여 추가적인 렌더링을 지원 */}
+    {children}
     </div>
   );
 };
@@ -65,4 +68,5 @@ const StyledSnowman = styled.img`
   position: absolute;
   height: 50px;
   width: 70px;
+  z-index: 1;
 `;
