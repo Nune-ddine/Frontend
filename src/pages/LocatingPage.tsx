@@ -13,7 +13,7 @@ const LocatingPage = () => {
       <Locator />
       <MainLayout>
             <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
-            <img src='/images/homes/letterWood.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
+            <img src='/images/homes/letterWood2.png' style={{width:"36%"}} onClick={()=> navigate(`/making`)}></img>
       </MainLayout>
       {/* <Wrapper style={{height:"15%", alignItems:"center", justifyContent:"center" }}>
         <Button>

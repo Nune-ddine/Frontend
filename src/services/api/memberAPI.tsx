@@ -74,22 +74,23 @@ export const getMySnowman = async () => {
   }
 };
 
-// 테스트 함수 예시 (주석 제거 시 테스트 용도로 사용할 수 있습니다)
-// const getMemberTest = async () => {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     console.log("Token not found");
-//     return;
-//   }
-//   const response = await fetch("https://nuneddine.p-e.kr/api/v1/member", {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   if (response.ok) {
-//     const data = await response.json();
-//     console.log(data);
-//   } else {
-//     console.log("Failed to get member test");
-//   }
-// }
+export const deleteMySnowman = async (snowmanId : number) => {
+  try {
+    const response = await axios.delete(`${URL}/my-snowman/${snowmanId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (response.status === 401) {
+      alert('로그인이 필요합니다.');
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+
+    return response.data; // 데이터 반환
+  } catch (error) {
+    console.error("Failed to fetch snowman data:", error);
+    throw error;
+  }
+};
