@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { getQuiz, postQuiz } from '../services/api/quizAPI';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { getQuiz, postQuiz } from "../services/api/quizAPI";
 
 interface QuizData {
   id: number;
@@ -18,6 +18,7 @@ interface QuizData {
 interface QuizModalProps {
   isOpen: boolean;
   onClose: () => void;
+  snowmanId: number | null;
 }
 
 interface ResultMessageProps {
@@ -32,7 +33,7 @@ const ResultMessage = styled.div<ResultMessageProps>`
   text-align: center;
 `;
 
-const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
+const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => {
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -40,21 +41,20 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
   const [isSolved, setIsSolved] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && snowmanId) {
       const fetchQuizData = async () => {
         try {
-          const quizId = 2; // Example quiz ID
-          const data = await getQuiz(quizId);
+          const data = await getQuiz(snowmanId);
           setQuizData(data);
           setIsSolved(data.isSolved); // Set the isSolved status
         } catch (error) {
-          console.error('Error fetching quiz data:', error);
+          console.error("Error fetching quiz data:", error);
         }
       };
 
       fetchQuizData();
     }
-  }, [isOpen]);
+  }, [isOpen, snowmanId]);
 
   const handleAnswerSelection = (choiceId: number) => {
     setSelectedAnswer(choiceId);
@@ -77,11 +77,11 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
             <HeaderText>
               {quizData.name
                 ? `${quizData.username}님이 만든 ${quizData.name}`
-                : '오유진님이 만든 푸앙눈구리'}
+                : "오유진님이 만든 푸앙눈구리"}
             </HeaderText>
             <QuizImage src={quizData.image} alt="Quiz" />
             <QuizContainer>
-              <QuizText>{`Q. ${quizData.quiz}` || 'Q. 문제를 맞춰보세요'}</QuizText>
+              <QuizText>{`Q. ${quizData.quiz}` || "Q. 문제를 맞춰보세요"}</QuizText>
               <ChoicesContainer>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 1}
@@ -89,8 +89,8 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(1)}
                 >
-                  <img src="images/quizs/numberBtn1.png" style={{ height: '30px' }} />
-                  {quizData.choice1 || 'Option 1'}
+                  <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
+                  {quizData.choice1 || "Option 1"}
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -98,8 +98,8 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(2)}
                 >
-                  <img src="images/quizs/numberBtn2.png" style={{ height: '30px' }} />
-                  {quizData.choice2 || 'Option 2'}
+                  <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
+                  {quizData.choice2 || "Option 2"}
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -107,8 +107,8 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(3)}
                 >
-                  <img src="images/quizs/numberBtn3.png" style={{ height: '30px' }} />
-                  {quizData.choice3 || 'Option 3'}
+                  <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
+                  {quizData.choice3 || "Option 3"}
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
@@ -119,7 +119,9 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose }) => {
             {isCorrect ? (
               <div>
                 <p>정답을 맞췄어요!</p>
-                <HeaderText style={{fontSize:"1.6rem",background:"#3D9BF2",width:"90%",color:"white"}}>+ 100 Point</HeaderText>
+                <HeaderText style={{ fontSize: "1.6rem", background: "#3D9BF2", width: "90%", color: "white" }}>
+                  + 100 Point
+                </HeaderText>
               </div>
             ) : (
               <>
