@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
-import { getMember, getMySnowman, patchUsername } from '../services/api/memberAPI';
+import { deleteMySnowman, getMember, getMySnowman, patchUsername } from '../services/api/memberAPI';
 import BackBtn from '../components/BackBtn';
 
 interface MemberResponse {
@@ -56,13 +56,22 @@ const MyPage: React.FC = () => {
     }
   };
 
+  const deleteSnowman = async (id: number) => {
+    try {
+      await deleteMySnowman(id);
+      setSnowmans(snowmans.filter(snowman => snowman.id !== id)); // Remove the deleted snowman from the UI
+    } catch (error) {
+      console.error("Error occurred while deleting snowman:", error);
+    }
+  };
+
   useEffect(() => {
     getProfile();
     getSnowman();
   }, []);
 
   return (
-    <Wrapper style={{ backgroundColor: "#f0f0f0" }}>
+    <Wrapper style={{ backgroundColor: "#F3F9FF" }}>
       <Header />
       <BackBtn />
       <ProfileSection>
@@ -114,7 +123,14 @@ const MyPage: React.FC = () => {
                   alt="Snowman"
                   style={{ width: "80%" }}
                 />
-                <SnowmanText>{snowmans[index].name || '눈사람을 만들어주세요'}</SnowmanText>
+                <SnowmanText>
+                  {snowmans[index].name || '눈사루를 만들어주세요'}
+                  <img 
+                    src='/images/mypage/trashcan.png'
+                    style={{ height: "1.5rem", marginLeft: "0.6rem", marginBottom: "-0.4rem", cursor: "pointer" }}
+                    onClick={() => deleteSnowman(snowmans[index].id)}
+                  />
+                </SnowmanText>
                 <SnowmanCount>
                   {snowmans[index].correctCount}/{snowmans[index].incorrentCount + snowmans[index].correctCount}명
                 </SnowmanCount>
@@ -127,7 +143,7 @@ const MyPage: React.FC = () => {
                   style={{ width: "80%" }}
                 />
                 <SnowmanText>
-                  빈 눈사람
+                  안 굴린 눈사루
                 </SnowmanText>
                 <SnowmanCount>0/0명</SnowmanCount>
               </Snowman>
@@ -145,8 +161,6 @@ export const Wrapper = styled.div`
   height : 100%;
   display : flex;
   flex-direction: column;
-  // justify-content : space-between;
-  // gap : 3%;
   background-color : #F3F9FF;
   font-family: 'MaplestoryOTFBold';
 `
@@ -155,6 +169,7 @@ const ProfileSection = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
+  height : 20%;
 `;
 
 const ProfilePicture = styled.img`
@@ -177,21 +192,25 @@ const ProfileName = styled.div`
   div {
     background-color: #FFF1D2;
     border-radius: 100px;
-    // padding: 2px;
     padding-left: 8px;
     padding-right: 8px;
   }
 `;
+
 const Button = styled.button`
-background-color: #FFF1D2;
-`
+  background-color: #FFF1D2;
+`;
+
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   background: #E4F1FF;
   color : #513421;
-  height : 80%;
+  height : 100%;
+  background-image: url("/images/mypage/background.png");  
+  background-size: cover;
+  background-position: center;
 `;
 
 const SnowmanContainer = styled.div`
@@ -205,15 +224,12 @@ const Snowman = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-
   margin-top : 10%;
   &:nth-child(1),
   &:nth-child(3)  {
     align-self: center;
     margin-bottom: -60%; /* Adjust for overlap if needed */
-
   }
-
   &:nth-child(2){
     align-self: start;
   }
@@ -222,6 +238,9 @@ const Snowman = styled.div`
 const SnowmanText = styled.div`
   font-size: 1.2rem;
   margin-top: 0.5rem;
+  display: flex;
+  align-items : center;
+  margin-bottom : 0.5rem;
 `;
 
 const SnowmanCount = styled.div`
