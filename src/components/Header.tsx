@@ -1,19 +1,33 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { getMember } from "../services/api/memberAPI";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  // point랑 chance 받아오기
+  const [point, setPoint] = useState<number>(0);
+  const [chance, setChance] = useState<number>(0);
+
+  useEffect(() => {
+    getMember().then((res) => {
+      setPoint(res.point);
+      setChance(res.chance);
+    });
+  }
+  , []);
 
   return (
     <Wrapper>
       <Left>
         <Button>
           <img src="/images/etc/pointBtn.png" alt="point" />
-          <Text>1224p</Text>
+          <Text>{point}</Text>
         </Button>
         <Button>
           <img onClick={() => navigate('/making')} src="/images/etc/questionmarkBtn.png" alt="quizChance" />
-          <Text>1 / 3</Text>
+          <Text>{chance}/3</Text>
         </Button>
       </Left>
       <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
