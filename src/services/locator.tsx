@@ -2,7 +2,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { locatorIdState, snowmanLocState } from "../contexts/recoilAtoms";
+import { locatorIdState } from "../contexts/recoilAtoms";
 import { snowmanState } from "../contexts/snowmanState";
 
 const Locator = () => {
