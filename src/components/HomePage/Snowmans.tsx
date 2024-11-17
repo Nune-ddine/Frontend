@@ -45,7 +45,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}
-          src={"/images/etc/puangman.png"}
+          src={`${snowman.image}`||`/images/etc/puangman.png`}
           style={{
             top: `${snowman.posY}px`,
             left: `${snowman.posX}px`,
@@ -61,6 +61,8 @@ export default Snowmans;
 
 const StyledSnowman = styled.img`
   position: absolute;
+  
+  
   height: 50px;
   width: 70px;
 `;

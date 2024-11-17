@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { locatorIdState, snowmanState } from "../contexts/recoilAtoms";
+import Snowmans from "../components/HomePage/Snowmans";
 
 const Locator = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,6 +43,7 @@ const Locator = () => {
       onClick={handleClick}
       style={{ position: "relative", height: "100vh", border:"1px solid black" }}
     >
+      <Snowmans/>
       {snowman && (
         <Snowman
           src="/images/etc/puangman.png"
