@@ -29,7 +29,7 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     const containerRect = container.getBoundingClientRect();
     const snowmanSize = 50;
 
-    const x = e.clientX - containerRect.left - snowmanSize / 3.5;
+    const x = e.clientX - containerRect.left - snowmanSize / 4;
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
@@ -43,15 +43,14 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       onClick={handleClick}
       style={{ position: "relative", height: "100%", border:"1px solid black" }}
     >
-      {/* {children} children을 포함하여 추가적인 렌더링을 지원 */}
+      <Snowmans/>
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
-          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px` }}
+          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px`,position: "absolute" }}
         ></Snowman>
       )}
-      <Snowmans/>
-      
+      {children}
     </div>
   );
 };
