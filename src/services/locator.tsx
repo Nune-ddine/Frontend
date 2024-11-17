@@ -6,6 +6,7 @@ import { locatorIdState } from "../contexts/recoilAtoms";
 import { snowmanState } from "../contexts/snowmanState";
 import Snowmans from "../components/HomePage/Snowmans";
 
+
 const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [snowman, setSnowman] = useRecoilState(snowmanState);

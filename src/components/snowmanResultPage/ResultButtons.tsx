@@ -1,10 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
 const ResultButtons = () => {
+   const navigate = useNavigate();
+
+   const handleJaRang = () => {
+      if (navigator.share) {
+         navigator.share({
+               title: '기록하며 성장하기',
+               text: 'Hello World',
+               url: 'https://shinsangeun.github.io',
+         });
+      }else{
+         alert("공유하기가 지원되지 않는 환경 입니다.")
+      }
+      console.log('자랑하기')
+   }
+
 return (
    <Wrappper>
       <JaRangButton>눈사람 자랑하기</JaRangButton> 
-      <MapButton>맵으로 돌아가기</MapButton>
+      <MapButton onClick={() => navigate('/')}>맵으로 돌아가기</MapButton>
    </Wrappper>
 )
 }

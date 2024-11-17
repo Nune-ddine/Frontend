@@ -5,6 +5,7 @@ import OptionPart from '../components/makingPage/OptionPart';
 import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { getInventory } from '../services/api/snowmanAPI';
 
 const MakingPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -15,6 +16,7 @@ const MakingPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    getInventory();
     if (finalImage) {
       navigate('/snowmanResult', { state: { finalImage } });
     }
