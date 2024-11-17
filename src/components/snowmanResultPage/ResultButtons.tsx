@@ -29,7 +29,7 @@ const ResultButtons = () => {
 
 return (
    <Wrappper>
-      <JaRangButton>눈사람 자랑하기</JaRangButton> 
+      <JaRangButton onClick={() => handleJaRang()}>눈사람 자랑하기</JaRangButton> 
       <MapButton onClick={() => navigate('/')}>맵으로 돌아가기</MapButton>
    </Wrappper>
 )
