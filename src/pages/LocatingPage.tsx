@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import { MainLayout } from "./HomePage";
-import Locator from "../services/Locator";
 import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
+import Locator from "../services/Locator";
 const LocatingPage = () => {
   const navigate = useNavigate();
   
