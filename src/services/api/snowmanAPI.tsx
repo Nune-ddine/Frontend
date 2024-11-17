@@ -1,22 +1,23 @@
 import axios from "axios";
 import { SnowmanState } from "../../contexts/snowmanState";
 import { locatorIdState } from "../../contexts/recoilAtoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-   export const createSnowman = async (snowman: SnowmanState) => {
-      const mapNumber = locatorIdState;
+   export const createSnowman = async (snowman: SnowmanState, mapNumber: number) => {
+      console.log("mapNumber: ", mapNumber);
       const token = localStorage.getItem("token");
-      console.log("<< createSnowman test >>");
+      console.log("<< createSnowman API 호출됨 >>");
       if (!token) {
       console.log("Token not found");
       return;
       }
-      
+
       try {
-      const response = await axios.post(`https://nuneddine.p-e.kr/api/v1/map/${mapNumber}/snowman`, {
+      const response = await axios.post(`https://nuneddine.p-e.kr/api/v1/map/${mapNumber}/snowman`, { //todo, mapNumber
          name: snowman.name,
          image: snowman.image,
-         posX: 1000, // todo
-         posY: 20000, // todo
+         posX: snowman.posX || 160, //todo
+         posY: snowman.posY || 240, 
          quiz: snowman.quiz,
          answerId: snowman.answerId,
          content1: snowman.content1,
@@ -42,7 +43,7 @@ import { locatorIdState } from "../../contexts/recoilAtoms";
  
 
 export const getInventory = async () => {
-   console.log("getInventory");
+   // console.log("getInventory");
    const token = localStorage.getItem("token");
    if (!token) {
       console.log("Token not found");
@@ -55,7 +56,7 @@ export const getInventory = async () => {
          Authorization: `Bearer ${token}`,
          },
       });
-      // console.log(response.data);
+      console.log(response.data);
    } catch (error) {
       console.error("Failed to get inventory test", error);
    }

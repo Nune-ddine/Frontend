@@ -73,7 +73,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
         setSnowman(updatedSnowman);
         printSnowman();
         console.log("Sending snowman data to API:", updatedSnowman);
-        await createSnowman(updatedSnowman); // 업데이트된 값을 전달
+        createSnowman(updatedSnowman, id); // 업데이트된 값을 전달
       }
     }
   };

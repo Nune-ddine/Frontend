@@ -16,11 +16,13 @@ const MakingPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getInventory();
     if (finalImage) {
       navigate('/snowmanResult', { state: { finalImage } });
     }
   }, [finalImage, navigate]);
+  useEffect(() => {
+    getInventory();
+  });
 
   return (
     <PageWrapper>
