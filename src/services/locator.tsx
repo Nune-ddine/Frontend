@@ -1,11 +1,12 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, Children } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { locatorIdState, snowmanState } from "../contexts/recoilAtoms";
+import { locatorIdState } from "../contexts/recoilAtoms";
 import Snowmans from "../components/HomePage/Snowmans";
+import { snowmanState } from "../contexts/snowmanState";
 
-const Locator = () => {
+const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
   const setId = useSetRecoilState(locatorIdState);
@@ -32,9 +33,14 @@ const Locator = () => {
     const x = e.clientX - containerRect.left - snowmanSize / 1.5;
     const y = e.clientY - containerRect.top - snowmanSize / 2;
 
-    setSnowman({ x, y });
-    // console.log("Updated snowman:", snowman);
-    navigate(`/making`);
+    setSnowman((prev) => ({
+      ...prev,
+      posX: x,
+      posY: y,
+    }));
+    
+    console.log("Updated snowman:", snowman);
+    // navigate(`/making`);
   };
 
   return (
@@ -47,9 +53,10 @@ const Locator = () => {
       {snowman && (
         <Snowman
           src="/images/etc/puangman.png"
-          style={{ top: `${snowman.y}px`, left: `${snowman.x}px` }}
+          style={{ top: `${snowman.posX}px`, left: `${snowman.posX}px` }}
         />
       )}
+      {children}
     </div>
   );
 };

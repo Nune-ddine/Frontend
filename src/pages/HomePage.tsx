@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   background-color : #6FABEB;
   font-family: 'MaplestoryOTFBold';
 `
-const MainLayout = styled.div`
+export const MainLayout = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;

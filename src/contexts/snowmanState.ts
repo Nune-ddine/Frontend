@@ -3,8 +3,8 @@ import { atom } from 'recoil';
 export interface SnowmanState {
   name: string;
   image: string;
-  posX: number;
-  posY: number;
+  posX: number | null;
+  posY: number | null;
   quiz: string;
   answerId: number;
   content1: string;
@@ -17,8 +17,8 @@ export const snowmanState = atom<SnowmanState>({
   default: {
     name: '',
     image: '',
-    posX: 0,
-    posY: 0,
+    posX: null,
+    posY: null,
     quiz: '',
     answerId: 0,
     content1: '',
