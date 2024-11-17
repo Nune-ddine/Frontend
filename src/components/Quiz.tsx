@@ -187,8 +187,8 @@ const HeaderText = styled.div`
 `;
 
 const QuizImage = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 80%;
+  height: auto;
   margin: 15px auto;
   display: block;
 `;
