@@ -57,21 +57,9 @@ const HomePage = () => {
         <LoginLayout>
           <KakaoBtn onClick={() => handleLoginClick()}>
             카카오로 로그인하기 
-            {/* <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} /> */}
           </KakaoBtn>
         </LoginLayout>
         )}
-      {/* <button onClick={() => navigate('/making')}>Making Page</button>
-      <button onClick={getMember}>Get Member Test</button>
-      <button onClick={getGotcha}>Get Gotcha Test</button>
-      <button onClick={patchMember}>Patch Member Test</button>
-      <button onClick={getInventory}>Get Inventory Test</button>
-      <button onClick={getAllSnowman}>Get All Snowman Test</button>
-      <button onClick={getSnowmanQuiz}>Get Snowman Quiz Test</button>
-      <button onClick={createSnowman}>Create Snowman Test</button>
-      <button onClick={getMySnowmans}>Get My Snowmans Test</button>
-      <button onClick={getSnowmanInfo}>Get Snowman Info Test</button>
-      <button onClick={trySnowmanQuiz}>Try Snowman Quiz Test</button> */}
     </BackgroundWrapper>
   )
 }
