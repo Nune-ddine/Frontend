@@ -81,7 +81,9 @@ export default Snowmans;
 
 const StyledSnowman = styled.img`
   position: absolute;
+  // height: 5rem;
   height: 50px;
+  // width: 7rem;
   width: 70px;
   z-index: 1;
   cursor: pointer;
