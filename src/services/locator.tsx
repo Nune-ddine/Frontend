@@ -4,7 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { locatorIdState } from "../contexts/recoilAtoms";
 import { snowmanState } from "../contexts/snowmanState";
-import Snowmans from "../components/HomePage/Snowmans";
+import Snowmans from "../components/HomePage/Snowmans-locating";
+
 
 
 const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
