@@ -23,7 +23,7 @@ const Header = () => {
       <Left>
         <Button>
           <img src="/images/etc/pointBtn.png" alt="point" />
-          <Text>{point}</Text>
+          <Text>{point}p</Text>
         </Button>
         <Button>
           <img onClick={() => navigate('/making')} src="/images/etc/questionmarkBtn.png" alt="quizChance" />
@@ -96,5 +96,5 @@ const Text = styled.div`
   padding-right: 15px;
   box-shadow: 1px 2px 0px 0px #7EBFFF;
   color: rgba(81, 52, 33, 1);
-
+  font-size: 0.9rem;
 `
