@@ -12,6 +12,7 @@ const MakingPage: React.FC = () => {
   const [selectedFeature, setSelectedFeature] = useState<string>('');
   const [isQuizMode, setIsQuizMode] = useState(false);
   const [finalImage, setFinalImage] = useState<string | null>(null);
+  const [inventory, setInventory] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -20,9 +21,26 @@ const MakingPage: React.FC = () => {
       navigate('/snowmanResult', { state: { finalImage } });
     }
   }, [finalImage, navigate]);
+
   useEffect(() => {
-    getInventory();
-  });
+    const fetchInventory = async () => {
+      try {
+        const itemExistOriginal = await getInventory();
+  
+        // 24번째부터 48번째 값의 'unLock' 필드만 추출
+        const unlockFields = itemExistOriginal
+          .slice(24, 48)
+          .map((item: { itemId: number; itemName: string; unLock: boolean }) => item.unLock);
+  
+        setInventory(unlockFields); // 추출한 배열을 상태로 저장
+      } catch (error) {
+        console.error("Failed to fetch inventory:", error);
+      }
+    };
+  
+    fetchInventory(); // 비동기 함수 호출
+  }, []);
+  
 
   return (
     <PageWrapper>

@@ -1,7 +1,8 @@
-// src/components/optionComponents/SecFeatRow.tsx
 import React from 'react';
 import styled from 'styled-components';
 import SecFeatCard from './SecFeatCard';
+import { useRecoilValue } from 'recoil';
+import { inventoryState } from '../../../contexts/inventoryState';
 
 interface SecFeatRowProps {
   partKey: string;
@@ -10,11 +11,12 @@ interface SecFeatRowProps {
 }
 
 const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
-  // 예시: itemExist 배열은 '외투' 카테고리의 아이템 존재 여부를 나타냄
-  const itemExist = [false, false, false, false]; // '외투'에서 보유한 아이템 없음
+  const inventory = useRecoilValue(inventoryState); // 상태 가져오기
+  console.log('inventory:', inventory);
 
-  // 모든 값이 false인지 검사
-  const allFalse = partKey === '외투' && itemExist.every((exist) => !exist);
+  // '외투'의 모든 아이템이 없는 경우 확인
+  const allFalse =
+    partKey === '외투' && Array.isArray(inventory) && inventory.every((exist) => !exist);
 
   return (
     <Wrapper>
@@ -29,7 +31,7 @@ const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
           // 아이템 존재 여부에 따라 렌더링
           items.map((item, idx) =>
             partKey === '외투'
-              ? itemExist[idx]
+              ? inventory[idx]
                 ? <SecFeatCard key={item.name} name={item.name} img={item.img} />
                 : null
               : <SecFeatCard key={item.name} name={item.name} img={item.img} />
