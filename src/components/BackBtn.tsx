@@ -1,12 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { locatorIdState } from '../contexts/recoilAtoms';
 
 const BackBtn = () => {
     const navigate = useNavigate();
+    const id = useRecoilValue(locatorIdState);
   return (
     // <BackButton onClick={()=>navigate('/')}>◀</BackButton>
-    <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate('/')}/>
+    <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate(`/${id}`)}/>
   )
 }
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CloseButton } from "../Quiz";
 import { getGotcha } from "../../services/api/gotchaAPI";
 
 export interface GotchaItem {
@@ -32,30 +31,37 @@ const Gotcha: React.FC = () => {
         }
       }, 7500);
     } catch (error: any) {
+      console.error("Error:", error);
       setIsPlaying(false);
-      if (error.response?.status === 204) {
-        setModalMessage("더 이상 뽑을 아이템이 없습니다");
+    
+      if (error?.response) {
+        const statusCode = error.response.status;
+    
+        switch (statusCode) {
+          case 204:
+            setModalMessage("더 이상 뽑을 아이템이 없습니다");
+            break;
+          case 412:
+            setModalMessage("가챠 포인트가 부족합니다");
+            break;
+          case 423:
+            setModalMessage("꽝입니다.");
+            break;
+          default:
+            console.error("Unknown server error:", error.response);
+            alert("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
+            return;
+        }
+    
         setTimeout(() => {
-          setIsPlaying(false);
-          setShowModal(true);
-        }, 7500);
-      } else if (error.response?.status === 412) {
-        setModalMessage("가챠 포인트가 부족합니다");
-        setTimeout(() => {
-          setIsPlaying(false);
-          setShowModal(true);
-        }, 7500);
-      } else if (error.response?.status === 423) {
-        setModalMessage("꽝입니다. 다시 시도해보세요!");
-        setTimeout(() => {
-          setIsPlaying(false);
           setShowModal(true);
         }, 7500);
       } else {
-        console.error("Error fetching gotcha data:", error);
-        alert("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
+        // response가 없을 경우 네트워크 오류 등으로 간주
+        console.error("Network or unknown error:", error);
+        alert("네트워크 문제로 가챠 데이터를 가져오는 중 문제가 발생했습니다.");
       }
-    }
+    }       
   };
 
   const closeModal = () => {
@@ -150,4 +156,14 @@ const ModalContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const CloseButton = styled.img`
+  margin-top: 1rem;
+  width : 10%;
+  margin-left:82%;
+  // padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
 `;

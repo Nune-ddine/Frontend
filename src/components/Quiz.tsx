@@ -4,22 +4,22 @@ import { getQuiz, postQuiz } from "../services/api/quizAPI";
 import { useRecoilState } from "recoil";
 import { quizState } from "../contexts/recoilAtoms";
 
-// interface QuizData {
-//   id: number;
-//   name: string | null;
-//   username: string | null;
-//   image: string;
-//   quiz: string;
-//   answerId: number;
-//   choice1: string | null;
-//   choice2: string | null;
-//   choice3: string | null;
-//   isSolved: boolean;
-//   myAnswerId: number;
-//   ratio1: number;
-//   ratio2: number;
-//   ratio3: number;
-// }
+interface QuizData {
+  id: number;
+  name: string | null;
+  username: string | null;
+  image: string;
+  quiz: string;
+  answerId: number;
+  choice1: string | null;
+  choice2: string | null;
+  choice3: string | null;
+  solved: boolean;
+  myAnswerId: number;
+  ratio1: number;
+  ratio2: number;
+  ratio3: number;
+}
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -40,7 +40,7 @@ const ResultMessage = styled.div<ResultMessageProps>`
 `;
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => {
-  const [quizData, setQuizData] = useRecoilState(quizState);
+  const [quizData, setQuizData] = useState<QuizData|null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
