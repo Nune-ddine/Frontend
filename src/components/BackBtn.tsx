@@ -38,9 +38,9 @@ export default BackBtn
 const BackButton = styled.img`
   // padding-bottom: 15px;
   margin-left : 1rem;
-  margin-top : 1rem;
-  height: 6%;
-  width: 11%;
+  // margin-top : 1rem;
+  height: 5%;
+  width: 9%;
   aspect-ratio: 1/1;
   cursor: pointer;
 `;

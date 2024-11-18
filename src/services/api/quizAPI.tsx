@@ -16,6 +16,7 @@ export const getQuiz = async (id : number) => {
       localStorage.removeItem('token');
       window.location.href = '/';
     }
+    // console.log(response);
 
     return response.data; // 데이터 반환
   } catch (error) {
