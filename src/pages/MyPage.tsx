@@ -48,6 +48,11 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
+      // 닉네임 ㄹㅇ 수정할건지 confirm
+      const isConfirmed = confirm("닉네임을 변경하시겠어요?");
+      if (!isConfirmed) {
+        return;
+      }
       await patchUsername(newUsername); // Pass newUsername to the API
       setUsername(newUsername); // Update UI with the new username
       setIsEditing(false); // Exit edit mode
