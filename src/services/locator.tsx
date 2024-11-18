@@ -42,10 +42,15 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       ref={containerRef}
       onClick={handleClick}
       style={{ position: "relative", height: "100%",
-      // border:"1px solid black" 
+        display:"flex",
+        flexDirection: "column",
+        alignItems:"center",
+        justifyContent:"center",
+        // border:"1px solid black" 
     }}
     >
       <Snowmans/>
+      <StyledText>눈사람 만들 곳을 클릭해주세요!</StyledText>
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
@@ -64,3 +69,9 @@ const Snowman = styled.img`
   height: 50px;
   width: 30px;
 `;
+
+const StyledText = styled.div`
+  font-size : 1.4rem;
+  color: white;
+  -webkit-text-stroke: 0.8px rgba(81, 52, 33, 1);
+`
