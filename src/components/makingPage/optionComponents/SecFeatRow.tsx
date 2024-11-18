@@ -16,7 +16,7 @@ const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
 
   // '외투'의 모든 아이템이 없는 경우 확인
   const allFalse =
-    partKey === '외투' && Array.isArray(inventory) && inventory.every((exist) => !exist);
+    partKey === '과잠' && Array.isArray(inventory) && inventory.every((exist) => !exist);
 
   return (
     <Wrapper>
@@ -30,7 +30,7 @@ const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
         ) : (
           // 아이템 존재 여부에 따라 렌더링
           items.map((item, idx) =>
-            partKey === '외투'
+            partKey === '과잠'
               ? inventory[idx]
                 ? <SecFeatCard key={item.name} name={item.name} img={item.img} />
                 : null
