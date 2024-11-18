@@ -50,7 +50,7 @@ const Gotcha: React.FC = () => {
 
   const handleClick = async () => {
     if (point < 300) {
-      alert("포인트가 부족합니다. 최소 300 포인트가 필요합니다.");
+      alert("포인트가 부족해요 🥲");
       return;
     }
 
