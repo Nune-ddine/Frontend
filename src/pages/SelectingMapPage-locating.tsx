@@ -10,7 +10,7 @@ const SelectingMapPage2 = () => {
   return (
     <StyledWrapper>
         <Header/>
-        <BackBtn/>
+        <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate('/locating')}/>
         <Maps>
           <Map onClick={()=> navigate('/locating/1')} src="/images/homes/icons/1.png"/>
           <Map onClick={()=> navigate('/locating/2')} src="/images/homes/icons/2.png"/>
@@ -43,3 +43,12 @@ const Maps= styled.div`
   justify-content:center;
   padding: 10% 0;
 `
+const BackButton = styled.img`
+  // padding-bottom: 15px;
+  margin-left : 1rem;
+  // margin-top : 1rem;
+  height: 5%;
+  width: 9%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+`;

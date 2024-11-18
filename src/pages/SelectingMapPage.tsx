@@ -10,7 +10,7 @@ const SelectingMapPage = () => {
   return (
     <StyledWrapper>
         <Header/>
-        <BackBtn/>
+        <BackBtn />
         <Maps>
           <Map onClick={()=> navigate('/1')} src="/images/homes/icons/1.png"/>
           <Map onClick={()=> navigate('/2')} src="/images/homes/icons/2.png"/>
