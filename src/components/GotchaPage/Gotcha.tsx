@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { getGotcha } from "../../services/api/gotchaAPI";
 
 export interface GotchaItem {
   id: number;
@@ -12,6 +12,55 @@ export interface GotchaResponse {
   item: GotchaItem;
   gachable: boolean;
 }
+
+// Create axios instance
+const axiosInstance = axios.create({
+  baseURL: "https://nuneddine.p-e.kr/api/v1",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+});
+
+// Add a response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => {
+    // If the request is successful, just return the response
+    return response;
+  },
+  (error) => {
+    // Handle errors globally
+    if (error.response) {
+      const statusCode = error.response.status;
+      switch (statusCode) {
+        case 204:
+          return Promise.reject("더 이상 뽑을 아이템이 없습니다");
+        case 412:
+          return Promise.reject("가챠 포인트가 부족합니다");
+        case 423:
+          return Promise.reject("꽝입니다.");
+        default:
+          console.error("Unknown server error:", error.response);
+          return Promise.reject("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
+      }
+    } else {
+      // Handle network or other errors
+      console.error("Network or unknown error:", error);
+      return Promise.reject("네트워크 문제로 가챠 데이터를 가져오는 중 문제가 발생했습니다.");
+    }
+  }
+);
+
+export const getGotcha = async (): Promise<GotchaResponse | null> => {
+  try {
+    const response = await axiosInstance.get<GotchaResponse>("/item/gotcha");
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get gotcha data:", error);
+    alert(error);
+    return null;
+  }
+};
 
 const Gotcha: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -26,42 +75,18 @@ const Gotcha: React.FC = () => {
       setTimeout(() => {
         setIsPlaying(false);
         if (gotchaData) {
-          setItemData(gotchaData?.item || null); // Update here to match the response interface
+          setItemData(gotchaData?.item || null);
           setShowModal(true);
         }
       }, 7500);
     } catch (error: any) {
       console.error("Error:", error);
       setIsPlaying(false);
-    
-      if (error?.response) {
-        const statusCode = error.response.status;
-    
-        switch (statusCode) {
-          case 204:
-            setModalMessage("더 이상 뽑을 아이템이 없습니다");
-            break;
-          case 412:
-            setModalMessage("가챠 포인트가 부족합니다");
-            break;
-          case 423:
-            setModalMessage("꽝입니다.");
-            break;
-          default:
-            console.error("Unknown server error:", error.response);
-            alert("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
-            return;
-        }
-    
-        setTimeout(() => {
-          setShowModal(true);
-        }, 7500);
-      } else {
-        // response가 없을 경우 네트워크 오류 등으로 간주
-        console.error("Network or unknown error:", error);
-        alert("네트워크 문제로 가챠 데이터를 가져오는 중 문제가 발생했습니다.");
-      }
-    }       
+      setModalMessage(error);
+      setTimeout(() => {
+        setShowModal(true);
+      }, 7500);
+    }
   };
 
   const closeModal = () => {
@@ -162,7 +187,6 @@ const CloseButton = styled.img`
   margin-top: 1rem;
   width : 10%;
   margin-left:82%;
-  // padding: 0.5rem 1rem;
   border-radius: 5px;
   font-size: 1.2rem;
   cursor: pointer;
