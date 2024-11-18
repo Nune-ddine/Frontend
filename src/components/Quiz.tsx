@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getQuiz, postQuiz } from "../services/api/quizAPI";
+import { useRecoilState } from "recoil";
+import { quizState } from "../contexts/recoilAtoms";
 
-interface QuizData {
-  id: number;
-  name: string | null;
-  username: string | null;
-  image: string;
-  quiz: string;
-  answerId: number;
-  choice1: string | null;
-  choice2: string | null;
-  choice3: string | null;
-  isSolved: boolean;
-  myAnswerId: number;
-  ratio1: number;
-  ratio2: number;
-  ratio3: number;
-}
+// interface QuizData {
+//   id: number;
+//   name: string | null;
+//   username: string | null;
+//   image: string;
+//   quiz: string;
+//   answerId: number;
+//   choice1: string | null;
+//   choice2: string | null;
+//   choice3: string | null;
+//   isSolved: boolean;
+//   myAnswerId: number;
+//   ratio1: number;
+//   ratio2: number;
+//   ratio3: number;
+// }
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -38,7 +40,7 @@ const ResultMessage = styled.div<ResultMessageProps>`
 `;
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => {
-  const [quizData, setQuizData] = useState<QuizData | null>(null);
+  const [quizData, setQuizData] = useRecoilState(quizState);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
@@ -47,11 +49,10 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
   useEffect(() => {
     if (isOpen && snowmanId) {
       const fetchQuizData = async () => {
-        // Fetch quiz data asynchronously
         try {
           const data = await getQuiz(snowmanId);
           setQuizData(data);
-          setIsSolved(data.isSolved); // Set the isSolved status
+          setIsSolved(data.solved); // Set the isSolved status
         } catch (error) {
           console.error("Error fetching quiz data:", error);
         }
@@ -109,7 +110,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
                   {quizData.choice1 || "Option 1"}
-                  <div>{quizData.ratio1} %</div>
+                  <div>{quizData.ratio1*100} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -119,7 +120,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
                   {quizData.choice2 || "Option 2"}
-                  <div>{quizData.ratio2} %</div>
+                  <div>{quizData.ratio2*100} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -129,7 +130,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
                   {quizData.choice3 || "Option 3"}
-                  <div>{quizData.ratio3} %</div>
+                  <div>{quizData.ratio3*100} %</div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
