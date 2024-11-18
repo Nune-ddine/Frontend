@@ -8,7 +8,6 @@ import SnowmanResultPage from './pages/SnowmanResultPage';
 import LocatingPage from './pages/LocatingPage';
 import SelectingMapPage from './pages/SelectingMapPage';
 import GotchaPage from './pages/GotchaPage';
-import TestPage from './pages/TestPage';
 import MakingPage from './pages/makingPage';
 import QuizTestPage from './pages/QuizTestPage';
 import { RecoilRoot } from 'recoil';
@@ -68,7 +67,6 @@ class App extends Component {
           <Route path='/locating/:id' element={<LocatingPage />}/>
           <Route path='/elevator' element={<SelectingMapPage/>}/>
           <Route path='/elevator2' element={<SelectingMapPage2/>}/>
-          <Route path="/test" element={<TestPage />} />
           <Route path="/quiz" element={<QuizTestPage/>}/>
           </Routes>
         </div>
