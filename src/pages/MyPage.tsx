@@ -57,7 +57,12 @@ const MyPage: React.FC = () => {
   };
 
   const deleteSnowman = async (id: number) => {
-  confirm("☃️ : 절 정말 녹이실건가요 주인님 ? 🥲");
+    const isConfirmed = confirm("☃️ : 주인님 절 정말 녹이실건가요 ? 🥲");
+    
+    if (!isConfirmed) {
+      return; // User clicked cancel, so we exit the function early
+    }
+  
     try {
       await deleteMySnowman(id);
       setSnowmans(snowmans.filter(snowman => snowman.id !== id)); // Remove the deleted snowman from the UI
@@ -65,7 +70,7 @@ const MyPage: React.FC = () => {
       console.error("Error occurred while deleting snowman:", error);
     }
   };
-
+  
   useEffect(() => {
     getProfile();
     getSnowman();
@@ -122,7 +127,9 @@ const MyPage: React.FC = () => {
                 <img
                   src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
                   alt="Snowman"
-                  style={{ width: "80%" }}
+                  style={{ width: "80%" 
+                    // ,border:"1px solid black"
+                  }}
                 />
                 <SnowmanText>
                   {snowmans[index].name || '눈사루를 만들어주세요'}
