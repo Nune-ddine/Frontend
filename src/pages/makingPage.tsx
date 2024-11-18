@@ -6,13 +6,15 @@ import SnowmanPart from '../components/makingPage/SnowmanPart';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import { getInventory } from '../services/api/snowmanAPI';
+import { useRecoilState } from 'recoil';
+import { inventoryState } from '../contexts/inventoryState';
 
 const MakingPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [selectedFeature, setSelectedFeature] = useState<string>('');
   const [isQuizMode, setIsQuizMode] = useState(false);
   const [finalImage, setFinalImage] = useState<string | null>(null);
-  const [inventory, setInventory] = useState<string[]>([]);
+  const [inventory, setInventory] = useRecoilState(inventoryState);
 
   const navigate = useNavigate();
 
@@ -26,17 +28,16 @@ const MakingPage: React.FC = () => {
     const fetchInventory = async () => {
       try {
         const itemExistOriginal = await getInventory();
-  
-        // 24번째부터 48번째 값의 'unLock' 필드만 추출
-        const unlockFields = itemExistOriginal
-          .slice(24, 48)
-          .map((item: { itemId: number; itemName: string; unLock: boolean }) => item.unLock);
-  
-        setInventory(unlockFields); // 추출한 배열을 상태로 저장
+        console.log("itemExistOriginal:", itemExistOriginal); // 데이터를 확인
+        const sliced = itemExistOriginal
+          .slice(24, 48).map((item: any) => item.available); // unlock 필드만 추출
+        console.log("unlockFields:", sliced); // 추출된 unlock 필드 확인
+        setInventory(sliced); // 추출한 배열을 상태로 저장
       } catch (error) {
         console.error("Failed to fetch inventory:", error);
       }
     };
+    
   
     fetchInventory(); // 비동기 함수 호출
   }, []);

@@ -12,7 +12,8 @@ interface SecFeatRowProps {
 
 const SecFeatRow: React.FC<SecFeatRowProps> = ({ partKey, items }) => {
   const inventory = useRecoilValue(inventoryState); // 상태 가져오기
-  console.log('inventory:', inventory);
+  console.log('inventory:', inventory); 
+  // const inventory = [false, true, false, true, true, true]; // 임시 데이터
 
   // '외투'의 모든 아이템이 없는 경우 확인
   const allFalse =

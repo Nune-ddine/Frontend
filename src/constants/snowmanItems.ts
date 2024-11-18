@@ -46,7 +46,7 @@ export const SNOWMAN_ITEMS = {
       { id: 1, name: "초록베이지과잠", img: "/images/items/clothes/outer/outer_greenbeige.png" },
       { id: 2, name: "검정색과잠", img: "/images/items/clothes/outer/outer_black.png" },
       { id: 3, name: "더더진한회색과잠", img: "/images/items/clothes/outer/outer_moremoremoregray.png" },
-      { id: 4, name: "노랑검정과장", img: "/images/items/clothes/outer/outer_yellowblack.png" },
+      { id: 4, name: "노랑검정과잠", img: "/images/items/clothes/outer/outer_yellowblack.png" },
       { id: 5, name: "갈색과잠", img: "/images/items/clothes/outer/outer_brown.png" },
       { id: 6, name: "진한초록과잠", img: "/images/items/clothes/outer/outer_moregreen.png" },
       { id: 7, name: "하늘색과잠", img: "/images/items/clothes/outer/outer_sky.png" },
