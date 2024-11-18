@@ -70,6 +70,7 @@ const MyPageBtn = styled.img`
   height: 100%;
   width: auto;
   padding-right: 10px;
+  cursor: pointer;
 `;
 
 const Left = styled.div`
