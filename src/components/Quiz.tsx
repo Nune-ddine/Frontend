@@ -153,6 +153,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
                   {quizData.choice1 || "Option 1"}
+                  <div></div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -162,6 +163,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
                   {quizData.choice2 || "Option 2"}
+                  <div></div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -171,6 +173,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                 >
                   <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
                   {quizData.choice3 || "Option 3"}
+                  <div></div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
