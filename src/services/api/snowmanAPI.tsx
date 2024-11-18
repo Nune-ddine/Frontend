@@ -3,7 +3,7 @@ import { SnowmanState } from "../../contexts/snowmanState";
 import { locatorIdState } from "../../contexts/recoilAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-   export const createSnowman = async (snowman: SnowmanState, mapNumber: number) => {
+   export const createSnowman = async (snowman: SnowmanState, mapNumber: string|undefined) => {
       console.log("mapNumber: ", mapNumber);
       const token = localStorage.getItem("token");
       console.log("<< createSnowman API 호출됨 >>");
