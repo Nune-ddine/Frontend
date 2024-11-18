@@ -49,7 +49,7 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
-          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px`,position: "absolute" }}
+          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px`,position: "absolute",opacity: "0.8" }}
         ></Snowman>
       )}
       {children}
