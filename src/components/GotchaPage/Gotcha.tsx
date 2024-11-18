@@ -21,35 +21,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// Add a response interceptor
-axiosInstance.interceptors.response.use(
-  (response) => {
-    // If the request is successful, just return the response
-    return response;
-  },
-  (error) => {
-    // Handle errors globally
-    if (error.response) {
-      const statusCode = error.response.status;
-      switch (statusCode) {
-        case 204:
-          return Promise.reject("더 이상 뽑을 아이템이 없습니다");
-        case 412:
-          return Promise.reject("가챠 포인트가 부족합니다");
-        case 423:
-          return Promise.reject("꽝입니다.");
-        default:
-          console.error("Unknown server error:", error.response);
-          return Promise.reject("가챠 데이터를 가져오는 중 문제가 발생했습니다.");
-      }
-    } else {
-      // Handle network or other errors
-      console.error("Network or unknown error:", error);
-      return Promise.reject("네트워크 문제로 가챠 데이터를 가져오는 중 문제가 발생했습니다.");
-    }
-  }
-);
-
 export const getGotcha = async (): Promise<GotchaResponse | null> => {
   try {
     const response = await axiosInstance.get<GotchaResponse>("/item/gotcha");
@@ -75,7 +46,14 @@ const Gotcha: React.FC = () => {
       setTimeout(() => {
         setIsPlaying(false);
         if (gotchaData) {
-          setItemData(gotchaData?.item || null);
+          if (gotchaData.item.id === 1) {
+            setModalMessage("꽝이에요!");
+          } else {
+            setItemData(gotchaData?.item || null);
+          }
+          setShowModal(true);
+        } else {
+          setModalMessage("모든 아이템을 다 뽑으셨어요!");
           setShowModal(true);
         }
       }, 7500);
@@ -107,17 +85,28 @@ const Gotcha: React.FC = () => {
           <ModalContent>
             <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
             {itemData ? (
+              <>
               <h2>{itemData?.itemName} 획득!</h2>
-            ) : (
-              <h2>{modalMessage}</h2>
-            )}
-            <img
+              <img
               src="/images/etc/puangman.png"
               style={{
                 width: "100%",
               }}
               alt="Gotcha Result"
-            />
+              />
+            </>
+            ) : (
+              <>
+              <h2>{modalMessage}</h2>
+              <img
+              src="/images/gotchas/sadSnowman.png"
+              style={{
+                width: "100%",
+              }}
+              alt="Gotcha Result"
+              />
+              </>
+            )}
           </ModalContent>
         </Modal>
       )}
@@ -171,7 +160,7 @@ const Modal = styled.div`
 const ModalContent = styled.div`
   color: #513421;
   background-color: white;
-  padding: 0 0 2rem 0;
+  padding: 0 0 4rem 0;
   border-radius: 10px;
   text-align: center;
   width: 80%;
@@ -185,8 +174,8 @@ const ModalContent = styled.div`
 
 const CloseButton = styled.img`
   margin-top: 1rem;
-  width : 10%;
-  margin-left:82%;
+  width: 10%;
+  margin-left: 82%;
   border-radius: 5px;
   font-size: 1.2rem;
   cursor: pointer;
