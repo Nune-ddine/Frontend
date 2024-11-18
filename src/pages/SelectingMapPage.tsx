@@ -16,13 +16,8 @@ const SelectingMapPage = () => {
           <Map onClick={()=> navigate('/2')} src="/images/homes/icons/2.png"/>
           <Map onClick={()=> navigate('/3')} src="/images/homes/icons/3.png"/>
           <Map onClick={()=> navigate('/4')} src="/images/homes/icons/4.png"/>
-          <Map onClick={()=> navigate('/5')} src="/images/homes/icnos/5.png"/>
+          <Map onClick={()=> navigate(`/5`)} src="/images/homes/icons/5.png"></Map>
         </Maps>
-        {/* <Map onClick={()=> navigate('/1')} src="/images/homes/map.png" style={{ top: "20%", left: "10%" }}/>
-        <Map onClick={()=> navigate('/2')} src="/images/homes/map.png" style={{ top: "30%", right: "10%" }}/>
-        <Map onClick={()=> navigate('/3')} src="/images/homes/map.png" style={{ top: "40%", left: "10%" }}/>
-        <Map onClick={()=> navigate('/4')} src="/images/homes/map.png" style={{ top: "50%", right: "10%" }}/>
-        <Map onClick={()=> navigate('/5')} src="/images/homes/map.png" style={{ top: "60%", left: "10%" }}/> */}
     </StyledWrapper>
   )
 }
