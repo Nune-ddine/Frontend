@@ -94,6 +94,7 @@ const Text = styled.div`
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
-  box-shadow: 1px 2px 2px rgba(0, 60, 116, 0.25);
+  box-shadow: 1px 2px 0px 0px #7EBFFF;
+  color: rgba(81, 52, 33, 1);
 
 `
