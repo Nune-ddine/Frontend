@@ -221,7 +221,7 @@ const ButtonContainer = styled.div`
 `;
 
 const ImgButton = styled.img<{ disabled?: boolean; visible?: boolean }>`
-  height: 70%;
+  height: 80%; // todo -< 크기 조정
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
