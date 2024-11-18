@@ -42,7 +42,7 @@ const Wrapper = styled.div<WrapperProps>`
   cursor: grab;
   font-family: sans-serif;
   user-select: none; /* 텍스트 선택 방지 */
-
+/* 
   ${({ imgsrc }) =>
     imgsrc.includes('shape') &&
     css`
@@ -50,7 +50,7 @@ const Wrapper = styled.div<WrapperProps>`
 
     `}
 
-    /* border: 1px solid black; */
+    border: 1px solid black; */
 `;
 
 const Image = styled.img`
