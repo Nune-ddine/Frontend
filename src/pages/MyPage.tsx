@@ -19,6 +19,7 @@ interface Snowman {
 }
 
 const MyPage: React.FC = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
@@ -127,19 +128,17 @@ const MyPage: React.FC = () => {
                   src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
                   alt="Snowman"
                   style={{ 
-                    // width: "80%",
-                    height: "12rem",
+                    height: "13rem",
                     width: "8rem",
-                    backgroundSize: "cover",
-                    // backgroundPosition: "cover",                    
-                    border:"1px solid black"
+                    objectFit: "cover",
+                    // border:"1px solid black"
                   }}
                 />
                 <SnowmanText>
                   {snowmans[index].name || '눈사루를 만들어주세요'}
                   <img 
                     src='/images/mypage/trashcan.png'
-                    style={{ height: "1.5rem", marginLeft: "0.6rem", marginBottom: "-0.4rem", cursor: "pointer" }}
+                    style={{ height: "1.5rem", marginLeft: "0.6rem", cursor: "pointer" }}
                     onClick={() => deleteSnowman(snowmans[index].id)}
                   />
                 </SnowmanText>
@@ -226,7 +225,7 @@ const MainContent = styled.div`
 `;
 
 const SnowmanContainer = styled.div`
-  // display: flex;
+  display: flex;
   // justify-content: center;
   justify-content: space-around;
   width: 100%;
