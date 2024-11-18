@@ -34,7 +34,7 @@ export const getSnowmanQuiz = async () => {
 
 export const getSomeSnowman = async (snowmanId: string): Promise<any> => {
   try {
-    const response = await axios.get(`${URL}/placement/${snowmanId}`,{
+    const response = await axios.get(`${URL}/placement/all/${snowmanId}`,{
       headers: {
         Authorization: `Bearer ${token}`,
       }});
