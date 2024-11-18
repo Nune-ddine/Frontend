@@ -3,14 +3,17 @@ import Header from "../components/Header"
 import { Wrapper } from "./MyPage"
 import styled from "styled-components";
 import BackBtn from "../components/BackBtn";
+import { locatorIdState } from "../contexts/recoilAtoms";
+import { useRecoilValue } from "recoil";
 
 const SelectingMapPage2 = () => {
   const navigate = useNavigate();
+  const id = useRecoilValue(locatorIdState);
 
   return (
     <StyledWrapper>
         <Header/>
-        <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate('/locating')}/>
+        <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate(`/locating/${id}`)}/>
         <Maps>
           <Map onClick={()=> navigate('/locating/1')} src="/images/homes/icons/1.png"/>
           <Map onClick={()=> navigate('/locating/2')} src="/images/homes/icons/2.png"/>
