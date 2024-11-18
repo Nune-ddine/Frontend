@@ -56,8 +56,8 @@ const HomePage = () => {
         ) : (
         <LoginLayout>
           <KakaoBtn onClick={() => handleLoginClick()}>
-            {/* 카카오 로그인하기  */}
-            <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} />
+            카카오로 로그인하기 
+            {/* <img src='images/homes/kakaoLogin.png' alt="카카오 로그인하기" style={{ marginRight: '8px' , width :"90%"}} /> */}
           </KakaoBtn>
         </LoginLayout>
         )}
@@ -116,15 +116,15 @@ export const LoginLayout = styled.div`
 `;
 
 const KakaoBtn = styled.div`
-  /* display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 90%;
   height: 60%;
   cursor: pointer;
-  border: 1.8px solid #3b3b3bfd;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.2rem;
-  background-color: #3b3b3bfd; */
+  border: 1.4px solid #513421;
+  border-radius: 40px;
+  color: #513421;
+  font-size: 1.3rem;
+  background-color: #FFE432;
 `;
