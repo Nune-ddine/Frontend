@@ -31,7 +31,7 @@ const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage, isQuizMode }) =>
       ) : (
         <>
           <FeatureBar onFeatureClick={(feature: FeatureType) => setSelectedFeature(feature)} />
-            <span>아이템을 꾹 누르고 드래그해주세요!</span>
+            <span>*아이템을 꾹 누르고 드래그해주세요!</span>
           <SecondFeature>{renderFeatureContent()}</SecondFeature>
         </>
       )}
@@ -55,11 +55,12 @@ const Wrapper = styled.div`
   box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.519);
 
   & > span {
-    width: 92%;
+    width: 90%;
     font-size: 10px;
     margin-top: 5px;
-    color: gray;
+    color: #3D9BF2;
     text-align: left;
+    font-family: sans-serif;
   }
 `;
 

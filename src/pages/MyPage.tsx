@@ -127,8 +127,13 @@ const MyPage: React.FC = () => {
                 <img
                   src={snowmans[index].image || '/images/mypage/emptySnowman.png'}
                   alt="Snowman"
-                  style={{ width: "80%" 
-                    // ,border:"1px solid black"
+                  style={{ 
+                    // width: "80%",
+                    height: "12rem",
+                    width: "8rem",
+                    backgroundSize: "cover",
+                    // backgroundPosition: "cover",                    
+                    border:"1px solid black"
                   }}
                 />
                 <SnowmanText>
@@ -148,7 +153,7 @@ const MyPage: React.FC = () => {
                 <img
                   src="/images/mypage/emptySnowman.png"
                   alt="Empty Snowman"
-                  style={{ width: "80%" }}
+                  style={{ height: "12rem" }}
                 />
                 <SnowmanText>
                   안 굴린 눈사람
@@ -223,6 +228,7 @@ const MainContent = styled.div`
 
 const SnowmanContainer = styled.div`
   display: flex;
+  // justify-content: center;
   justify-content: space-around;
   width: 100%;
 `;
@@ -236,7 +242,7 @@ const Snowman = styled.div`
   &:nth-child(1),
   &:nth-child(3)  {
     align-self: center;
-    margin-bottom: -60%; /* Adjust for overlap if needed */
+    margin-bottom: -80%; /* Adjust for overlap if needed */
   }
   &:nth-child(2){
     align-self: start;

@@ -38,6 +38,7 @@ const StyledWrapper = styled(Wrapper)`
 const Map = styled.img`
   width: 55%;
   margin-bottom:3%;
+  cursor: pointer;
 `
 
 const Maps= styled.div`

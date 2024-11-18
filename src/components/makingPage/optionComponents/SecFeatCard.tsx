@@ -21,6 +21,7 @@ const SecFeatCard: React.FC<SecFeatCardProps> = ({ name, img }) => {
           fontFamily: 'Maplestory-Light',
           marginBottom: '1rem',
           color: '#5d5d5d',
+          userSelect: 'none',
         }
       }>{name}</div>
     </Wrapper>
@@ -37,21 +38,14 @@ const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
+  flex: 0 0 auto; /* 카드의 너비를 고정 */
+  width: 25%; /* 필요에 따라 비율을 유지 */
   height: 100%;
   cursor: grab;
   font-family: sans-serif;
-  user-select: none; /* 텍스트 선택 방지 */
-
-  ${({ imgsrc }) =>
-    imgsrc.includes('shape') &&
-    css`
-      width: 50%;
-
-    `}
-
-    /* border: 1px solid black; */
+  user-select: none;
 `;
+
 
 const Image = styled.img`
   height: 40%;
