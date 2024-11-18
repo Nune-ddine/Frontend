@@ -221,7 +221,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 200%;
-  height: 120%;
+  height: 90%;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -231,6 +231,7 @@ const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 1%;
+  width: 100%;
   height: 10%;
   z-index: 2;
 `;
