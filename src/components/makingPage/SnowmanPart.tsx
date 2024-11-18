@@ -89,7 +89,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   return (
     <Wrapper>
       <LeftBtnContainer>
-        <GotoMapBtn onClick={() => navigate(`/locating/${id}`)}>{'<'} 맵으로 돌아가기</GotoMapBtn>
+        <GotoMapBtn onClick={() => navigate(`/locating/${id}`)}>{'<'} Map</GotoMapBtn>
         {isQuizMode ? (
             <BackButton src="/images/etc/leftBtn.png" onClick={() => setIsQuizMode(false)}/>
         ) : ( <></>
@@ -145,6 +145,7 @@ const SnowmanContainer = styled.div`
   align-items: center;
   /* border: 2px solid black; */
   position: relative;
+  z-index: 1;
 `;
 
 const RightBtnContainer = styled.div`
@@ -163,27 +164,29 @@ const RightBtnContainer = styled.div`
 
 const GotoMapBtn = styled.button`
   background-color: #E4F1FF;
-  padding: 8px 1px;
-  width: 100%;
+  padding: 7px 1px;
+  width: 50%;
   border-radius: 100px;
-  border: none;
+  border: 1px solid #3D9BF2;
   cursor: pointer;
   margin-left: 15px;
   margin-top: 10px;
   color: #3D9BF2;
   font-family: "Maplestory-Bold", sans-serif;
   font-size: 10px;
+  z-index: 2;
+  cursor: pointer;
 `;
 
 const NextButton = styled.img`
-  padding-bottom: 15px;
+  padding-bottom: px;
   height: 10%;
   aspect-ratio: 1/1;  
   cursor: pointer;
 `;
 
 const BackButton = styled.img`
-  padding-bottom: 15px;
+  padding-bottom: 8px;
   height: 10%;
   aspect-ratio: 1/1;
   cursor: pointer;
