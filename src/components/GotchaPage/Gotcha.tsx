@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CloseButton } from "../Quiz";
 import { getGotcha } from "../../services/api/gotchaAPI";
 
 export interface GotchaItem {
@@ -157,4 +156,14 @@ const ModalContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const CloseButton = styled.img`
+  margin-top: 1rem;
+  width : 10%;
+  margin-left:82%;
+  // padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
 `;
