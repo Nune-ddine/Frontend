@@ -19,7 +19,6 @@ interface Snowman {
 }
 
 const MyPage: React.FC = () => {
-  const navigate = useNavigate();
   const [image, setImage] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
@@ -227,7 +226,7 @@ const MainContent = styled.div`
 `;
 
 const SnowmanContainer = styled.div`
-  display: flex;
+  // display: flex;
   // justify-content: center;
   justify-content: space-around;
   width: 100%;
