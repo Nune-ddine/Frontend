@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getAllSnowman } from "../../services/api/homeAPI";
+import { getAllSnowman, getSomeSnowman } from "../../services/api/homeAPI";
 import QuizModal from "../Quiz";
 
 
@@ -26,7 +26,8 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     }
 
     try {
-      const response: Snowman[] = await getAllSnowman(id);
+      // const response: Snowman[] = await getAllSnowman(id);
+      const response: Snowman[] = await getSomeSnowman(id); // placement API
       // Filter valid snowman data (with image and non-zero positions)
       const validSnowmen = response.filter(
         (snowman) =>
