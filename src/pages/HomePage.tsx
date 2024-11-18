@@ -23,9 +23,7 @@ const HomePage = () => {
     if (code && !localStorage.getItem("token")) {
       login(code); // 실제 로그인 함수 호출
       // 로그인 후 화면 새로고침
-    } else {
-      window.location.reload();
-    }
+    } 
     if (location.pathname === "/") {
       navigate("/1", { replace: true });
     } 
