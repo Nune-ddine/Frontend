@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getMember } from "../../services/api/memberAPI";
 
 export interface GotchaItem {
   id: number;
@@ -38,8 +39,21 @@ const Gotcha: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [itemData, setItemData] = useState<GotchaItem | null>(null);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
+  const [point, setPoint] = useState<number>(0);
+
+  useEffect(() => {
+    getMember().then((res) => {
+      setPoint(res.point);
+    });
+  }
+  , []);
 
   const handleClick = async () => {
+    if (point < 300) {
+      alert("포인트가 부족해요 🥲");
+      return;
+    }
+
     setIsPlaying(true);
     try {
       const gotchaData = await getGotcha();
