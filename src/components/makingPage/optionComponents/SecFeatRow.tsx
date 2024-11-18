@@ -84,6 +84,11 @@ const Content = styled.div`
   height: 90%;
   box-sizing: border-box;
   border-radius: 5px;
+
+  //넘치면 스크롤
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap; /* 기본값: nowrap. 필요에 따라 wrap으로 변경 */
 `;
 
 const EmptyMessage = styled.div`

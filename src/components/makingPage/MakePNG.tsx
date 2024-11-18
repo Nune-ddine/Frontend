@@ -47,6 +47,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const noseOffset = 0.03;
       const hatOffset = 0.15;
       const mufflerOffset = 0.2;
+      const outerOffset = 0.3;
       
       if (imgsrc.includes('shape')) {
         img.style.width = `${containerWidth * shapeOffset}px`;
@@ -78,7 +79,14 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         img.style.height = 'auto';
         img.style.left = `${Math.min(Math.max(x - containerWidth * mufflerOffset / 2, 0), containerWidth - containerWidth * mufflerOffset)}px`;
         img.style.top = `${Math.min(Math.max(y - containerWidth * mufflerOffset / 2, 0), containerHeight - containerWidth * mufflerOffset)}px`;
+      } else if (imgsrc.includes('outer')) {
+        img.style.width = `${containerWidth * outerOffset}px`;
+        img.style.height = 'auto';
+        // X와 Y 좌표를 설정 (이미지의 너비/높이를 반영)
+        img.style.left = `${Math.min(Math.max(x - (containerWidth * outerOffset) / 2, 0), containerWidth - containerWidth * outerOffset)}px`;
+        img.style.top = `${Math.min(Math.max(y - (containerHeight * outerOffset) / 2, 0), containerHeight - containerHeight * outerOffset)}px`;
       }
+      
       
       img.style.objectFit = 'contain';
       container.appendChild(img);
