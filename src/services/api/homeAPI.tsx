@@ -32,4 +32,15 @@ export const getSnowmanQuiz = async () => {
     }
   };
 
-  
+export const getSomeSnowman = async (snowmanId: string): Promise<any> => {
+  try {
+    const response = await axios.get(`${URL}/placement/${snowmanId}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }});
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch all snowman data", error);
+    throw error;
+  }
+};

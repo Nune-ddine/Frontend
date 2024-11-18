@@ -23,7 +23,7 @@ const HomePage = () => {
     }
     if (location.pathname === "/") {
       navigate("/1", { replace: true });
-    }
+    } 
   }, [location, token]);
 
   return (

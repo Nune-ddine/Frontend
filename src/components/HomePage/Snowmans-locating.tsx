@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getAllSnowman, getSomeSnowman } from "../../services/api/homeAPI";
-import QuizModal from "../Quiz";
+import { getAllSnowman } from "../../services/api/homeAPI";
+// import QuizModal from "../Quiz";
 
 
 interface Snowman {
@@ -15,8 +15,8 @@ interface Snowman {
 const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { id } = useParams();
   const [snowmen, setSnowmen] = useState<Snowman[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedSnowmanId, setSelectedSnowmanId] = useState<number | null>(null);
+  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const [selectedSnowmanId, setSelectedSnowmanId] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const getSnowmans = async () => {
@@ -26,8 +26,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     }
 
     try {
-      // const response: Snowman[] = await getAllSnowman(id);
-      const response: Snowman[] = await getSomeSnowman(id); // placement API
+      const response: Snowman[] = await getAllSnowman(id);
       // Filter valid snowman data (with image and non-zero positions)
       const validSnowmen = response.filter(
         (snowman) =>
@@ -42,15 +41,15 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     }
   };
 
-  const viewQuiz = (snowmanId: number) => {
-    setSelectedSnowmanId(snowmanId);
-    setIsModalOpen(true);
-  };
+  // const viewQuiz = (snowmanId: number) => {
+  //   setSelectedSnowmanId(snowmanId);
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedSnowmanId(null);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  //   setSelectedSnowmanId(null);
+  // };
 
   useEffect(() => {
     getSnowmans();
@@ -58,7 +57,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 
   return (
     <div style={{ position: "relative", height: "100%" }}>
-    <img onClick={() => navigate('/elevator')} src='/images/homes/map.png' 
+    <img onClick={() => navigate('/elevator2')} src='/images/homes/map.png' 
     style={{width:"24%", position: "relative", zIndex: 2 }} />  
       {snowmen.map((snowman) => (
         <StyledSnowman
@@ -68,11 +67,11 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
             top: `${snowman.posY}px`,
             left: `${snowman.posX}px`,
           }}
-          onClick={() => viewQuiz(snowman.id)}
+          // onClick={() => viewQuiz(snowman.id)}
         />
       ))}
       {children}
-      <QuizModal isOpen={isModalOpen} onClose={closeModal} snowmanId={selectedSnowmanId} />
+      {/* <QuizModal isOpen={isModalOpen} onClose={closeModal} snowmanId={selectedSnowmanId} /> */}
     </div>
   );
 };

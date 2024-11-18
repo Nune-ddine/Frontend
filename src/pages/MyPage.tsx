@@ -57,6 +57,7 @@ const MyPage: React.FC = () => {
   };
 
   const deleteSnowman = async (id: number) => {
+  confirm("☃️ : 절 정말 녹이실건가요 주인님 ? 🥲");
     try {
       await deleteMySnowman(id);
       setSnowmans(snowmans.filter(snowman => snowman.id !== id)); // Remove the deleted snowman from the UI
