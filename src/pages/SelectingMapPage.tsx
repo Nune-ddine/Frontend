@@ -31,4 +31,5 @@ const StyledWrapper = styled(Wrapper)`
 const Map = styled.img`
 position: absolute;
 width : 35%;
+cursor: pointer;
 `
