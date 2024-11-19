@@ -64,8 +64,8 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
           key={snowman.id}
           src={`${snowman.image}` || `/images/etc/puangman.png`}
           style={{
-            top: `${snowman.posY}%`,
-            left: `${snowman.posX}%`,
+            top: `${snowman.posY + 2}%`,
+            left: `${snowman.posX - 6}%`,
             position: "absolute",
             opacity: "0.8",
           }}

@@ -27,8 +27,8 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 
     const containerRect = container.getBoundingClientRect();
 
-    const x = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-    const y = ((e.clientY - containerRect.top) / containerRect.height) * 100;
+    const x = ((e.clientX - containerRect.left - 14) / containerRect.width) * 100;
+    const y = ((e.clientY - containerRect.top -20) / containerRect.height) * 100;
 
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
@@ -56,8 +56,7 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
           style={{
             top: `${snowman.posY}%`,
             left: `${snowman.posX}%`,
-            position: "absolute",
-            opacity: "0.8",
+            position: "absolute"
           }}
         ></Snowman>
       )}
@@ -70,8 +69,9 @@ export default Locator;
 
 const Snowman = styled.img`
   position: absolute;
-  height: 50px;
-  width: 30px;
+  height: 40px;
+  width: 28px;
+  opacity :0.8;
 `;
 
 const StyledText = styled.div`
