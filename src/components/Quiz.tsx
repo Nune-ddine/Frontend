@@ -150,7 +150,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                     style={{ height: "30px" }}
                   />
                   {quizData.choice3 || "Option 3"}
-                  <div>{quizData.ratio3 * 100} %</div>
+                  <div>{(quizData.ratio3 * 100).toFixed(1)} %</div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
