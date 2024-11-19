@@ -213,7 +213,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
           <ResultMessage correct={isCorrect ?? false}>
             {isCorrect ? (
               <div>
-                <p>정답을 맞췄어요!</p>
+                <p>정답입니다!</p>
                 <HeaderText
                   style={{
                     fontSize: "1.6rem",
