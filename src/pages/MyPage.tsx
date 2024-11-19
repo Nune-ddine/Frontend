@@ -48,6 +48,10 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
+      if (newUsername.length > 10) {
+        alert("닉네임은 10글자 이내로 작성해주세요");
+        return;
+      }
       await patchUsername(newUsername); // Pass newUsername to the API
       setUsername(newUsername); // Update UI with the new username
       setIsEditing(false); // Exit edit mode
