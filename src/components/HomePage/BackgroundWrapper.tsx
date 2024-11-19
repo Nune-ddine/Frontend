@@ -10,7 +10,7 @@ interface WrapperProps {
 const BackgroundWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     const { id } = useParams<{ id: string }>();
 
-    const backgroundImages: Record<string, string> = {
+    const backgroundimages: Record<string, string> = {
         "1": "/images/homes/backgrounds/1.png",
         "2": "/images/homes/backgrounds/2.png",
         "3": "/images/homes/backgrounds/3.png",
@@ -20,7 +20,7 @@ const BackgroundWrapper: React.FC<{ children?: React.ReactNode }> = ({ children 
 
     return (
         id ? (
-            <Wrapper id={id} backgroundImages={backgroundImages}>
+            <Wrapper id={id} backgroundImages={backgroundimages}>
                 {children}
             </Wrapper>
         ) : null
