@@ -14,60 +14,61 @@ import { RecoilRoot } from 'recoil';
 import SelectingMapPage2 from './pages/SelectingMapPage-locating';
 
 class App extends Component {
-  
-  // componentDidMount() { 
-  //   // this.setScreenSize();
-  //   this.fixRatio();
-  //   window.addEventListener('resize', this.fixRatio);
-  // }
+  componentDidMount() {
+    // 가로가 세로보다 긴 경우에만 실행
+    if (window.innerWidth > window.innerHeight) {
+      console.log("가로가 세로보다 긴 화면입니다.");
+      this.fixRatio();
+      window.addEventListener('resize', this.fixRatio);
+    }
+  }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.fixRatio);
-  // }
+  componentWillUnmount() {
+    // 가로가 세로보다 긴 경우에만 이벤트 제거
+    if (window.innerWidth > window.innerHeight) {
+      window.removeEventListener('resize', this.fixRatio);
+    }
+  }
 
-  // fixRatio = () => {
-  //   const root = document.querySelector("#root");
-  //   const app = document.querySelector("#App") as HTMLElement;;
+  fixRatio = () => {
+    const root = document.querySelector("#root");
+    const app = document.querySelector("#App") as HTMLElement;
 
-  //   if (root && app) {
-  //     let width = root.clientWidth;
-  //     let height = width * 1.7777; // 9:16
-  //     // let height = width * 2.164102; // 9:16
-  //     // 844 / 390 = 2.164102
+    if (root && app) {
+      let width = root.clientWidth;
+      let height = width * 1.7777; // 9:16 비율
 
-  //     if (height > root.clientHeight) { 
-  //       height = root.clientHeight;
-  //       width = height * 0.5625; // 16:9
-  //       // width = height * 0.462086; // 16:9
-  //       // 390 / 844 = 0.462086
-  //     }
+      if (height > root.clientHeight) {
+        height = root.clientHeight;
+        width = height * 0.5625; // 16:9 비율
+      }
 
-  //     app.style.width = `${width}px`;
-  //     app.style.height = `${height}px`;
-  //   }
-  // }
+      app.style.width = `${width}px`;
+      app.style.height = `${height}px`;
+    }
+  };
 
-  // setScreenSize = () => {
-  //   const vh = window.innerHeight * 0.01;
-  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
-  // }
+  setScreenSize = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
 
   render() {
     return (
       <RecoilRoot>
         <div id="App">
           <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:id" element={<HomePage />} />
-          <Route path="/myPage" element={<MyPage />} />
-          <Route path="/gotcha" element={<GotchaPage />} />
-          <Route path='/login' element={<LoginTestPage />} />
-          <Route path='/making' element={<MakingPage />} />
-          <Route path='/snowmanResult' element={<SnowmanResultPage />} />
-          <Route path='/locating/:id' element={<LocatingPage />}/>
-          <Route path='/elevator' element={<SelectingMapPage/>}/>
-          <Route path='/elevator2' element={<SelectingMapPage2/>}/>
-          <Route path="/quiz" element={<QuizTestPage/>}/>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/:id" element={<HomePage />} />
+            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/gotcha" element={<GotchaPage />} />
+            <Route path="/login" element={<LoginTestPage />} />
+            <Route path="/making" element={<MakingPage />} />
+            <Route path="/snowmanResult" element={<SnowmanResultPage />} />
+            <Route path="/locating/:id" element={<LocatingPage />} />
+            <Route path="/elevator" element={<SelectingMapPage />} />
+            <Route path="/elevator2" element={<SelectingMapPage2 />} />
+            <Route path="/quiz" element={<QuizTestPage />} />
           </Routes>
         </div>
       </RecoilRoot>
