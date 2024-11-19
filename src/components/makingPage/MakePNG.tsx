@@ -1,7 +1,7 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import html2canvas from 'html2canvas';
 import styled from 'styled-components';
-import { snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
+import { shapeExistState, snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState } from 'recoil';
 
 interface MakePNGProps {
@@ -19,6 +19,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
   const [redoImages, setRedoImages] = useState<HTMLImageElement[]>([]);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
   const [isSnowmanExist, setIsSnowmanExist] = useRecoilState(snowmanExsitState);
+  const [isShapeExist, setIsShapeExist] = useRecoilState(shapeExistState);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -54,6 +55,8 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         img.style.height = `${containerHeight * shapeOffset}px`;
         img.style.left = `${(containerWidth - containerWidth * shapeOffset) / 2}px`;
         img.style.top = `${(containerHeight - containerHeight * shapeOffset) / 2}px`;
+        // shape 아이템 추가 시 Recoil 상태 true로 설정
+        setIsShapeExist(true);
       } else if (imgsrc.includes('eye')) {
         img.style.width = `${containerWidth * eyeOffset}px`;
         img.style.height = 'auto';
@@ -92,6 +95,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         img.style.height = 'auto';
         img.style.left = `${Math.min(Math.max(x - containerWidth * noseOffset, 0), containerWidth - containerWidth * noseOffset * 2)}px`;
         img.style.top = `${Math.min(Math.max(y - containerWidth * noseOffset, 0), containerHeight - containerWidth * noseOffset * 2)}px`;
+
       }
       
       
@@ -130,6 +134,11 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       containerRef.current.removeChild(lastImage);
       setImages([...images]);
       setRedoImages((prevRedoImages) => [lastImage, ...prevRedoImages]);
+
+      // shape 아이템이 제거된 경우 Recoil 상태 false로 설정
+      if (lastImage.src.includes('shape') && !images.some((img) => img.src.includes('shape'))) {
+        setIsShapeExist(false);
+      }
     }
     if (images.length === 0) {
       setIsSnowmanExist(false); // 아이템이 모두 제거되면 false로 설정
@@ -152,6 +161,7 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       setImages([]);
       setRedoImages([]);
       setIsSnowmanExist(false); // 모두 초기화하면 false로 설정
+      setIsShapeExist(false); // 모든 아이템 제거 시 false로 설정
     }
   };
 

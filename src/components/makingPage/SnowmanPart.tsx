@@ -1,8 +1,8 @@
 // src/components/SnowmanPart.tsx
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import MakePNG, { MakePNGHandle } from './MakePNG';
-import { snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
+import { shapeExistState, snowmanExsitState, snowmanState } from '../../contexts/snowmanState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { locatorIdState } from '../../contexts/recoilAtoms';
 import { useNavigate } from 'react-router-dom';
@@ -20,29 +20,27 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   const makePNGRef = useRef<MakePNGHandle>(null);
 
   const [snowman, setSnowman] = useRecoilState(snowmanState);
-  const [isSnowmanExist, setIsSnowmanExist] = useRecoilState(snowmanExsitState);
+  const [isShapeExist, setIsShapeExist] = useRecoilState(shapeExistState);
   const id = useRecoilValue(locatorIdState);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log('Updated snowman:', snowman);
     console.log('[Map number] :', id);
   }, [snowman]);
 
-  const checkSnowmanExist = () => {
-    if (!isSnowmanExist) {
-      alert('눈사람을 먼저 만들어주세요!');
+
+  const checkShapeExist = () => {
+    if (!isShapeExist) {
+      alert('눈사람의 형태는 꼭 넣어야 해요!');
       return false;
     }
+    console.log('Snowman shape exists!');
     return true;
   }
 
 
   const saveFinalImage = async () => {
-    //snowman의 모든 필드가 입력되어있는지 확인 - exception handling
-      //   if (!snowman.image){
-      // alert("아직 눈사람의 형태가 없어요!");
-      // return;}
     if (!snowman.name){
       alert("눈사람의 이름을 입력해주세요!"); 
       return;}
@@ -105,7 +103,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
           </>
         ) : (
           <NextButton src="/images/etc/rightBtn.png" id="nextBtn" onClick={() => {
-            if (checkSnowmanExist()) {
+            if (checkShapeExist()) {
               setIsQuizMode(true);
             }
           }
