@@ -65,8 +65,10 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
           key={snowman.id}
           src={`${snowman.image}` || `/images/etc/puangman.png`}
           style={{
-            top: `${snowman.posY + 2}%`,
-            left: `${snowman.posX - 6}%`,
+            top: `${snowman.posY}%`,
+            left: `${snowman.posX}%`,
+            position: "absolute",
+            objectFit: "cover",
           }}
           onClick={() => viewQuiz(snowman.id)}
         />
@@ -81,10 +83,9 @@ export default Snowmans;
 
 const StyledSnowman = styled.img`
   position: absolute;
-  // height: 5rem;
   height: 50px;
-  // width: 7rem;
-  width: 70px;
+  width: 40px;
   z-index: 1;
   cursor: pointer;
+  // border : 1px solid black;
 `;

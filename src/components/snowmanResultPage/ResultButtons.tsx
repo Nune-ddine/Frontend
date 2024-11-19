@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
+import { locatorIdState } from "../../contexts/recoilAtoms";
+import { useRecoilValue } from "recoil";
 
 const ResultButtons = () => {
    const navigate = useNavigate();
+   const id = useRecoilValue(locatorIdState);
 
    const handleJaRang = () => {
       // 시스템 자체 공유 기능 팝업
@@ -30,7 +33,7 @@ const ResultButtons = () => {
 return (
    <Wrappper>
       <JaRangButton onClick={() => handleJaRang()}>눈사람 자랑하기</JaRangButton> 
-      <MapButton onClick={() => navigate('/')}>맵으로 돌아가기</MapButton>
+      <MapButton onClick={() => navigate(`/${id}`)}>맵으로 돌아가기</MapButton>
    </Wrappper>
 )
 }

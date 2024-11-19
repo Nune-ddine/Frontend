@@ -16,6 +16,7 @@ const OnboardingWrapper: React.FC<{ children?: React.ReactNode }> = ({ children 
         "3": "/images/onboarding/3.png",
         "4": "/images/onboarding/4.png",
         "5": "/images/onboarding/5.png",
+        "6": "/images/onboarding/6.png",
     };
 
     return (

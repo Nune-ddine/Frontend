@@ -3,18 +3,25 @@ import Header from '../components/Header';
 // import Footer from '../components/Footer';
 import { useEffect, useState } from 'react';
 import { handleLoginClick, login } from '../services/api/loginAPI';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
 import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 import { getMySnowman } from '../services/api/memberAPI';
+import { useHeader } from '../contexts/HeaderContext';
 
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const firstLogin = localStorage.getItem("firstLogin");
   const [snownumber, setSnownumber] = useState(0);
+  const { triggerReload, reloadHeader } = useHeader();
+  const { id } = useParams();
 
   useEffect(() => {
+    if(firstLogin == "true"){
+      navigate("/onboarding/1");
+    }
     // URL에서 쿼리 파라미터로 전달된 code 추출
     const searchParams = new URLSearchParams(location.search);
     const code = searchParams.get("code");
@@ -26,6 +33,10 @@ const HomePage = () => {
     if (location.pathname === "/") {
       navigate("/1", { replace: true });
     } 
+    const numericId = Number(id);
+    if(numericId>5){
+      navigate("/1", { replace: true });
+    }
   }, [location]);
 
   useEffect(() => {
@@ -34,7 +45,7 @@ const HomePage = () => {
       console.log(snownumber);
     });
   }
-  , []);
+  , [reloadHeader]);
 
   const doyouwantTobuildAsnowman = () => {
     if(snownumber < 3){
