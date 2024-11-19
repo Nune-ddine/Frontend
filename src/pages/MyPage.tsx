@@ -184,7 +184,9 @@ const ProfileSection = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 16%;
+  width: 50px;
+  height: 50px;
+  // width: 16%;
   border-radius: 50%;
   margin-right: 0.5rem;
   background-size: auto;
