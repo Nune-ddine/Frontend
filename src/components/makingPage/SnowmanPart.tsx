@@ -164,8 +164,8 @@ const RightBtnContainer = styled.div`
 
 const GotoMapBtn = styled.button`
   background-color: #E4F1FF;
-  padding: 7px 1px;
-  width: 50%;
+  padding: 9px 3px;
+  width: 55%;
   border-radius: 100px;
   border: 1px solid #3D9BF2;
   cursor: pointer;
@@ -173,7 +173,7 @@ const GotoMapBtn = styled.button`
   margin-top: 10px;
   color: #3D9BF2;
   font-family: "Maplestory-Bold", sans-serif;
-  font-size: 10px;
+  font-size: 1rem;
   z-index: 2;
   cursor: pointer;
 `;

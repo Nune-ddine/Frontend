@@ -70,9 +70,8 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
-  background-color: #F3F9FF;
-
+  background-color: #F3F9FF; 
   font-family: 'Maplestory-Bold', sans-serif;
 `

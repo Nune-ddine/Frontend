@@ -15,43 +15,44 @@ import SelectingMapPage2 from './pages/SelectingMapPage-locating';
 import OnboardingPage from './pages/OnboardingPage';
 
 class App extends Component {
-  
-  componentDidMount() { 
-    // this.setScreenSize();
-    this.fixRatio();
-    window.addEventListener('resize', this.fixRatio);
+  componentDidMount() {
+    // 가로가 세로보다 긴 경우에만 실행
+    if (window.innerWidth > window.innerHeight) {
+      console.log("가로가 세로보다 긴 화면입니다.");
+      this.fixRatio();
+      window.addEventListener('resize', this.fixRatio);
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.fixRatio);
+    // 가로가 세로보다 긴 경우에만 이벤트 제거
+    if (window.innerWidth > window.innerHeight) {
+      window.removeEventListener('resize', this.fixRatio);
+    }
   }
 
   fixRatio = () => {
     const root = document.querySelector("#root");
-    const app = document.querySelector("#App") as HTMLElement;;
+    const app = document.querySelector("#App") as HTMLElement;
 
     if (root && app) {
       let width = root.clientWidth;
-      let height = width * 1.7777; // 9:16
-      // let height = width * 2.164102; // 9:16
-      // 844 / 390 = 2.164102
+      let height = width * 1.7777; // 9:16 비율
 
-      if (height > root.clientHeight) { 
+      if (height > root.clientHeight) {
         height = root.clientHeight;
-        width = height * 0.5625; // 16:9
-        // width = height * 0.462086; // 16:9
-        // 390 / 844 = 0.462086
+        width = height * 0.5625; // 16:9 비율
       }
 
       app.style.width = `${width}px`;
       app.style.height = `${height}px`;
     }
-  }
+  };
 
   setScreenSize = () => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
+  };
 
   render() {
     return (
