@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { getMember } from "../services/api/memberAPI";
 import { useEffect, useState } from "react";
+import { logout } from "../services/api/loginAPI";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Header = () => {
         </Button>
       </Left>
       <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
+      <MyPageBtn onClick={() => logout()} src="/images/etc/mypageBtn.png" alt="mypage" />
     </Wrapper>
   )
 }
