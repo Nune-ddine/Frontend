@@ -48,6 +48,9 @@ const MyPage: React.FC = () => {
 
   const editUsername = async () => {
     try {
+      if (newUsername.length > 10) {
+        alert("닉네임은 10글자 이내로 작성해주세요");
+        }
       // 닉네임 ㄹㅇ 수정할건지 confirm
       const isConfirmed = confirm("닉네임을 변경하시겠어요?");
       if (!isConfirmed) {
@@ -99,7 +102,8 @@ const MyPage: React.FC = () => {
                   borderRadius: "8px",
                   width:"80px",
                   height:"24px",
-                  background:"#FFF1D2"
+                  background:"#FFF1D2",
+                  color:"rgba(81, 52, 33, 1)"
                 }}
               />
               <Button onClick={editUsername}>
@@ -189,7 +193,9 @@ const ProfileSection = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 16%;
+  width: 50px;
+  height: 50px;
+  // width: 16%;
   border-radius: 50%;
   margin-right: 0.5rem;
   background-size: auto;
@@ -215,6 +221,7 @@ const ProfileName = styled.div`
 
 const Button = styled.button`
   background-color: #FFF1D2;
+  color:rgba(81, 52, 33, 1);
 `;
 
 const MainContent = styled.div`

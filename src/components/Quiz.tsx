@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getQuiz, postQuiz } from "../services/api/quizAPI";
+import { getMember } from "../services/api/memberAPI";
 
 interface QuizData {
   id: number;
@@ -43,6 +44,14 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
+  const [chance, setChance] = useState<number>(0);
+
+  useEffect(() => {
+    getMember().then((res) => {
+      setChance(res.chance);
+    });
+  }
+  , []);
 
   useEffect(() => {
     if (isOpen && snowmanId) {
@@ -70,6 +79,11 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
   };
 
   const handleAnswerSelection = (choiceId: number) => {
+    if(chance<1){
+      alert("오늘 퀴즈를 풀 기회를 모두 소진하셨어요. 내일 다시 참여해주세요 🥰");
+      return;
+    }
+
     if (snowmanId === null || snowmanId === undefined) {
       console.error("Invalid snowmanId");
       return;
@@ -88,6 +102,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
     };
 
     solveQuiz(snowmanId, choiceId);
+    // setIsSolved(true);
   };
 
   if (!isOpen || !quizData) {
@@ -124,7 +139,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                     style={{ height: "30px" }}
                   />
                   {quizData.choice1 || "Option 1"}
-                  <div>{quizData.ratio1 * 100} %</div>
+                  <div>{(quizData.ratio1 * 100).toFixed(0)} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -137,7 +152,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                     style={{ height: "30px" }}
                   />
                   {quizData.choice2 || "Option 2"}
-                  <div>{quizData.ratio2 * 100} %</div>
+                  <div>{(quizData.ratio2 * 100).toFixed(0)} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -150,7 +165,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                     style={{ height: "30px" }}
                   />
                   {quizData.choice3 || "Option 3"}
-                  <div>{quizData.ratio3 * 100} %</div>
+                  <div>{(quizData.ratio3 * 100).toFixed(0)} %</div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
@@ -319,6 +334,8 @@ const ChoicesContainer = styled.div`
   gap: 8px;
   margin: 0 auto 10px;
   width: 90%;
+  font-family: 'MaplestoryOTFLight';
+  font-weight: light;
 `;
 
 const ChoiceButton = styled.button<{ isSelected: boolean; isAnswer: boolean; showResult: boolean }>`
