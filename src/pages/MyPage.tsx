@@ -94,7 +94,8 @@ const MyPage: React.FC = () => {
                   borderRadius: "8px",
                   width:"80px",
                   height:"24px",
-                  background:"#FFF1D2"
+                  background:"#FFF1D2",
+                  color:"rgba(81, 52, 33, 1)"
                 }}
               />
               <Button onClick={editUsername}>
@@ -212,6 +213,7 @@ const ProfileName = styled.div`
 
 const Button = styled.button`
   background-color: #FFF1D2;
+  color:rgba(81, 52, 33, 1);
 `;
 
 const MainContent = styled.div`
