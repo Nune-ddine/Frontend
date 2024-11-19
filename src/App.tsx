@@ -15,42 +15,42 @@ import SelectingMapPage2 from './pages/SelectingMapPage-locating';
 
 class App extends Component {
   
-  componentDidMount() { 
-    // this.setScreenSize();
-    this.fixRatio();
-    window.addEventListener('resize', this.fixRatio);
-  }
+  // componentDidMount() { 
+  //   // this.setScreenSize();
+  //   this.fixRatio();
+  //   window.addEventListener('resize', this.fixRatio);
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.fixRatio);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.fixRatio);
+  // }
 
-  fixRatio = () => {
-    const root = document.querySelector("#root");
-    const app = document.querySelector("#App") as HTMLElement;;
+  // fixRatio = () => {
+  //   const root = document.querySelector("#root");
+  //   const app = document.querySelector("#App") as HTMLElement;;
 
-    if (root && app) {
-      let width = root.clientWidth;
-      let height = width * 1.7777; // 9:16
-      // let height = width * 2.164102; // 9:16
-      // 844 / 390 = 2.164102
+  //   if (root && app) {
+  //     let width = root.clientWidth;
+  //     let height = width * 1.7777; // 9:16
+  //     // let height = width * 2.164102; // 9:16
+  //     // 844 / 390 = 2.164102
 
-      if (height > root.clientHeight) { 
-        height = root.clientHeight;
-        width = height * 0.5625; // 16:9
-        // width = height * 0.462086; // 16:9
-        // 390 / 844 = 0.462086
-      }
+  //     if (height > root.clientHeight) { 
+  //       height = root.clientHeight;
+  //       width = height * 0.5625; // 16:9
+  //       // width = height * 0.462086; // 16:9
+  //       // 390 / 844 = 0.462086
+  //     }
 
-      app.style.width = `${width}px`;
-      app.style.height = `${height}px`;
-    }
-  }
+  //     app.style.width = `${width}px`;
+  //     app.style.height = `${height}px`;
+  //   }
+  // }
 
-  setScreenSize = () => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }
+  // setScreenSize = () => {
+  //   const vh = window.innerHeight * 0.01;
+  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
+  // }
 
   render() {
     return (
