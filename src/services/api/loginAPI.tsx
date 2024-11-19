@@ -41,6 +41,7 @@ export const login = async (code: string) => {
       // 토큰이 없을 경우 처리
       console.warn("토큰이 발급되지 않았습니다. 인증을 확인해 주세요.");
    }
+   window.location.href = "/";
    } catch (error) {
    console.error("로그인 중 오류 발생:", error);
    }
