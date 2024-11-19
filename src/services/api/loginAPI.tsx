@@ -46,7 +46,9 @@ export const login = async (code: string) => {
 
 // 로그아웃 함수
 export const logout = () => {
-   localStorage.removeItem("token");
-   console.log("로그아웃 되었습니다.");
-   alert("로그아웃 되었습니다.");
+   if(confirm("로그아웃 하시겠습니까?")) {
+      localStorage.removeItem("token");
+      alert("로그아웃 되었습니다.");
+      console.log("로그아웃 되었습니다.");
+   } else return;
 };
