@@ -40,6 +40,8 @@ export const getSomeSnowman = async (snowmanId: string): Promise<any> => {
       }});
     return response.data;
   } catch (error) {
+    localStorage.removeItem("token");
+    // window.location.href = "/login";
     console.error("Failed to fetch all snowman data", error);
     throw error;
   }

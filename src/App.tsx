@@ -65,7 +65,7 @@ class App extends Component {
               <Route path="/:id" element={<HomePage />} />
               <Route path="/myPage" element={<MyPage />} />
               <Route path="/gotcha" element={<GotchaPage />} />
-              <Route path='/login' element={<LoginTestPage />} />
+              <Route path='/login/:id' element={<LoginTestPage />} />
               <Route path='/making' element={<MakingPage />} />
               <Route path='/snowmanResult' element={<SnowmanResultPage />} />
               <Route path='/locating/:id' element={<LocatingPage />} />
