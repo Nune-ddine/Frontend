@@ -31,8 +31,8 @@ const Header = () => {
           <Text>{chance}/3</Text>
         </Button>
       </Left>
+      <MyPageBtn onClick={() => logout()} src="/images/etc/mypageBtn.png" alt="logout" />
       <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
-      <MyPageBtn onClick={() => logout()} src="/images/etc/mypageBtn.png" alt="mypage" />
     </Wrapper>
   )
 }
