@@ -45,7 +45,7 @@ const Header = () => {
       )}
       {isAuthenticated && (
         <>
-        <MyPageBtn onClick={() => logout()} src="/images/etc/mypageBtn.png" alt="logout" />
+        <MyPageBtn onClick={() => logout()} src="/images/etc/logoutBtn.png" alt="logout" />
         <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
       </>
       )}
