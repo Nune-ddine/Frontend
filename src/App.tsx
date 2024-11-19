@@ -12,6 +12,7 @@ import MakingPage from './pages/makingPage';
 import QuizTestPage from './pages/QuizTestPage';
 import { RecoilRoot } from 'recoil';
 import SelectingMapPage2 from './pages/SelectingMapPage-locating';
+import OnboardingPage from './pages/OnboardingPage';
 
 class App extends Component {
   
@@ -68,6 +69,7 @@ class App extends Component {
           <Route path='/elevator' element={<SelectingMapPage/>}/>
           <Route path='/elevator2' element={<SelectingMapPage2/>}/>
           <Route path="/quiz" element={<QuizTestPage/>}/>
+          <Route path="/onboarding/:id" element={<OnboardingPage/>}/>
           </Routes>
         </div>
       </RecoilRoot>
