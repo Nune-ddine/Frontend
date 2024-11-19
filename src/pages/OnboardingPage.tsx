@@ -15,7 +15,7 @@ const OnboardingPage = () => {
 
   const handleNextClick = () => {
     const numericId = Number(id);
-    if (numericId < 5) {
+    if (numericId < 6) {
       navigate(`/onboarding/${numericId + 1}`);
     }
   };
@@ -26,13 +26,13 @@ const OnboardingPage = () => {
         {(id === "1") && (
           <NoButton />
         )}
-        {(id === "2" || id === "3" || id === "4") && (
+        {(id === "2" || id === "3" || id === "4" || id === "5") && (
           <BackBtn src="/images/etc/leftBtn.png" onClick={handleBackClick}/>
         )}
-        {(id === "1" || id === "2" || id === "3" || id === "4") && (
+        {(id === "1" || id === "2" || id === "3" || id === "4" || id === "5") && (
           <NextBtn src="/images/etc/rightBtn.png" onClick={handleNextClick} />
         )}
-        {(id === "5") && (
+        {(id === "6") && (
             <Button onClick={() => (navigate("/1"))}>눈사람 굴리러 가기</Button>
 
         )}
