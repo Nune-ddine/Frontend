@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getQuiz, postQuiz } from "../services/api/quizAPI";
-import { useRecoilState } from "recoil";
-import { quizState } from "../contexts/recoilAtoms";
 
 interface QuizData {
   id: number;
@@ -40,7 +38,7 @@ const ResultMessage = styled.div<ResultMessageProps>`
 `;
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => {
-  const [quizData, setQuizData] = useState<QuizData|null>(null);
+  const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
@@ -52,7 +50,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
         try {
           const data = await getQuiz(snowmanId);
           setQuizData(data);
-          setIsSolved(data.solved); // Set the isSolved status
+          setIsSolved(data.solved);
         } catch (error) {
           console.error("Error fetching quiz data:", error);
         }
@@ -62,35 +60,48 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
     }
   }, [isOpen, snowmanId]);
 
+  const handleClose = () => {
+    setQuizData(null);
+    setSelectedAnswer(null);
+    setIsCorrect(null);
+    setShowResult(false);
+    setIsSolved(false);
+    onClose();
+  };
+
   const handleAnswerSelection = (choiceId: number) => {
     if (snowmanId === null || snowmanId === undefined) {
       console.error("Invalid snowmanId");
       return;
     }
-    
+
     setSelectedAnswer(choiceId);
     setShowResult(true);
     setIsCorrect(choiceId === quizData?.answerId);
-  
+
     const solveQuiz = async (snowmanId: number, choiceId: number) => {
       try {
         await postQuiz(snowmanId, choiceId);
       } catch (error) {
-        console.error("문제 푸는 데에 실패하셨습니다", error);
+        console.error("Error solving quiz:", error);
       }
     };
-  
+
     solveQuiz(snowmanId, choiceId);
   };
-  
+
   if (!isOpen || !quizData) {
     return null;
   }
 
   return (
-    <ModalOverlay onClick={onClose}>
+    <ModalOverlay onClick={handleClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <CloseButton src="images/etc/closeBtn.png" alt="Close" onClick={onClose} />
+        <CloseButton
+          src="images/etc/closeBtn.png"
+          alt="Close"
+          onClick={handleClose}
+        />
         {isSolved ? (
           <>
             <HeaderText>
@@ -108,9 +119,12 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={true}
                   disabled={true}
                 >
-                  <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn1.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice1 || "Option 1"}
-                  <div>{quizData.ratio1*100} %</div>
+                  <div>{quizData.ratio1 * 100} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 2}
@@ -118,9 +132,12 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={true}
                   disabled={true}
                 >
-                  <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn2.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice2 || "Option 2"}
-                  <div>{quizData.ratio2*100} %</div>
+                  <div>{quizData.ratio2 * 100} %</div>
                 </ChoiceButton>
                 <ChoiceButton
                   isAnswer={quizData.answerId === 3}
@@ -128,9 +145,12 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={true}
                   disabled={true}
                 >
-                  <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn3.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice3 || "Option 3"}
-                  <div>{quizData.ratio3*100} %</div>
+                  <div>{quizData.ratio3 * 100} %</div>
                 </ChoiceButton>
               </ChoicesContainer>
             </QuizContainer>
@@ -152,7 +172,10 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(1)}
                 >
-                  <img src="images/quizs/numberBtn1.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn1.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice1 || "Option 1"}
                   <div></div>
                 </ChoiceButton>
@@ -162,7 +185,10 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(2)}
                 >
-                  <img src="images/quizs/numberBtn2.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn2.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice2 || "Option 2"}
                   <div></div>
                 </ChoiceButton>
@@ -172,7 +198,10 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
                   showResult={showResult}
                   onClick={() => handleAnswerSelection(3)}
                 >
-                  <img src="images/quizs/numberBtn3.png" style={{ height: "30px" }} />
+                  <img
+                    src="images/quizs/numberBtn3.png"
+                    style={{ height: "30px" }}
+                  />
                   {quizData.choice3 || "Option 3"}
                   <div></div>
                 </ChoiceButton>
@@ -185,7 +214,14 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
             {isCorrect ? (
               <div>
                 <p>정답을 맞췄어요!</p>
-                <HeaderText style={{ fontSize: "1.6rem", background: "#3D9BF2", width: "90%", color: "white" }}>
+                <HeaderText
+                  style={{
+                    fontSize: "1.6rem",
+                    background: "#3D9BF2",
+                    width: "90%",
+                    color: "white",
+                  }}
+                >
                   + 100 Point
                 </HeaderText>
               </div>
