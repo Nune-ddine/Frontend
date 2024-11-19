@@ -7,12 +7,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
 import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 import { getMySnowman } from '../services/api/memberAPI';
+import { useHeader } from '../contexts/HeaderContext';
 
 const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [snownumber, setSnownumber] = useState(0);
+  const { triggerReload, reloadHeader } = useHeader();
 
   useEffect(() => {
     // URL에서 쿼리 파라미터로 전달된 code 추출
@@ -34,7 +36,7 @@ const HomePage = () => {
       console.log(snownumber);
     });
   }
-  , []);
+  , [reloadHeader]);
 
   const doyouwantTobuildAsnowman = () => {
     if(snownumber < 3){

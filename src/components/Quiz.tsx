@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getQuiz, postQuiz } from "../services/api/quizAPI";
 import { getMember } from "../services/api/memberAPI";
+import { useHeader } from "../contexts/HeaderContext";
 
 interface QuizData {
   id: number;
@@ -45,13 +46,14 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isSolved, setIsSolved] = useState<boolean>(false);
   const [chance, setChance] = useState<number>(0);
+  const { triggerReload, reloadHeader } = useHeader();
 
   useEffect(() => {
     getMember().then((res) => {
       setChance(res.chance);
     });
   }
-  , []);
+  , [reloadHeader]);
 
   useEffect(() => {
     if (isOpen && snowmanId) {
@@ -76,6 +78,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
     setShowResult(false);
     setIsSolved(false);
     onClose();
+    triggerReload();
   };
 
   const handleAnswerSelection = (choiceId: number) => {
