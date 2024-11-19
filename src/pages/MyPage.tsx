@@ -15,7 +15,7 @@ interface Snowman {
   name: string | null;
   image: string;
   correctCount: number;
-  incorrentCount: number; 
+  incorrectCount: number; 
 }
 
 const MyPage: React.FC = () => {
@@ -152,7 +152,7 @@ const MyPage: React.FC = () => {
                   />
                 </SnowmanText>
                 <SnowmanCount>
-                  {snowmans[index].correctCount}/{snowmans[index].incorrentCount + snowmans[index].correctCount}명
+                  {snowmans[index].correctCount}/{snowmans[index].incorrectCount + snowmans[index].correctCount}명
                 </SnowmanCount>
               </Snowman>
             ) : (
