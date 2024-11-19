@@ -6,14 +6,11 @@ import { locatorIdState } from "../contexts/recoilAtoms";
 import { snowmanState } from "../contexts/snowmanState";
 import Snowmans from "../components/HomePage/Snowmans-locating";
 
-
-
 const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [snowman, setSnowman] = useRecoilState(snowmanState);
   const setId = useSetRecoilState(locatorIdState);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("[ Updated Location ]:", snowman.posX, snowman.posY);
@@ -29,10 +26,9 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     if (!container) return;
 
     const containerRect = container.getBoundingClientRect();
-    const snowmanSize = 50;
 
-    const x = e.clientX - containerRect.left - snowmanSize / 4;
-    const y = e.clientY - containerRect.top - snowmanSize / 2;
+    const x = ((e.clientX - containerRect.left - 14) / containerRect.width) * 100;
+    const y = ((e.clientY - containerRect.top -20) / containerRect.height) * 100;
 
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
@@ -42,20 +38,26 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     <div
       ref={containerRef}
       onClick={handleClick}
-      style={{ position: "relative", height: "100%",
-        display:"flex",
+      style={{
+        position: "relative",
+        height: "100%",
+        display: "flex",
         flexDirection: "column",
-        alignItems:"center",
-        justifyContent:"center",
+        alignItems: "center",
+        justifyContent: "center",
         // border:"1px solid black" 
-    }}
+      }}
     >
-      <Snowmans/>
+      <Snowmans />
       <StyledText>눈사람 만들 곳을 클릭해주세요!</StyledText>
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
-          style={{ top: `${snowman.posY}px`, left: `${snowman.posX}px`,position: "absolute",opacity: "0.8" }}
+          style={{
+            top: `${snowman.posY}%`,
+            left: `${snowman.posX}%`,
+            position: "absolute"
+          }}
         ></Snowman>
       )}
       {children}
@@ -67,12 +69,13 @@ export default Locator;
 
 const Snowman = styled.img`
   position: absolute;
-  height: 50px;
-  width: 30px;
+  height: 40px;
+  width: 28px;
+  opacity :0.8;
 `;
 
 const StyledText = styled.div`
-  font-size : 1.4rem;
+  font-size: 1.4rem;
   color: white;
   -webkit-text-stroke: 0.8px rgba(81, 52, 33, 1);
-`
+`;
