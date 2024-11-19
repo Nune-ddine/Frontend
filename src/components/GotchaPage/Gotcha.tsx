@@ -52,6 +52,10 @@ const Gotcha: React.FC = () => {
   , []);
 
   const handleClick = async () => {
+    getMember().then((res) => {
+      setPoint(res.point);
+    });
+    
     if (isPlaying) return;
 
     if (point < 300) {
