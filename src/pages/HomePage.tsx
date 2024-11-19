@@ -13,10 +13,14 @@ const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const firstLogin = localStorage.getItem("firstLogin");
   const [snownumber, setSnownumber] = useState(0);
   const { triggerReload, reloadHeader } = useHeader();
 
   useEffect(() => {
+    if(firstLogin == "true"){
+      navigate("/onboarding/1");
+    }
     // URL에서 쿼리 파라미터로 전달된 code 추출
     const searchParams = new URLSearchParams(location.search);
     const code = searchParams.get("code");

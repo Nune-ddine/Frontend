@@ -17,24 +17,22 @@ const OnboardingPage = () => {
     const numericId = Number(id);
     if (numericId < 6) {
       navigate(`/onboarding/${numericId + 1}`);
+      localStorage.setItem("firstLogin", "false");
     }
   };
 
   return (
     <OnboardingWrapper>
       <ButtonContainer>
-        {(id === "1") && (
-          <NoButton />
+        {id === "1" && <NoButton />}
+        {id !== "1" && id !== "6" && (
+          <BackBtn src="/images/etc/leftBtn.png" onClick={handleBackClick} />
         )}
-        {(id === "2" || id === "3" || id === "4" || id === "5") && (
-          <BackBtn src="/images/etc/leftBtn.png" onClick={handleBackClick}/>
-        )}
-        {(id === "1" || id === "2" || id === "3" || id === "4" || id === "5") && (
+        {id !== "6" && (
           <NextBtn src="/images/etc/rightBtn.png" onClick={handleNextClick} />
         )}
-        {(id === "6") && (
-            <Button onClick={() => (navigate("/1"))}>눈사람 굴리러 가기</Button>
-
+        {id === "6" && (
+          <Button onClick={() => navigate("/1")}>눈사람 굴리러 가기</Button>
         )}
       </ButtonContainer>
     </OnboardingWrapper>
@@ -48,8 +46,8 @@ const ButtonContainer = styled.div`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  padding : 0 3rem;
-  margin-top : 50rem;
+  padding: 0 3rem;
+  margin-top: 50rem;
 `;
 
 const BackBtn = styled.img`
@@ -65,7 +63,6 @@ const NoButton = styled.div`
   height: 23%;
   width: 9%;
   aspect-ratio: 1/1;
-  cursor: pointer;
 `;
 
 const NextBtn = styled.img`
@@ -82,13 +79,11 @@ const Button = styled.button`
   height: 10%;
   background-color: #3d9bf2;
   color: #ffffff;
-  padding: 2.0rem;
+  padding: 2rem;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
-  border-radius: 100px;
   border-radius: 40px;
   border: 1px solid #513421;
-  background: #3D9BF2;
-  box-shadow: 1px 2px 0px 0px #7EBFFF;
+  box-shadow: 1px 2px 0px 0px #7ebfff;
 `;
