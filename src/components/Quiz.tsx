@@ -334,6 +334,8 @@ const ChoicesContainer = styled.div`
   gap: 8px;
   margin: 0 auto 10px;
   width: 90%;
+  font-family: 'MaplestoryOTFLight';
+  font-weight: light;
 `;
 
 const ChoiceButton = styled.button<{ isSelected: boolean; isAnswer: boolean; showResult: boolean }>`
