@@ -41,16 +41,6 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     }
   };
 
-  // const viewQuiz = (snowmanId: number) => {
-  //   setSelectedSnowmanId(snowmanId);
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  //   setSelectedSnowmanId(null);
-  // };
-
   useEffect(() => {
     getSnowmans();
   }, [id]);
