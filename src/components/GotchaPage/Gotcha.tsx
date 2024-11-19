@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMember } from "../../services/api/memberAPI";
+import { SNOWMAN_ITEMS } from "../../constants/snowmanItems";
 
 export interface GotchaItem {
   id: number;
@@ -45,8 +46,7 @@ const Gotcha: React.FC = () => {
     getMember().then((res) => {
       setPoint(res.point);
     });
-  }
-  , []);
+  }, []);
 
   const handleClick = async () => {
     if (isPlaying) return;
@@ -59,21 +59,21 @@ const Gotcha: React.FC = () => {
     setIsPlaying(true);
     try {
       const gotchaData = await getGotcha();
-        setIsPlaying(false);
-        if (gotchaData) {
-          setIsPlaying(true);
-          setTimeout(()=>{
-            if (gotchaData.item.id === 1) {
-              setModalMessage("꽝이에요!");
-            } else {
-              setItemData(gotchaData?.item || null);
-            }
-            setIsPlaying(false);
-            setShowModal(true);
-          }, 7500);
-        } else {
-          alert("더 이상 뽑을 아이템이 없어요 !");
-        }
+      setIsPlaying(false);
+      if (gotchaData) {
+        setIsPlaying(true);
+        setTimeout(() => {
+          if (gotchaData.item.id === 1) {
+            setModalMessage("꽝이에요!");
+          } else {
+            setItemData(gotchaData?.item || null);
+          }
+          setIsPlaying(false);
+          setShowModal(true);
+        }, 7500);
+      } else {
+        alert("더 이상 뽑을 아이템이 없어요 !");
+      }
     } catch (error: any) {
       console.error("Error:", error);
       setIsPlaying(false);
@@ -90,6 +90,12 @@ const Gotcha: React.FC = () => {
     setItemData(null);
   };
 
+  // SNOWMAN_ITEMS에서 id가 일치하는 img를 찾는 함수
+  const getItemImage = (id: number): string | undefined => {
+    const item = SNOWMAN_ITEMS.옷.과잠.find((snowmanItem) => snowmanItem.id === id);
+    return item?.img;
+  };
+
   return (
     <Wrapper>
       <GotchaImg
@@ -103,25 +109,25 @@ const Gotcha: React.FC = () => {
             <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
             {itemData ? (
               <>
-              <h2>{itemData?.itemName} 획득!</h2>
-              <img
-              src="/images/etc/puangman.png"
-              style={{
-                width: "100%",
-              }}
-              alt="Gotcha Result"
-              />
-            </>
+                <h2>{itemData.itemName} 획득!</h2>
+                <img
+                  src={getItemImage(itemData.id) || "/images/etc/default.png"} // 이미지 주소 설정
+                  style={{
+                    width: "100%",
+                  }}
+                  alt="Gotcha Result"
+                />
+              </>
             ) : (
               <>
-              <h2>{modalMessage}</h2>
-              <img
-              src="/images/gotchas/sadSnowman.png"
-              style={{
-                width: "100%",
-              }}
-              alt="Gotcha Result"
-              />
+                <h2>{modalMessage}</h2>
+                <img
+                  src="/images/gotchas/sadSnowman.png"
+                  style={{
+                    width: "100%",
+                  }}
+                  alt="Gotcha Result"
+                />
               </>
             )}
           </ModalContent>

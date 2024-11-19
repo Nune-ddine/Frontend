@@ -92,7 +92,12 @@ const MyPage: React.FC = () => {
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>
           {isEditing ? (
-            <div>
+            <div style={
+              {
+                paddingLeft: "0.3rem",
+                paddingRight: "0.3rem",
+              }
+            }>ㅇㅇ
               <input
                 type="text"
                 value={newUsername}
@@ -285,5 +290,7 @@ const OutName = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 0.5rem;
-
+  background: #FFF1D2;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
