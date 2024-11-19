@@ -43,3 +43,12 @@ export const login = async (code: string) => {
    console.error("로그인 중 오류 발생:", error);
    }
 };
+
+// 로그아웃 함수
+export const logout = () => {
+   if(confirm("로그아웃 하시겠습니까?")) {
+      localStorage.removeItem("token");
+      alert("로그아웃 되었습니다.");
+      console.log("로그아웃 되었습니다.");
+   } else return;
+};

@@ -1,41 +1,59 @@
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { getMember } from "../services/api/memberAPI";
 import { useEffect, useState } from "react";
+import { logout } from "../services/api/loginAPI";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  // point랑 chance 받아오기
+  // point와 chance 상태
   const [point, setPoint] = useState<number>(0);
   const [chance, setChance] = useState<number>(0);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // 인증 상태
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsAuthenticated(false); // 토큰이 없으면 인증 상태를 false로 설정
+      return;
+    }
+
+    // 토큰이 있을 경우에만 getMember 호출
     getMember().then((res) => {
       setPoint(res.point);
       setChance(res.chance);
+    }).catch((error) => {
+      console.error("Failed to fetch member data:", error);
     });
-  }
-  , []);
+  }, []);
 
   return (
     <Wrapper>
-      <Left>
-        <Button>
-          <img src="/images/etc/pointBtn.png" alt="point" />
-          <Text>{point}p</Text>
-        </Button>
-        <Button>
-          <img  src="/images/etc/questionmarkBtn.png" alt="quizChance" />
-          <Text>{chance}/3</Text>
-        </Button>
-      </Left>
-      <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
+      {/* Left 부분을 조건부 렌더링 */}
+      {isAuthenticated && (
+        <Left>
+          <Button>
+            <img src="/images/etc/pointBtn.png" alt="point" />
+            <Text>{point}p</Text>
+          </Button>
+          <Button>
+            <img src="/images/etc/questionmarkBtn.png" alt="quizChance" />
+            <Text>{chance}/3</Text>
+          </Button>
+        </Left>
+      )}
+      {isAuthenticated && (
+        <>
+        <MyPageBtn onClick={() => logout()} src="/images/etc/mypageBtn.png" alt="logout" />
+        <MyPageBtn onClick={() => navigate('/mypage')} src="/images/etc/mypageBtn.png" alt="mypage" />
+      </>
+      )}
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 
 const Wrapper = styled.div`
   // position: fixed;

@@ -35,6 +35,9 @@ a {
 html {
   height: 100%;
   font-size: 0.8rem; /* 여기서 폰트!!! */
+  width: 100%;
+  /* border: 2px solid #08ffb5; */
+  box-sizing: border-box;
 }
 
 body {
@@ -45,7 +48,7 @@ body {
   min-height: 100vh;
   height: 100%;
 
-  /* border: 2px solid #646cff; //todo */
+  /* border: 2px solid #646cff;  */
 
   overflow: hidden; 
 }
