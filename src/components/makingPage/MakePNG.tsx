@@ -43,11 +43,11 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
       const containerHeight = containerRect.height;
       const shapeOffset = 0.8;
       const eyeOffset = 0.1;
-      const mouthOffset = 0.06;
+      const mouthOffset = 0.04;
       const noseOffset = 0.03;
       const hatOffset = 0.15;
       const mufflerOffset = 0.2;
-      const outerOffset = 0.3;
+      const outerOffset = 0.35;
       
       if (imgsrc.includes('shape')) {
         img.style.width = `${containerWidth * shapeOffset}px`;
@@ -85,6 +85,13 @@ const MakePNG = forwardRef<MakePNGHandle, MakePNGProps>(({ selectedFeature, isQu
         // X와 Y 좌표를 설정 (이미지의 너비/높이를 반영)
         img.style.left = `${Math.min(Math.max(x - (containerWidth * outerOffset) / 2, 0), containerWidth - containerWidth * outerOffset)}px`;
         img.style.top = `${Math.min(Math.max(y - (containerHeight * outerOffset) / 2, 0), containerHeight - containerHeight * outerOffset)}px`;
+      }
+      //당근코일떄만 좀 크게
+      if (imgsrc.includes('carrot')) {
+        img.style.width = `${containerWidth * noseOffset * 3}px`;
+        img.style.height = 'auto';
+        img.style.left = `${Math.min(Math.max(x - containerWidth * noseOffset, 0), containerWidth - containerWidth * noseOffset * 2)}px`;
+        img.style.top = `${Math.min(Math.max(y - containerWidth * noseOffset, 0), containerHeight - containerWidth * noseOffset * 2)}px`;
       }
       
       
@@ -214,7 +221,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 200%;
-  height: 120%;
+  height: 90%;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -224,6 +231,7 @@ const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 1%;
+  width: 100%;
   height: 10%;
   z-index: 2;
 `;
