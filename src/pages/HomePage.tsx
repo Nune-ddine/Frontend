@@ -3,7 +3,7 @@ import Header from '../components/Header';
 // import Footer from '../components/Footer';
 import { useEffect, useState } from 'react';
 import { handleLoginClick, login } from '../services/api/loginAPI';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Snowmans from '../components/HomePage/Snowmans';
 import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 import { getMySnowman } from '../services/api/memberAPI';
@@ -16,6 +16,7 @@ const HomePage = () => {
   const firstLogin = localStorage.getItem("firstLogin");
   const [snownumber, setSnownumber] = useState(0);
   const { triggerReload, reloadHeader } = useHeader();
+  const { id } = useParams();
 
   useEffect(() => {
     if(firstLogin == "true"){
@@ -32,6 +33,10 @@ const HomePage = () => {
     if (location.pathname === "/") {
       navigate("/1", { replace: true });
     } 
+    const numericId = Number(id);
+    if(numericId>5){
+      navigate("/1", { replace: true });
+    }
   }, [location]);
 
   useEffect(() => {
