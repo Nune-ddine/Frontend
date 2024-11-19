@@ -186,7 +186,7 @@ const QuizTextarea = styled.input`
    padding-left: 20px;
    padding-right: 20px;
    color: #513421;
-   font-weight: 600;
+
    //placeholder 크기 조절
    font-size: 12px;
 ` 
@@ -246,7 +246,6 @@ const OptionInput = styled.input<{ selected: boolean }>`
    font-family: sans-serif;
    color: #513421;
    font-size: 12px;
-   font-weight: 600;
 
    // 선택됐을 때 색상 변경
    background-color: ${(props) => (props.selected ? "#E3FFE3" : "#FFDD94")};
