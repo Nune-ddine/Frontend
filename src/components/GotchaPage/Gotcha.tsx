@@ -49,6 +49,8 @@ const Gotcha: React.FC = () => {
   , []);
 
   const handleClick = async () => {
+    if (isPlaying) return;
+
     if (point < 300) {
       alert("포인트가 부족해요 🥲");
       return;
@@ -57,20 +59,21 @@ const Gotcha: React.FC = () => {
     setIsPlaying(true);
     try {
       const gotchaData = await getGotcha();
-      setTimeout(() => {
         setIsPlaying(false);
         if (gotchaData) {
-          if (gotchaData.item.id === 1) {
-            setModalMessage("꽝이에요!");
-          } else {
-            setItemData(gotchaData?.item || null);
-          }
-          setShowModal(true);
+          setIsPlaying(true);
+          setTimeout(()=>{
+            if (gotchaData.item.id === 1) {
+              setModalMessage("꽝이에요!");
+            } else {
+              setItemData(gotchaData?.item || null);
+            }
+            setIsPlaying(false);
+            setShowModal(true);
+          }, 7500);
         } else {
-          setModalMessage("모든 아이템을 다 뽑으셨어요!");
-          setShowModal(true);
+          alert("더 이상 뽑을 아이템이 없어요 !");
         }
-      }, 7500);
     } catch (error: any) {
       console.error("Error:", error);
       setIsPlaying(false);
