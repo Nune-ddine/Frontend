@@ -31,3 +31,8 @@ export const snowmanExsitState = atom<boolean>({
   key: 'snowmanExistState',
   default: false,
 });
+
+export const shapeExistState = atom<boolean>({
+  key: 'shapeExistState',
+  default: false,
+});

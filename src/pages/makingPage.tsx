@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { getInventory } from '../services/api/snowmanAPI';
 import { useRecoilState } from 'recoil';
 import { inventoryState } from '../contexts/inventoryState';
+import { snowmanState } from '../contexts/snowmanState';
 
 const MakingPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -15,6 +16,7 @@ const MakingPage: React.FC = () => {
   const [isQuizMode, setIsQuizMode] = useState(false);
   const [finalImage, setFinalImage] = useState<string | null>(null);
   const [inventory, setInventory] = useRecoilState(inventoryState);
+  const [snowman, setSnowman] = useRecoilState(snowmanState);
 
   const navigate = useNavigate();
 
@@ -23,6 +25,21 @@ const MakingPage: React.FC = () => {
       navigate('/snowmanResult', { state: { finalImage } });
     }
   }, [finalImage, navigate]);
+  // 페이지 렌더링될 때 snowmanState 모두 초기화(posX, posY는 유지)
+  useEffect(() => {
+    setSnowman((prevSnowman) => ({
+      ...prevSnowman, // 기존 상태 유지
+      name: '',
+      image: '',
+      quiz: '',
+      answerId: 0,
+      content1: '',
+      content2: '',
+      content3: '',
+      // posX와 posY는 유지
+    }));
+  }, []);
+  
 
   useEffect(() => {
     const fetchInventory = async () => {

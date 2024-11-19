@@ -92,7 +92,12 @@ const MyPage: React.FC = () => {
         <ProfilePicture src={image} alt="Profile" />
         <ProfileName>
           {isEditing ? (
-            <div>
+            <div style={
+              {
+                paddingLeft: "0.3rem",
+                paddingRight: "0.3rem",
+              }
+            }>ㅇㅇ
               <input
                 type="text"
                 value={newUsername}
@@ -115,7 +120,8 @@ const MyPage: React.FC = () => {
             </div>
           ) : (
             <>
-              {username}
+            <OutName>
+              {username} 
               <img
                 src="/images/mypage/edit.png"
                 style={{ width: "16px", marginLeft: "10px", cursor: "pointer" }}
@@ -124,6 +130,7 @@ const MyPage: React.FC = () => {
                   setNewUsername(username); // Initialize input with the current username
                 }}
               />
+              </OutName>
             </>
           )}
         </ProfileName>
@@ -193,9 +200,10 @@ const ProfileSection = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  width: 50px;
-  height: 50px;
-  // width: 16%;
+  /* width: 80px;
+  height: 80px; */
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
   margin-right: 0.5rem;
   background-size: auto;
@@ -206,7 +214,9 @@ const ProfileName = styled.div`
   background-color: #FFE2A4;
   border-radius: 100px;
   width: auto; 
-  padding: 1rem;
+  padding: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   gap : 2rem;
   border: 1px solid #513421;
   font-size: 1rem;
@@ -273,4 +283,14 @@ const SnowmanCount = styled.div`
   border-radius: 26px;
   border: 1px solid #513421;
   background: #FFF1D2;
+`;
+
+const OutName = styled.div`
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  background: #FFF1D2;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
