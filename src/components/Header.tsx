@@ -26,7 +26,7 @@ const Header = () => {
           <Text>{point}p</Text>
         </Button>
         <Button>
-          <img onClick={() => navigate('/making')} src="/images/etc/questionmarkBtn.png" alt="quizChance" />
+          <img  src="/images/etc/questionmarkBtn.png" alt="quizChance" />
           <Text>{chance}/3</Text>
         </Button>
       </Left>

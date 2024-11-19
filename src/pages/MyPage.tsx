@@ -50,6 +50,10 @@ const MyPage: React.FC = () => {
     try {
       if (newUsername.length > 10) {
         alert("닉네임은 10글자 이내로 작성해주세요");
+        }
+      // 닉네임 ㄹㅇ 수정할건지 confirm
+      const isConfirmed = confirm("닉네임을 변경하시겠어요?");
+      if (!isConfirmed) {
         return;
       }
       await patchUsername(newUsername); // Pass newUsername to the API
