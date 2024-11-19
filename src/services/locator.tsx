@@ -72,6 +72,7 @@ const Snowman = styled.img`
   height: 40px;
   width: 28px;
   opacity :0.8;
+  // border : 1px solid black;
 `;
 
 const StyledText = styled.div`
