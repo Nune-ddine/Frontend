@@ -57,7 +57,6 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
             top: `${snowman.posY + 2}%`,
             left: `${snowman.posX - 6}%`,
             position: "absolute",
-            opacity: "0.8",
           }}
           // onClick={() => viewQuiz(snowman.id)}
         />
