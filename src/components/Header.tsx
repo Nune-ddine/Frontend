@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getMember } from "../services/api/memberAPI";
 import { useEffect, useState } from "react";
 import { logout } from "../services/api/loginAPI";
+import { useHeader } from "../contexts/HeaderContext";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Header = () => {
   const [point, setPoint] = useState<number>(0);
   const [chance, setChance] = useState<number>(0);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // 인증 상태
+  const { reloadHeader } = useHeader();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,7 +28,7 @@ const Header = () => {
     }).catch((error) => {
       console.error("Failed to fetch member data:", error);
     });
-  }, []);
+  }, [reloadHeader]);
 
   return (
     <Wrapper>

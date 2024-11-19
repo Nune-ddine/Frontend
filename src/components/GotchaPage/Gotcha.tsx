@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getMember } from "../../services/api/memberAPI";
+import { useHeader } from "../../contexts/HeaderContext";
 
 export interface GotchaItem {
   id: number;
@@ -40,13 +41,13 @@ const Gotcha: React.FC = () => {
   const [itemData, setItemData] = useState<GotchaItem | null>(null);
   const [modalMessage, setModalMessage] = useState<string | null>(null);
   const [point, setPoint] = useState<number>(0);
+  const { triggerReload, reloadHeader } = useHeader();
 
   useEffect(() => {
     getMember().then((res) => {
       setPoint(res.point);
     });
-  }
-  , []);
+  }, [reloadHeader]); // reloadHeader 상태가 변경될 때마다 호출되도록 설정
 
   const handleClick = async () => {
     if (isPlaying) return;
@@ -59,25 +60,26 @@ const Gotcha: React.FC = () => {
     setIsPlaying(true);
     try {
       const gotchaData = await getGotcha();
-        setIsPlaying(false);
-        if (gotchaData) {
-          setIsPlaying(true);
-          setTimeout(()=>{
-            if (gotchaData.item.id === 1) {
-              setModalMessage("꽝이에요!");
-            } else {
-              setItemData(gotchaData?.item || null);
-            }
-            setIsPlaying(false);
-            setShowModal(true);
-          }, 7500);
-        } else {
-          alert("더 이상 뽑을 아이템이 없어요 !");
-        }
+      setIsPlaying(false);
+      if (gotchaData) {
+        setIsPlaying(true);
+        setTimeout(() => {
+          if (gotchaData.item.id === 1) {
+            setModalMessage("꽝이에요!");
+          } else {
+            setItemData(gotchaData?.item || null);
+          }
+          setIsPlaying(false);
+          setShowModal(true);
+          triggerReload(); // Reload header after the gotcha result is processed
+        }, 7500);
+      } else {
+        alert("더 이상 뽑을 아이템이 없어요 !");
+      }
     } catch (error: any) {
       console.error("Error:", error);
       setIsPlaying(false);
-      setModalMessage(error);
+      setModalMessage(error.message || "Unknown error occurred");
       setTimeout(() => {
         setShowModal(true);
       }, 7500);
@@ -88,6 +90,7 @@ const Gotcha: React.FC = () => {
     setShowModal(false);
     setModalMessage(null);
     setItemData(null);
+    triggerReload(); // Reload header when the modal is closed
   };
 
   return (
@@ -103,25 +106,25 @@ const Gotcha: React.FC = () => {
             <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
             {itemData ? (
               <>
-              <h2>{itemData?.itemName} 획득!</h2>
-              <img
-              src="/images/etc/puangman.png"
-              style={{
-                width: "100%",
-              }}
-              alt="Gotcha Result"
-              />
-            </>
+                <h2>{itemData?.itemName} 획득!</h2>
+                <img
+                  src="/images/etc/puangman.png"
+                  style={{
+                    width: "100%",
+                  }}
+                  alt="Gotcha Result"
+                />
+              </>
             ) : (
               <>
-              <h2>{modalMessage}</h2>
-              <img
-              src="/images/gotchas/sadSnowman.png"
-              style={{
-                width: "100%",
-              }}
-              alt="Gotcha Result"
-              />
+                <h2>{modalMessage}</h2>
+                <img
+                  src="/images/gotchas/sadSnowman.png"
+                  style={{
+                    width: "100%",
+                  }}
+                  alt="Gotcha Result"
+                />
               </>
             )}
           </ModalContent>

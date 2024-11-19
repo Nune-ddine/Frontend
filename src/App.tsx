@@ -13,6 +13,7 @@ import QuizTestPage from './pages/QuizTestPage';
 import { RecoilRoot } from 'recoil';
 import SelectingMapPage2 from './pages/SelectingMapPage-locating';
 import OnboardingPage from './pages/OnboardingPage';
+import { HeaderProvider } from './contexts/HeaderContext';
 
 class App extends Component {
   componentDidMount() {
@@ -57,22 +58,24 @@ class App extends Component {
   render() {
     return (
       <RecoilRoot>
-        <div id="App">
-          <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:id" element={<HomePage />} />
-          <Route path="/myPage" element={<MyPage />} />
-          <Route path="/gotcha" element={<GotchaPage />} />
-          <Route path='/login' element={<LoginTestPage />} />
-          <Route path='/making' element={<MakingPage />} />
-          <Route path='/snowmanResult' element={<SnowmanResultPage />} />
-          <Route path='/locating/:id' element={<LocatingPage />}/>
-          <Route path='/elevator' element={<SelectingMapPage/>}/>
-          <Route path='/elevator2' element={<SelectingMapPage2/>}/>
-          <Route path="/quiz" element={<QuizTestPage/>}/>
-          <Route path="/onboarding/:id" element={<OnboardingPage/>}/>
-          </Routes>
-        </div>
+        <HeaderProvider>
+          <div id="App">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/:id" element={<HomePage />} />
+              <Route path="/myPage" element={<MyPage />} />
+              <Route path="/gotcha" element={<GotchaPage />} />
+              <Route path='/login' element={<LoginTestPage />} />
+              <Route path='/making' element={<MakingPage />} />
+              <Route path='/snowmanResult' element={<SnowmanResultPage />} />
+              <Route path='/locating/:id' element={<LocatingPage />} />
+              <Route path='/elevator' element={<SelectingMapPage/>}/>
+              <Route path='/elevator2' element={<SelectingMapPage2/>}/>
+              <Route path="/quiz" element={<QuizTestPage/>}/>
+              <Route path="/onboarding/:id" element={<OnboardingPage/>}/>
+            </Routes>
+          </div>
+        </HeaderProvider>
       </RecoilRoot>
     );
   }
