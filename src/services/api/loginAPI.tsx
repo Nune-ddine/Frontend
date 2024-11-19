@@ -23,10 +23,12 @@ export const login = async (code: string) => {
    console.log("< 카카오 인증 처리 결과 >", data);
 
    const token = data.token;
+   const firstLogin = data.firstLogin;
 
    if (token) {
       // 토큰이 있는 경우에만 localStorage에 저장
       localStorage.setItem("token", token);
+      localStorage.setItem("firstLogin", firstLogin);
       console.log("토큰이 성공적으로 저장되었습니다.");
 
       // 저장한 토큰으로 인증 요청
