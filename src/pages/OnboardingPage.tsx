@@ -26,10 +26,16 @@ const OnboardingPage = () => {
       <ButtonContainer>
         {id === "1" && <NoButton />}
         {id !== "1" && id !== "6" && (
-          <BackBtn src="/images/etc/leftBtn.png" onClick={handleBackClick} />
+          <BackBtn
+           src="/images/etc/leftBtn.png" 
+           onClick={handleBackClick} 
+           style={{height:"24%"}}
+          />
         )}
         {id !== "6" && (
-          <NextBtn src="/images/etc/rightBtn.png" onClick={handleNextClick} />
+          <NextBtn src="/images/etc/rightBtn.png"
+           style={{height:"24%"}}
+           onClick={handleNextClick} />
         )}
         {id === "6" && (
           <Button onClick={() => navigate("/1")}>눈사람 굴리러 가기</Button>
@@ -47,7 +53,7 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 3rem;
-  margin-top: 45rem;
+  margin-top: 40rem;
 `;
 
 const BackBtn = styled.img`
