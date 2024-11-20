@@ -28,7 +28,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
             Authorization: `Bearer ${token}`,
          },
       });
-      console.log(response);
+      // console.log(response);
       } catch (error: any) {
       console.error("Failed to create snowman", error);
    
@@ -56,7 +56,7 @@ export const getInventory = async () => {
          Authorization: `Bearer ${token}`,
          },
       });
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
    } catch (error) {
       console.error("Failed to get inventory test", error);

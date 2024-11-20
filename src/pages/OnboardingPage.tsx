@@ -53,6 +53,7 @@ const ButtonContainer = styled.div`
   height : 28%;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   // border : 1px solid black;
 `;
 
@@ -78,7 +79,7 @@ const NextBtn = styled.img`
 
 const Button = styled.button`
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 10%;
   background-color: #3d9bf2;
   color: #ffffff;
