@@ -42,7 +42,7 @@ const HomePage = () => {
   useEffect(() => {
     getMySnowman().then((res) => {
       setSnownumber(res.length);
-      console.log(snownumber);
+      // console.log(snownumber);
     });
   }
   , [reloadHeader]);

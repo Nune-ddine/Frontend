@@ -45,10 +45,10 @@ const MakingPage: React.FC = () => {
     const fetchInventory = async () => {
       try {
         const itemExistOriginal = await getInventory();
-        console.log("itemExistOriginal:", itemExistOriginal); // 데이터를 확인
+        // console.log("itemExistOriginal:", itemExistOriginal); // 데이터를 확인
         const sliced = itemExistOriginal
           .slice(24, 48).map((item: any) => item.available); // unlock 필드만 추출
-        console.log("unlockFields:", sliced); // 추출된 unlock 필드 확인
+        // console.log("unlockFields:", sliced); // 추출된 unlock 필드 확인
         setInventory(sliced); // 추출한 배열을 상태로 저장
       } catch (error) {
         console.error("Failed to fetch inventory:", error);

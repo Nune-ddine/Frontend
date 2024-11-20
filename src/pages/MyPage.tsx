@@ -42,7 +42,7 @@ const MyPage: React.FC = () => {
   const getSnowman = async () => {
     try {
       const response: Snowman[] = await getMySnowman();
-      console.log(response);
+      // console.log(response);
       setSnowmans(response);
     } catch (error) {
       console.error("Failed to get snowman data:", error);
