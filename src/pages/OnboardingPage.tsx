@@ -38,7 +38,7 @@ const OnboardingPage = () => {
            onClick={handleNextClick} />
         )}
         {id === "6" && (
-          <Button onClick={() => navigate("/1")}>눈사람 굴리러 가기</Button>
+          <Button onClick={() => navigate("/1")} style={{marginLeft:"5%"}}>눈사람 굴리러 가기</Button>
         )}
       </ButtonContainer>
     </OnboardingWrapper>
