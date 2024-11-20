@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import { deleteMySnowman, getMember, getMySnowman, patchUsername } from '../services/api/memberAPI';
 import BackBtn from '../components/BackBtn';
+import QuizModal from '../components/Quiz';
 
 interface MemberResponse {
   image: string;
@@ -25,6 +26,8 @@ const MyPage: React.FC = () => {
   const [snowmans, setSnowmans] = useState<Snowman[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false); // State for editing mode
   const [newUsername, setNewUsername] = useState<string>(''); // Temp username for edit
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedSnowmanId, setSelectedSnowmanId] = useState<number | null>(null);
 
   const getProfile = async () => {
     try {
@@ -77,6 +80,16 @@ const MyPage: React.FC = () => {
     } catch (error) {
       console.error("Error occurred while deleting snowman:", error);
     }
+  };
+
+  const viewQuiz = (snowmanId: number) => {
+    setSelectedSnowmanId(snowmanId);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedSnowmanId(null);
   };
   
   useEffect(() => {
@@ -149,6 +162,7 @@ const MyPage: React.FC = () => {
                     objectFit: "cover",
                     // border:"1px solid black"
                   }}
+                  onClick={() => viewQuiz(snowmans[index].id)}
                 />
                 <SnowmanText>
                   {snowmans[index].name || '눈사루를 만들어주세요'}
@@ -178,6 +192,7 @@ const MyPage: React.FC = () => {
           )}
         </SnowmanContainer>
       </MainContent>
+      <QuizModal isOpen={isModalOpen} onClose={closeModal} snowmanId={selectedSnowmanId} />
     </Wrapper>
   );
 };

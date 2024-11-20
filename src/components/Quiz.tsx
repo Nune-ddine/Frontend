@@ -82,7 +82,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, snowmanId }) => 
   };
 
   const handleAnswerSelection = (choiceId: number) => {
-    if(chance<0){
+    if(chance<1){
       alert("오늘 퀴즈를 풀 기회를 모두 소진하셨어요. 내일 다시 참여해주세요 🥰");
       return;
     }

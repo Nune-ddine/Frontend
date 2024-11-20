@@ -30,6 +30,14 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     const x = ((e.clientX - containerRect.left - 14) / containerRect.width) * 100;
     const y = ((e.clientY - containerRect.top -20) / containerRect.height) * 100;
 
+    if(x>100){
+      alert("눈사람은 학교 안에서만 만들 수 있어요!");
+      return;
+    }else if(x<0){      
+      alert("눈사람은 학교 안에서만 만들 수 있어요!");
+      return;
+    }
+    
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
   };
