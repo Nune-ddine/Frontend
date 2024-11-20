@@ -31,7 +31,7 @@ const OptionPart: React.FC<OptionPartProps> = ({ onSelectImage, isQuizMode }) =>
       ) : (
         <>
           <FeatureBar onFeatureClick={(feature: FeatureType) => setSelectedFeature(feature)} />
-            <span>*아이템을 꾹 누르고 드래그해주세요!</span>
+            <span>*아이템을 꾹 누르고 드래그해주세요! (갤럭시는 아직 드래그가 불가합니다T.T)</span>
           <SecondFeature>{renderFeatureContent()}</SecondFeature>
         </>
       )}
