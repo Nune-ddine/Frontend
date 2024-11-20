@@ -47,28 +47,25 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 3rem;
-  margin-top: 50rem;
+  margin-top: 45rem;
 `;
 
 const BackBtn = styled.img`
   margin-left: 1rem;
-  height: 23%;
-  width: 9%;
+  height: 15%;
   aspect-ratio: 1/1;
   cursor: pointer;
 `;
 
 const NoButton = styled.div`
   margin-left: 1rem;
-  height: 23%;
-  width: 9%;
+  height: 10%;
   aspect-ratio: 1/1;
 `;
 
 const NextBtn = styled.img`
-  margin-left: 1rem;
-  height: 23%;
-  width: 9%;
+  margin-right: 1rem;
+  height: 15%;
   aspect-ratio: 1/1;
   cursor: pointer;
 `;
