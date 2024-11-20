@@ -53,7 +53,7 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 3rem;
-  margin-top: 40rem;
+  margin-top: 45rem;
 `;
 
 const BackBtn = styled.img`
