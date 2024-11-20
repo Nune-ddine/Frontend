@@ -29,12 +29,12 @@ const OnboardingPage = () => {
           <BackBtn
            src="/images/etc/leftBtn.png" 
            onClick={handleBackClick} 
-           style={{height:"24%"}}
+           style={{height:"24%", marginLeft:"8%"}}
           />
         )}
         {id !== "6" && (
           <NextBtn src="/images/etc/rightBtn.png"
-           style={{height:"24%"}}
+           style={{height:"24%", marginRight:"8%"}}
            onClick={handleNextClick} />
         )}
         {id === "6" && (
@@ -50,10 +50,10 @@ export default OnboardingPage;
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
+  height : 28%;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 3rem;
-  margin-top: 48rem;
+  // border : 1px solid black;
 `;
 
 const BackBtn = styled.img`

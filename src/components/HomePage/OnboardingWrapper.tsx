@@ -34,8 +34,10 @@ const Wrapper = styled.div<WrapperProps>`
   height: 100%;
   width : 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-end;
+//   flex-direction: row;
+//   justify-content: space-between;
   background: url(${({ id, backgroundImages }) => backgroundImages[id]}) no-repeat center center;
   background-size: cover;
   font-family: 'MaplestoryOTFBold';
