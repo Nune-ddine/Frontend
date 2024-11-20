@@ -41,7 +41,7 @@ const Header = () => {
           </Button>
           <Button>
             <img src="/images/etc/questionmarkBtn.png" alt="quizChance" />
-            <Text>{chance}/3</Text>
+            <Text>{chance}/10</Text>
           </Button>
         </Left>
       )}
