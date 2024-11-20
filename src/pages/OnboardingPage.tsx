@@ -37,8 +37,12 @@ const OnboardingPage = () => {
            style={{height:"24%", marginRight:"8%"}}
            onClick={handleNextClick} />
         )}
+        </ButtonContainer>
+        <ButtonContainer
+          style={{justifyContent:"center"}}
+        >
         {id === "6" && (
-          <Button onClick={() => navigate("/1")} style={{marginLeft:"5%"}}>눈사람 굴리러 가기</Button>
+          <Button onClick={() => navigate("/1")} >눈사람 굴리러 가기</Button>
         )}
       </ButtonContainer>
     </OnboardingWrapper>
