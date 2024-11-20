@@ -110,7 +110,7 @@ const MyPage: React.FC = () => {
                 paddingLeft: "0.3rem",
                 paddingRight: "0.3rem",
               }
-            }>ㅇㅇ
+            }>
               <input
                 type="text"
                 value={newUsername}
