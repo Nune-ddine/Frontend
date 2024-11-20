@@ -16,9 +16,7 @@ import OnboardingPage from './pages/OnboardingPage';
 import { HeaderProvider } from './contexts/HeaderContext';
 
 class App extends Component {
-  state = {
-    isLoading: true, // 로딩 상태 추가
-  };
+  
   componentDidMount() {
     // 가로가 세로보다 긴 경우에만 실행
     if (window.innerWidth > window.innerHeight) {
@@ -26,10 +24,6 @@ class App extends Component {
       this.fixRatio();
       window.addEventListener('resize', this.fixRatio);
     }
-        // 로컬스토리지 확인 및 로딩 완료 설정
-        setTimeout(() => {
-          this.setState({ isLoading: false }); // 로딩 상태 변경
-        }, 1000); // 1초 지연 (옵션)
   }
 
   componentWillUnmount() {
@@ -63,25 +57,9 @@ class App extends Component {
   };
 
   render() {
-    const { isLoading } = this.state; // 로딩 상태 가져오기
-    if (isLoading) {
-      return <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '1.5rem',
-        color: '#666',
-        backgroundImage: `url('/images/onboarding/0.png')`, // URL 형식으로 설정
-        backgroundSize: 'cover', // 이미지 크기 조정 (옵션)
-        backgroundRepeat: 'no-repeat', // 이미지 반복 방지 (옵션)
-        backgroundPosition: 'center', // 이미지 위치 조정 (옵션)
-      }}></div>; // 로딩 중이면 로딩 표시
-    }
     return (
       <RecoilRoot>
-        <HeaderProvider>
+      <HeaderProvider>
         <div id="App">
           <Routes>
           <Route path="/" element={<HomePage />} />

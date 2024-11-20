@@ -117,15 +117,15 @@ const Gotcha: React.FC = () => {
             <CloseButton src="/images/etc/closeBtn.png" onClick={closeModal} />
             {itemData ? (
               <>
-              <h2>{itemData?.itemName} 획득!</h2>
-              <img
-              src="/images/etc/puangman.png"
-              style={{
-                width: "100%",
-              }}
-              alt="Gotcha Result"
-              />
-            </>
+              <h2>{itemData.itemName} 획득!</h2>
+                <img
+                  src={getItemImage(itemData.id) || "/images/etc/puangman.png"} // 이미지 주소 설정
+                  style={{
+                    width: "100%",
+                  }}
+                  alt="Gotcha Result"
+                />
+              </>
             ) : (
               <>
                 <h2>{modalMessage}</h2>
