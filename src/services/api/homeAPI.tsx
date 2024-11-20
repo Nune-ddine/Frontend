@@ -26,7 +26,7 @@ export const getSnowmanQuiz = async () => {
         },
       });
   
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Failed to get snowman quiz test", error);
     }

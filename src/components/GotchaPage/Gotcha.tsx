@@ -27,7 +27,7 @@ const axiosInstance = axios.create({
 export const getGotcha = async (): Promise<GotchaResponse | null> => {
   try {
     const response = await axiosInstance.get<GotchaResponse>("/item/gotcha");
-    console.log(response);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.error("Failed to get gotcha data:", error);

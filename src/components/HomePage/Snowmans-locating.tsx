@@ -38,7 +38,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
             snowman.posY <= 100)
       );
       setSnowmen(validSnowmen);
-      console.log("Valid snowmen:", validSnowmen);
+      // console.log("Valid snowmen:", validSnowmen);
     } catch (error) {
       console.error("Error fetching snowman data:", error);
     }

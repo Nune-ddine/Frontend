@@ -16,7 +16,7 @@ const QuizTestPage = () => {
 
     const createNun = async() => {
       const response = await createSnowman();
-      console.log(response);
+      // console.log(response);
     }
   
     return (

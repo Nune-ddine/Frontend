@@ -25,8 +25,8 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Updated snowman:', snowman);
-    console.log('[Map number] :', id);
+    // console.log('Updated snowman:', snowman);
+    // console.log('[Map number] :', id);
   }, [snowman]);
 
 
@@ -60,7 +60,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
     if (makePNGRef.current) {
       const image = await makePNGRef.current.captureImage();
       if (image) {
-        console.log(image);
+        // console.log(image);
         setFinalImage(image);
   
         const updatedSnowman = {
@@ -70,7 +70,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
   
         setSnowman(updatedSnowman);
         printSnowman();
-        console.log("Sending snowman data to API:", updatedSnowman);
+        // console.log("Sending snowman data to API:", updatedSnowman);
         createSnowman(updatedSnowman, id); // 업데이트된 값을 전달
       }
     }
@@ -81,7 +81,7 @@ const SnowmanPart: React.FC<SnowmanPartProps> = ({ selectedImage, selectedFeatur
 
   //snowman 값들 console로 화긴하는 함수
   const printSnowman = () => {
-    console.log(snowman);
+    // console.log(snowman);
   };
 
   return (

@@ -13,12 +13,12 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("[ Updated Location ]:", snowman.posX, snowman.posY);
+    // console.log("[ Updated Location ]:", snowman.posX, snowman.posY);
   }, [snowman]);
 
   useEffect(() => {
     setId(id);
-    console.log("Updated id:", id);
+    // console.log("Updated id:", id);
   }, [id, setId]);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
