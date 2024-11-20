@@ -24,23 +24,25 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       console.error("Map number is undefined");
       return;
     }
-
+  
     try {
-      // const response: Snowman[] = await getAllSnowman(id);
-      const response: Snowman[] = await getSomeSnowman(id); // placement API
-      // Filter valid snowman data (with image and non-zero positions)
+      const response: Snowman[] = await getSomeSnowman(id);
+      // Filter valid snowman data (with image, non-zero positions, and valid x, y range)
       const validSnowmen = response.filter(
         (snowman) =>
           snowman.image &&
           snowman.image.trim() !== "" &&
-          (snowman.posX !== 0 || snowman.posY !== 0)
+          (snowman.posX > 0 &&
+            snowman.posX <= 100 &&
+            snowman.posY > 0 &&
+            snowman.posY <= 100)
       );
       setSnowmen(validSnowmen);
       console.log("Valid snowmen:", validSnowmen);
     } catch (error) {
       console.error("Error fetching snowman data:", error);
     }
-  };
+  };  
 
   const viewQuiz = (snowmanId: number) => {
     setSelectedSnowmanId(snowmanId);

@@ -24,22 +24,25 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       console.error("Map number is undefined");
       return;
     }
-
+  
     try {
       const response: Snowman[] = await getSomeSnowman(id);
-      // Filter valid snowman data (with image and non-zero positions)
+      // Filter valid snowman data (with image, non-zero positions, and valid x, y range)
       const validSnowmen = response.filter(
         (snowman) =>
           snowman.image &&
           snowman.image.trim() !== "" &&
-          (snowman.posX !== 0 || snowman.posY !== 0)
+          (snowman.posX > 0 &&
+            snowman.posX <= 100 &&
+            snowman.posY > 0 &&
+            snowman.posY <= 100)
       );
       setSnowmen(validSnowmen);
       console.log("Valid snowmen:", validSnowmen);
     } catch (error) {
       console.error("Error fetching snowman data:", error);
     }
-  };
+  };  
 
   useEffect(() => {
     getSnowmans();
@@ -48,7 +51,7 @@ const Snowmans: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <div style={{ position: "relative", height: "100%" }}>
     <img onClick={() => navigate('/elevator2')} src='/images/homes/map.png' 
-    style={{width:"24%", position: "relative", zIndex: 2 }} />  
+    style={{width:"24%", position: "relative", zIndex: 2, cursor:'pointer'}} /> 
       {snowmen.map((snowman) => (
         <StyledSnowman
           key={snowman.id}
