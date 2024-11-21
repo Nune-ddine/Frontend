@@ -8,8 +8,6 @@ import Snowmans from '../components/HomePage/Snowmans';
 import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 import { getMySnowman } from '../services/api/memberAPI';
 import { useHeader } from '../contexts/HeaderContext';
-import { useRecoilState } from 'recoil';
-import { isManualSelectionState, selectedMapState } from '../contexts/mapState';
 
 const HomePage = () => {
   const location = useLocation();
@@ -18,20 +16,7 @@ const HomePage = () => {
   const firstLogin = localStorage.getItem("firstLogin");
   const [snownumber, setSnownumber] = useState(0);
   const { triggerReload, reloadHeader } = useHeader();
-  const [isManualSelection, setIsManualSelection] = useRecoilState(isManualSelectionState);
-  const [selectedMap, setSelectedMap] = useRecoilState(selectedMapState);
   const { id } = useParams();
-
-  // 새로고침 시 랜덤 이동 처리
-  useEffect(() => {
-    if (!isManualSelection) {
-      const randomNum = Math.floor(Math.random() * 5) + 1; // 1부터 5까지의 랜덤 숫자
-      if (parseInt(id || '0', 10) !== randomNum) {
-        setSelectedMap(randomNum); // Recoil 상태 업데이트
-        navigate(`/${randomNum}`, { replace: true });
-      }
-    }
-  }, [id, isManualSelection, navigate, setSelectedMap]);
 
   useEffect(() => {
     if(firstLogin == "true"){
@@ -49,9 +34,6 @@ const HomePage = () => {
       const randomPage = Math.floor(Math.random() * 5) + 1; // 1부터 5까지 랜덤 숫자 생성
       navigate(`/${randomPage}`, { replace: true });
     }    
-    //같은 페이지에서 새로고침 되어도 다른 지도로 라우팅
-
-
     const numericId = Number(id);
     if(numericId>5){
       navigate("/1", { replace: true });
