@@ -9,7 +9,8 @@ const BackBtn = () => {
     const id = useRecoilValue(locatorIdState);
   return (
     // <BackButton onClick={()=>navigate('/')}>◀</BackButton>
-    <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate(`/${id}`)}/>
+    <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate(`/5`)}/>
+    // <BackButton src="/images/etc/leftBtn.png" onClick={() => navigate(`/${id}`)}/>
   )
 }
 
