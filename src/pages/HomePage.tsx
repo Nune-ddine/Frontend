@@ -31,8 +31,9 @@ const HomePage = () => {
       // 로그인 후 화면 새로고침
     } 
     if (location.pathname === "/") {
-      navigate("/1", { replace: true });
-    } 
+      const randomPage = Math.floor(Math.random() * 5) + 1; // 1부터 5까지 랜덤 숫자 생성
+      navigate(`/${randomPage}`, { replace: true });
+    }    
     const numericId = Number(id);
     if(numericId>5){
       navigate("/1", { replace: true });
