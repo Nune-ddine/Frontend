@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import { MainLayout } from "./HomePage";
@@ -6,13 +6,14 @@ import BackgroundWrapper from "../components/HomePage/BackgroundWrapper";
 import Locator from "../services/locator";
 const LocatingPage = () => {
   const navigate = useNavigate();
+  const {id} = useParams();
   
   return (
     <BackgroundWrapper>
       <Header/>
       <Locator />
       <MainLayout>
-            <img src='/images/homes/gotchaBtn.png' style={{width:"20%"}} onClick={()=> navigate('/gotcha')}></img>
+            <img src='/images/homes/backBtn.png' style={{width:"14%"}} onClick={()=> navigate(`/${id}`)}></img>
             <img src='/images/homes/letterWood2.png' style={{width:"36%", zIndex:'3'}} onClick={()=> navigate(`/making`)}></img>
       </MainLayout>
       {/* <Wrapper style={{height:"15%", alignItems:"center", justifyContent:"center" }}>

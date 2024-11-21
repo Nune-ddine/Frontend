@@ -28,16 +28,13 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     const containerRect = container.getBoundingClientRect();
 
     const x = ((e.clientX - containerRect.left - 14) / containerRect.width) * 100;
-    const y = ((e.clientY - containerRect.top -20) / containerRect.height) * 100;
+    const y = ((e.clientY - containerRect.top - 20) / containerRect.height) * 100;
 
-    if(x>100){
-      alert("눈사람은 학교 안에서만 만들 수 있어요!");
-      return;
-    }else if(x<0){      
+    if (x > 100 || x < 0) {
       alert("눈사람은 학교 안에서만 만들 수 있어요!");
       return;
     }
-    
+
     setSnowman((prev) => ({ ...prev, posX: x, posY: y }));
     // console.log("Updated snowman:", snowman);
   };
@@ -53,18 +50,19 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // border:"1px solid black" 
       }}
     >
+      <StyledTextWrapper>
+        <StyledText>눈사람 만들 곳을 클릭해주세요!</StyledText>
+      </StyledTextWrapper>
       <Snowmans />
-      <StyledText>눈사람 만들 곳을 클릭해주세요!</StyledText>
       {snowman && (
         <Snowman
           src="/images/mypage/emptySnowman.png"
           style={{
             top: `${snowman.posY}%`,
             left: `${snowman.posX}%`,
-            position: "absolute"
+            position: "absolute",
           }}
         ></Snowman>
       )}
@@ -75,16 +73,25 @@ const Locator: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
 
 export default Locator;
 
-const Snowman = styled.img`
-  position: absolute;
-  height: 40px;
-  width: 28px;
-  opacity :0.8;
-  // border : 1px solid black;
+const StyledTextWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute; /* 고정 위치 */
+  top: 10px; /* 원하는 위치로 조정 */
+  z-index: 10; /* 다른 요소 위에 표시 */
+  top: 95%;
 `;
 
 const StyledText = styled.div`
   font-size: 1.4rem;
   color: white;
   -webkit-text-stroke: 0.8px rgba(81, 52, 33, 1);
+`;
+
+const Snowman = styled.img`
+  position: absolute;
+  height: 40px;
+  width: 28px;
+  opacity: 0.8;
 `;
