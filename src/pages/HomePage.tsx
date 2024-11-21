@@ -8,6 +8,8 @@ import Snowmans from '../components/HomePage/Snowmans';
 import BackgroundWrapper from '../components/HomePage/BackgroundWrapper';
 import { getMySnowman } from '../services/api/memberAPI';
 import { useHeader } from '../contexts/HeaderContext';
+import { useRecoilState } from 'recoil';
+import { isManualSelectionState, selectedMapState } from '../contexts/mapState';
 
 const HomePage = () => {
   const location = useLocation();
@@ -16,16 +18,20 @@ const HomePage = () => {
   const firstLogin = localStorage.getItem("firstLogin");
   const [snownumber, setSnownumber] = useState(0);
   const { triggerReload, reloadHeader } = useHeader();
+  const [isManualSelection, setIsManualSelection] = useRecoilState(isManualSelectionState);
+  const [selectedMap, setSelectedMap] = useRecoilState(selectedMapState);
   const { id } = useParams();
 
-  //새로고침 될 때마다 다른 지도로 라우팅
+  // 새로고침 시 랜덤 이동 처리
   useEffect(() => {
-    // 새로고침 시 랜덤 숫자로 이동
-    const randomNum = Math.floor(Math.random() * 5) + 1; // 1부터 5까지의 랜덤 숫자
-    if (parseInt(id || '0', 10) !== randomNum) {
-      navigate(`/${randomNum}`, { replace: true }); // 랜덤 숫자로 이동
+    if (!isManualSelection) {
+      const randomNum = Math.floor(Math.random() * 5) + 1; // 1부터 5까지의 랜덤 숫자
+      if (parseInt(id || '0', 10) !== randomNum) {
+        setSelectedMap(randomNum); // Recoil 상태 업데이트
+        navigate(`/${randomNum}`, { replace: true });
+      }
     }
-  }, [id, navigate]);
+  }, [id, isManualSelection, navigate, setSelectedMap]);
 
   useEffect(() => {
     if(firstLogin == "true"){
